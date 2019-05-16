@@ -19,10 +19,9 @@
                             <button type="submit" class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3">Log in</button>
                             <a class="mt-3 d-block  text-primary" href="#">Forget Password?</a>
                             <a class="mt-3 d-inline-block text-primary" href="register">Register Now</a>
-                            <button type="submit" class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3" onclick="google_signIn()">Log in With Google</button>
-                            <button type="submit" class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3" onclick="facebook_signIn()">Log in With Facebook</button>
-                            <button type="submit" class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3" onclick="sign_out()">Sign Out</button>
-                            <button type="submit" class="d-block py-3 px-5 bg-primary text-white border-0 rounded font-weight-bold mt-3" onclick="fb_login_status()">FB Status</button>
+                            <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="google_signIn()">Log in With Google</button>
+                            <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="facebook_signIn()">Log in With Facebook</button>
+
                         </fieldset>
                     </form>
                 </div>
@@ -35,15 +34,18 @@
 @section('script')
 
 <script type="text/javascript">
+    function check_login_status(){
+        console.log(firebase.auth().currentUser);
+    }
+
     function google_signIn(){
         var provider = new firebase.auth.GoogleAuthProvider();
+
         firebase.auth().signInWithPopup(provider).then(function(result) {
           // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken;
-          console.log(token);
           // The signed-in user info.
           var user = result.user;
-          console.log(user);
           // ...
         }).catch(function(error) {
           // Handle Errors here.
@@ -58,14 +60,13 @@
     }
     function facebook_signIn(){
         var provider = new firebase.auth.FacebookAuthProvider();
+        provider.addScope('default');
 
         firebase.auth().signInWithPopup(provider).then(function(result) {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
           var token = result.credential.accessToken;
-          console.log(token);
           // The signed-in user info.
           var user = result.user;
-          console.log(user);
           // ...
         }).catch(function(error) {
           // Handle Errors here.
