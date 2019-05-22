@@ -70,13 +70,24 @@
                                         </div>
                                     </li>
                                 </ul>
+                                
                                 <ul class="navbar-nav ml-auto mt-10">
+                                    @guest
                                     <li class="nav-item">
                                         <a class="nav-link login-button" href="{{ url('login') }}">Login</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-white add-button" href="{{ url('register') }}">Create Account</a>
                                     </li>
+                                    @endguest
+                                    @auth
+                                        <li class="nav-item">
+                                            <a class="nav-link login-button" href="{{ url('logout') }}">Log Out</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white add-button" href="{{ url('profile') }}">Paulus Wey</a>
+                                        </li>
+                                    @endauth
                                 </ul>
                             </div>
                         </nav>
