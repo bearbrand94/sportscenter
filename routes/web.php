@@ -14,9 +14,17 @@ Route::get('oauth2/login','LoginController@oauth2_login_google')->name('validate
 Route::post('/login','LoginController@email_login')->name('email-login');
 Route::get('/logout','LoginController@log_out')->name('logout');
 
-Route::get('/', function () {
-    return view('classimax.index');
-})->name('home');
+Route::get('/login', function () {
+    return view('classimax.login');
+})->name('login');
+Route::get('/register', function () {
+    return view('classimax.register');
+})->name('register');
+
+
+Route::get('/','HomeController@index')->name('home');
+Route::get('/home','HomeController@index')->name('home');
+
 Route::get('/field', function () {
     return view('classimax.category');
 });
@@ -26,21 +34,17 @@ Route::get('/field/detail', function () {
 Route::get('/field/list', function () {
     return view('classimax.category');
 });
-Route::get('/login', function () {
-    return view('classimax.login');
+Route::get('/my-order', function () {
+    return view('classimax.dashboard-my-order');
 });
-Route::get('/register', function () {
-    return view('classimax.register');
-})->name('register');
+
 Route::post('/register','LoginController@register')->name('register');
 
-Route::get('/home', function () {
-    return view('classimax.index');
-});
+
 Route::get('/profile', function () {
     return view('classimax.user-profile');
 })->name('profile');
-
+Route::post('/login','LoginController@email_login')->name('email-login'); 
 
 
 

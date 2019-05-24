@@ -85,7 +85,7 @@
                                             <a class="nav-link login-button" href="{{ url('logout') }}">Log Out</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-white add-button" href="{{ url('profile') }}">Paulus Wey</a>
+                                            <a class="nav-link text-white add-button" href="{{ url('profile') }}">{{ Auth::user()->name }}</a>
                                         </li>
                                     @endauth
                                 </ul>
