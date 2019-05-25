@@ -17,8 +17,8 @@
 						<ul>
 							<li><a class="my-1 d-inline-block" href="{{url('profile')}}">Profile</a></li>
 							<li><a class="my-1 d-inline-block" href="{{url('my-order')}}">My Order</a></li>
-							<li><a class="my-1 d-inline-block" href="">Favourite Courts <span>(5)</span></a></li>
-							<li><a class="my-1 d-inline-block" href="">History</a></li>
+							<li><a class="my-1 d-inline-block" href="{{url('my-order')}}">Favourite Courts <span>(5)</span></a></li>
+							<li><a class="my-1 d-inline-block" href="{{url('my-order')}}">History</a></li>
 						</ul>
 					</div>
 				</div>
