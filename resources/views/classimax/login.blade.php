@@ -14,12 +14,11 @@
                               <input type="text" placeholder="e-mail" name="email" class="border p-3 w-100 my-2">
                               <input type="password" placeholder="Password" name="password" class="border p-3 w-100 my-2">
                               @if ($errors->has('credentials'))
-                                  <div class="alert alert-danger">
-                                      <strong>{{ $errors->first('credentials') }}</strong>
-                                  </div>
+                                <div class="alert alert-danger">
+                                    <strong>{{ $errors->first('credentials') }}</strong>
+                                </div>
                               @endif
                               <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold">Log in</button>
-
                             </form>
                             <a class="mt-3 d-block  text-primary" href="#">Forget Password?</a>
                             <a class="mt-3 d-inline-block text-primary" href="register">Register Now</a>
