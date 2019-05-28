@@ -13,6 +13,9 @@ use Illuminate\Support\MessageBag;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewAccountPassword;
+
 class LoginController extends Controller
 {
 	function oauth2_login_google(Request $request) {
@@ -33,6 +36,7 @@ class LoginController extends Controller
 			            'email' => $user_info->email,
 			            'password' => $auto_password
 			        ]);
+			        Mail::to($user)->send(new NewAccountPassword($user, $auto_password));
 				}
 				Auth::login($user, true);
 				return response()->json(['message' => 'login success']);
