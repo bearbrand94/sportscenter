@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 //Login Register
 Route::get('/login', function () {
     return view('classimax.login');
@@ -54,6 +54,7 @@ Route::get('/field/list', function () {
 Route::get('/my-order', function () {
     return view('classimax.dashboard-my-order');
 });
+
 
 
 

@@ -35,8 +35,9 @@ class NewAccountPassword extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.account.randomPassword')->with([
-            'password' => $this->password,
-        ]);;
+        return $this->subject('Pendaftaran Akun Sports Center')
+                    ->view('emails.account.randomPassword')->with([
+                        'password' => $this->password,
+                    ]);;
     }
 }

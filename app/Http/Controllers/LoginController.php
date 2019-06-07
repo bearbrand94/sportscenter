@@ -30,11 +30,11 @@ class LoginController extends Controller
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
 				$user = User::where('email', $user_info->email)->first();
 				if($user == null){
-					$auto_password = Hash::make(str_random(8));
+					$auto_password = str_random(8);
 					$user = User::create([
 			            'name' => $request->name,
 			            'email' => $user_info->email,
-			            'password' => $auto_password
+			            'password' => Hash::make($auto_password)
 			        ]);
 			        Mail::to($user)->send(new NewAccountPassword($user, $auto_password));
 				}

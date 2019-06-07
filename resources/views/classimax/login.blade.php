@@ -20,7 +20,7 @@
                               @endif
                               <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold">Log in</button>
                             </form>
-                            <a class="mt-3 d-block  text-primary" href="#">Forget Password?</a>
+                            <a class="mt-3 d-block  text-primary" href="password/reset">Forget Password?</a>
                             <a class="mt-3 d-inline-block text-primary" href="register">Register Now</a>
                             <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="google_signIn()">Log in With Google</button>
                             <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="facebook_signIn()">Log in With Facebook</button>

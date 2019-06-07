@@ -62,7 +62,6 @@
 					<div class="form-group">
 						<label for="current-password">Current Password</label>
 						<input type="password" class="form-control" id="current-password" name="current_password">
-						<p>Password is sent to e-mail of account registered with Google or Facebook.</p>
 					</div>
 					@if ($errors->has('credentials'))
 					<div class="alert alert-danger">
