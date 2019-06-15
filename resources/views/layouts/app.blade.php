@@ -41,10 +41,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <nav class="navbar navbar-expand-lg navbar-light navigation">
-                            <a class="navbar-brand" href="{{ url('home') }}">
-                                <img src="{{ asset('images/logo.png') }}" alt="">
-                            </a>
+                        <nav class="navbar navbar-expand navbar-light navigation d-none d-lg-block">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
@@ -90,6 +87,25 @@
                                     @endauth
                                 </ul>
                             </div>
+                        </nav>
+                        <nav class="navbar fixed-bottom navbar-expand navbar-light bg-light navigation d-lg-none">
+                          <ul class=" col-xs-12 navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('login') }}">Book</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('login') }}">Book</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('login') }}">Book</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('login') }}">Book</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('login') }}">Book</a>
+                            </li>
+                          </ul>
                         </nav>
                     </div>
                 </div>
