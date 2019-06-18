@@ -24,7 +24,24 @@
         <!-- CUSTOM CSS -->
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-
+        <style type="text/css">
+          .col-xs-5ths {
+            width: 20%;
+            float: left;
+            padding-top: -15px;
+            padding-bottom: -15px;           
+          }
+          a{
+            color:rgba(17.6,45.9,74.1,1);
+          }
+          nav a{
+            color:rgba(0,0,0,0.5);
+            font-size: 13px;
+          }
+          nav i{
+            padding-bottom: 4px;
+          }
+        </style>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -35,7 +52,7 @@
     </head>
     <body class="body-wrapper">
         <!--============================
-        =            Navigation            =
+        =            Navigation        =
         =============================-->
         <section>
             <div class="container">
@@ -88,24 +105,14 @@
                                 </ul>
                             </div>
                         </nav>
-                        <nav class="navbar fixed-bottom navbar-expand navbar-light bg-light navigation d-lg-none">
-                          <ul class=" col-xs-12 navbar-nav mx-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('login') }}">Book</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('login') }}">Book</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('login') }}">Book</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('login') }}">Book</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('login') }}">Book</a>
-                            </li>
-                          </ul>
+                        <nav class="navbar fixed-bottom navbar-expand bg-light navigation d-lg-none">
+                          <div class="container-fluid text-center">
+                            <div class="col-xs-5ths"><a href="#"><i class="fa fa-home fa-lg"></i><br>Home</a></div>
+                            <div class="col-xs-5ths"><a href="#"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
+                            <div class="col-xs-5ths"><a href="#"><i class="fa fa-envelope fa-lg"></i><br>Inbox</a></div>
+                            <div class="col-xs-5ths"><a href="#"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
+                            <div class="col-xs-5ths"><a href="#"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div>
+                          </div>
                         </nav>
                     </div>
                 </div>
