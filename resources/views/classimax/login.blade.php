@@ -1,34 +1,46 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
-@section('content')
+@section('body')
 
 <section class="login py-5 border-top-1">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-8 align-item-center">
-                <div class="border">
-                    <h3 class="bg-gray p-4">Login Now</h3>
-                        <fieldset class="p-4">
-                            <form method="POST" action="{{ route('email-login') }}">
-                              @csrf
-                              <input type="text" placeholder="e-mail" name="email" class="border p-3 w-100 my-2">
-                              <input type="password" placeholder="Password" name="password" class="border p-3 w-100 my-2">
-                              @if ($errors->has('credentials'))
-                                <div class="alert alert-danger">
-                                    <strong>{{ $errors->first('credentials') }}</strong>
-                                </div>
-                              @endif
-                              <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold">Log in</button>
-                            </form>
-                            <a class="mt-3 d-block  text-primary" href="password/reset">Forget Password?</a>
-                            <a class="mt-3 d-inline-block text-primary" href="register">Register Now</a>
-                            <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="google_signIn()">Log in With Google</button>
-                            <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="facebook_signIn()">Log in With Facebook</button>
-
-                        </fieldset>
-                </div>
+      <img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap">
+      <form method="POST" action="{{ route('email-login') }}">
+        @csrf
+        <br>
+        <label class="has-float-label">
+          <input class="form-control" type="email" name="email"/>
+          <span>Email</span>
+        </label>
+        <label class="has-float-label">
+          <input class="form-control" type="password" name="password">
+          @if ($errors->has('credentials'))
+            <div class="alert alert-danger">
+                <strong>{{ $errors->first('credentials') }}</strong>
             </div>
+          @endif
+          <span>Password</span>
+        </label>
+        <a class="d-block muted-saraga pull-right" href="password/reset">Lupa Password?</a>
+        <button type="submit" class="btn btn-block py-3 px-5 mt-4 font-weight-bold button-saraga">Masuk</button>
+      </form>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <h3 class="lead has-line muted-saraga"><span style="margin-left:5px;"> Atau masuk dengan </span></h3>
         </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6">
+          <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold" onclick="google_signIn()">Google</button>
+        </div>
+        <div class="col-6">
+          <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold" onclick="facebook_signIn()">Facebook</button>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <h3 class="muted-saraga">Belum Punya Akun? <a class="mt-3 d-inline-block font-weight-strong text-saraga" href="register"><b>Daftar Sekarang</b></a></h3>
+      </div>
     </div>
 </section>
 @endsection

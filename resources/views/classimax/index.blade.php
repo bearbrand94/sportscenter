@@ -9,7 +9,6 @@
 		font-size:14px;
 	}
 	.scrolling-wrapper {
-
 	  overflow-x: scroll;
 	  overflow-y: hidden;
 	  white-space: nowrap;
@@ -49,26 +48,28 @@
 				<div class="advance-search">
 					<div class="container">
 						<div class="row justify-content-center">
-							<div class="col-lg-12 col-md-12 align-content-center">
+							<div class="col-12 align-content-center">
 								<form>
 									<div class="form-row">
 										<div class="form-group col-md-12">
-											<select class="w-100 form-control mt-lg-1 mt-md-2">
-												<option>Pilih Olah Raga</option>
-												<option value="1">Batminton</option>
-												<option value="2">Futsal</option>
-												<option value="3">Tennis</option>
-												<option value="4">Basket</option>
-											</select>
-										</div>
-										<div class="form-group col-md-12">
-											<input type="text" class="form-control my-2 my-lg-1" id="inputLocation4" placeholder="Cari Tempat atau Lokasi">
-										</div>
-										<div class="form-group col-md-12">
-											<input type="text" class="form-control my-2 my-lg-1" id="inputLocation4" placeholder="Pilih Tanggal">
-										</div>
-										<div class="form-group col-md-12 align-self-center">
-											<button type="submit" class="btn btn-primary btn-block">Cari Lapang</button>
+											<label class="has-float-label"> 
+												<select class="w-100 form-control custom-select" style="border-color: rgb(9, 58, 102)">
+													<option selected value="1">Batminton</option>
+													<option value="2">Futsal</option>
+													<option value="3">Tennis</option>
+													<option value="4">Basket</option>
+												</select>
+												<span>Olahraga Terpilih</span>
+											</label>
+											<label class="has-float-label">
+												<input type="text" class="form-control" id="inputLocation4" style="border-color: rgb(9, 58, 102)">
+												<span>Tanggal</span>
+											</label>
+											<label class="has-float-label">
+												<input type="text" class="form-control" id="inputLocation4" style="border-color: rgb(9, 58, 102)">
+												<span>Lokasi atau Lapang</span>
+											</label>
+											<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
 										</div>
 									</div>
 								</form>
