@@ -26,6 +26,11 @@
 		color:rgb(42,119,189);
 		vertical-align: middle;
 	}
+
+	.form-control[readonly]{
+		border-color: rgb(9, 58, 102)!important;
+		background-color: white;
+	}
 </style>
 @endsection
 
@@ -53,7 +58,7 @@
 									<div class="form-row">
 										<div class="form-group col-md-12">
 											<label class="has-float-label"> 
-												<select class="w-100 form-control custom-select" style="border-color: rgb(9, 58, 102)">
+												<select class="w-100 form-control custom-select">
 													<option selected value="1">Batminton</option>
 													<option value="2">Futsal</option>
 													<option value="3">Tennis</option>
@@ -62,11 +67,11 @@
 												<span>Olahraga Terpilih</span>
 											</label>
 											<label class="has-float-label">
-												<input type="text" class="form-control" id="inputLocation4" style="border-color: rgb(9, 58, 102)">
+												<input type="date" class="form-control datepicker">
 												<span>Tanggal</span>
 											</label>
 											<label class="has-float-label">
-												<input type="text" class="form-control" id="inputLocation4" style="border-color: rgb(9, 58, 102)">
+												<input type="text" class="form-control">
 												<span>Lokasi atau Lapang</span>
 											</label>
 											<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
@@ -233,9 +238,18 @@
 	</div>
 	<!-- Container End -->
 </section>
-
 @endsection
 
+@section('script')
+	<script type="text/javascript">
+		$(".datepicker").flatpickr({
+		    altInput: true,
+		    altFormat: "F j, Y",
+		    dateFormat: "Y-m-d",
+		    minDate: "today"
+		});
+	</script>
+@endsection
 
 
 

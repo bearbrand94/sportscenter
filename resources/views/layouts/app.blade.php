@@ -45,6 +45,7 @@
                             </ul>
                             
                             <ul class="navbar-nav ml-auto mt-10">
+                                {{print_r($auth_data)}}
                                 @guest
                                 <li class="nav-item">
                                     <a class="nav-link login-button" href="{{ url('login') }}">Login</a>

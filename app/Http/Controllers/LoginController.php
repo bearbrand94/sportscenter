@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Cookie\CookieJarInterface;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -49,16 +50,25 @@ class LoginController extends Controller
 
 	function email_login(Request $request) {
         $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('home');
-        }
-        else{
-        	$errors = new MessageBag();
-        	$errors->add('credentials', "Your E-mail / Password is not valid");
-        	return view('classimax.login')->withErrors($errors);
-        }
+    	$client = new Client(['cookies' => true]);
+    	try {
+	        $res = $client->request('POST', config('app.api_url')."/login/email", [
+	        	'timeout' => 30,
+			    'form_params' => [
+			    	'email' => $request->email,
+			    	'password' => $request->password
+			    ]
+			]);
+			if($res->getStatusCode() == 200){ // 200 = Success
+				$user_info = json_decode($res->getBody()); // { "type": "User", ..
+				return redirect()->intended('home');
+			}
+			else{
+	        	return view('classimax.login')->withErrors($res->getBody());
+			}
+		} catch (RequestException $e) {
+			return view('classimax.login')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
+		}
 	}
 
 	function log_out(Request $request){
@@ -67,23 +77,59 @@ class LoginController extends Controller
 	}
 
 	function register(Request $request){
-		$validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-        ])->validate();
+    	$client = new Client();
+    	try {
+	        $res = $client->request('POST', config('app.api_url')."/register", [
+			    'form_params' => [
+			    	'name' => $request->name,
+			    	'email' => $request->email,
+			    	'password' => $request->password,
+			    	'telephone' => $request->telephone
+			    ]
+			]);
+			if($res->getStatusCode() == 200){ // 200 = Success
+				$user_info = json_decode($res->getBody()); // { "type": "User", ..
+				return redirect()->intended('home');
+			}
+		} catch (RequestException $e) {
+		    return view('classimax.register')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
+		}
+	}
 
-		User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'telephone' => $request->telephone
-        ]);	
-
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('home');
+	function check_data(){
+    	$client = new Client(['cookies' => true]);
+    	try {
+	        $res = $client->request('POST', config('app.api_url')."/login/email", [
+	        	'timeout' => 30,
+			    'form_params' => [
+			    	'email' => "paulusw.94@gmail.com",
+			    	'password' => "sportscenter"
+			    ]
+			]);
+			print_r($res->getHeader('set-cookie'));
+			if($res->getStatusCode() == 200){ // 200 = Success
+				$user_info = json_decode($res->getBody()); // { "type": "User", ..
+			}
+			else{
+	        	return view('classimax.login')->withErrors($res->getBody());
+			}
+		} catch (RequestException $e) {
+			return view('classimax.login')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
+		}
+		
+		$client = new Client(['cookies' => true]);
+        try {
+            $res = $client->request('GET', config('app.api_url')."/initialData");
+            print_r($res->getHeader('set-cookie'));
+            if($res->getStatusCode() == 200){ // 200 = Success
+                $user_info = json_decode($res->getBody()); // { "type": "User", ..
+                print_r($user_info);
+                view()->share('auth_data', $user_info->data);
+            }
+        } catch (RequestException $e) {
+            $error_data = json_decode($e->getResponse()->getBody()->getContents())->data;
+            echo $error_data;
+            view()->share('auth_data', $error_data);
         }
 	}
 }

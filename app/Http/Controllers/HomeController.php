@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
+
 class HomeController extends Controller
 {
     /**
@@ -24,6 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('classimax.index');
+        $client = new Client();
+        $res = $client->request('GET', config('app.api_url')."/spots");
+        return view('classimax.index')->with('spots', json_decode($res->getBody())->data);
     }
 }

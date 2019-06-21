@@ -22,8 +22,11 @@
         <link href="{{ asset('plugins/fancybox/jquery.fancybox.pack.css') }}" rel="stylesheet">
         <!-- <link href="{{ asset('plugins/jquery-nice-select/css/nice-select.css') }}" rel="stylesheet"> -->
         <!-- CUSTOM CSS -->
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel="stylesheet" href="https://cdn.rawgit.com/tonystar/bootstrap-float-label/v4.0.2/bootstrap-float-label.min.css"/>
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+
 <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/tonystar/bootstrap-float-label/v4.0.0/dist/bootstrap-float-label.min.css"/> -->
 
         <style type="text/css">
@@ -46,7 +49,7 @@
 
           .form-control{
             border-radius: 0.5rem;
-            border-color: rgb(9, 58, 102);
+            border-color: rgb(9, 58, 102) !important;
           }
 
           .has-float-label{
@@ -61,6 +64,12 @@
 
           .text-saraga{
             color: rgb(9, 58, 102);
+          }
+
+          .background-saraga{
+            background-color: rgb(9, 58, 102);
+            color: white;
+            font-size: 25px;
           }
 
           .button-saraga{
@@ -126,7 +135,10 @@
     <!-- google map -->
     <script src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places') }}"></script>
     <script src="{{ asset('plugins/google-map/gmap.js') }}"></script>
+
+    <!-- Custom JS -->
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- Jquery UI -->
     <script src="https://code.jquery.com/ui/jquery-ui-git.js">
@@ -164,7 +176,7 @@
       firebase.initializeApp(firebaseConfig);
     </script>
 
-
+    <!-- MASTER SCRIPT -->
     @yield('script')
     </body>
 </html>

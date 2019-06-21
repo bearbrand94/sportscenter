@@ -12,7 +12,7 @@
 				<div class="sidebar">
 					<!-- Dashboard Links -->
 					<div class="widget dashboard-links">
-						<h5 class="widget-header user">Halo, {{Auth::user()->name}}</h5>
+						<h5 class="widget-header user">Halo,</h5>
 
 						<ul>
 							<li><a class="my-1 d-inline-block" href="{{url('profile')}}">Profile</a></li>

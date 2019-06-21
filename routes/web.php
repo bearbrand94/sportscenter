@@ -18,6 +18,8 @@ Route::get('/login', function () {
 Route::get('oauth2/login','LoginController@oauth2_login_google')->name('validate_oauth2');
 Route::post('/login','LoginController@email_login')->name('email-login');
 Route::get('/logout','LoginController@log_out')->name('logout');
+Route::get('/check', 'LoginController@check_data');
+
 
 Route::get('/register', function () {
     return view('classimax.register');
@@ -36,8 +38,6 @@ Route::get('/profile/password', function () {
     return view('classimax.user-profile');
 })->name('change-password');
 //End Profile
-
-
 
 
 Route::get('/','HomeController@index')->name('home');
