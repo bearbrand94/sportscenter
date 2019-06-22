@@ -13,7 +13,7 @@
 					<!-- First Name -->
 					<div class="form-group">
 						<label for="full-name">Full Name</label>
-						<input type="text" class="form-control" id="full-name" name="fullname" value="{{Auth::user()->name}}">
+						<input type="text" class="form-control" id="full-name" name="fullname" value="{{session('auth_data')->name}}">
 					</div>
 					@if ($errors->has('fullname'))
 					<div class="alert alert-danger">
@@ -23,7 +23,7 @@
 					<!-- Telephone -->
 					<div class="form-group">
 						<label for="telephone">Telephone</label>
-						<input type="text" class="form-control" id="telephone" name="telephone" value="{{Auth::user()->telephone}}">
+						<input type="text" class="form-control" id="telephone" name="telephone" value="{{session('auth_data')->telephone}}">
 					</div>
 					@if ($errors->has('telephone'))
 					<div class="alert alert-danger">
@@ -37,10 +37,10 @@
 			<div class="widget change-password">
 				<h3 class="widget-header user">Email Address</h3>
 				<form action="#">
-					<!-- Current Password -->
+					<!-- Current Email -->
 					<div class="form-group">
 						<label for="current-email">Current Email</label>
-						<h3 class="widget-header user">{{Auth::user()->email}}</h3>
+						<h3 class="widget-header user">{{session('auth_data')->email}}</h3>
 					</div>
 					<!-- Submit Button -->
 					<!-- <button class="btn btn-transparent">Change email</button> -->

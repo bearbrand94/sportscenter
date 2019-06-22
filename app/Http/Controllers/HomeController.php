@@ -28,7 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $client = new Client();
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
         $res = $client->request('GET', config('app.api_url')."/spots");
         return view('classimax.index')->with('spots', json_decode($res->getBody())->data);
     }

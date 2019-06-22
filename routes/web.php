@@ -18,8 +18,10 @@ Route::get('/login', function () {
 Route::get('oauth2/login','LoginController@oauth2_login_google')->name('validate_oauth2');
 Route::post('/login','LoginController@email_login')->name('email-login');
 Route::get('/logout','LoginController@log_out')->name('logout');
-Route::get('/check', 'LoginController@check_data');
 
+//debug function.
+Route::get('/check', 'LoginController@check_data');
+Route::get('/login/data', 'LoginController@login_data');
 
 Route::get('/register', function () {
     return view('classimax.register');

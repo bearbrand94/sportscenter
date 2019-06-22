@@ -9,6 +9,7 @@
 @endsection
 
 @section('body')
+
 <body class="body-wrapper">
     <!--============================
     =            Navigation        =
@@ -45,23 +46,21 @@
                             </ul>
                             
                             <ul class="navbar-nav ml-auto mt-10">
-                                {{print_r($auth_data)}}
-                                @guest
+                                @if (is_null(session('auth_data')))
                                 <li class="nav-item">
                                     <a class="nav-link login-button" href="{{ url('login') }}">Login</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-white add-button" href="{{ url('register') }}">Create Account</a>
                                 </li>
-                                @endguest
-                                @auth
+                                @else
                                     <li class="nav-item">
                                         <a class="nav-link login-button" href="{{ url('logout') }}">Log Out</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-white add-button" href="{{ url('profile') }}">{{ Auth::user()->name }}</a>
+                                        <a class="nav-link text-white add-button" href="{{ url('profile') }}">{{ session('auth_data')->name }}</a>
                                     </li>
-                                @endauth
+                                @endif
                             </ul>
                         </div>
                     </nav>
@@ -71,7 +70,7 @@
                         <div class="col-xs-5ths"><a href="#"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
                         <div class="col-xs-5ths"><a href="#"><i class="fa fa-envelope fa-lg"></i><br>Inbox</a></div>
                         <div class="col-xs-5ths"><a href="#"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
-                        <div class="col-xs-5ths"><a href="#"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div>
+                        <div class="col-xs-5ths"><a href="{{ url('profile') }}"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div>
                       </div>
                     </nav>
                 </div>

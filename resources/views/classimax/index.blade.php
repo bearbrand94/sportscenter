@@ -151,39 +151,23 @@
 				</div>
 			</div>
 		</div>
+
+
 		<div class="row" style="padding-top: 30px;">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
+					@foreach($spots as $spot)
 					<a href="#">
 						<div class="card" style="width: 18rem;">
 						  <img class="card-img-top" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
 						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
+						    <h5 class="card-title">{{$spot->name}}</h5>
 						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						    <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$spot->address}}</p>
 						  </div>
 						</div>
 					</a>
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  </div>
-						</div>
-					</a>
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  </div>
-						</div>
-					</a>
+					@endforeach
 				</div>
 			</div>
 		</div>
