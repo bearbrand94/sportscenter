@@ -73,10 +73,13 @@
           }
 
           .button-saraga{
-            background-color: rgb(189, 158, 95);
+            /*background-color: rgb(189, 158, 95);*/
             border-radius: 5rem;
             color: white;
+            background-image: linear-gradient(to right, rgb(184, 149, 90) , rgb(202, 187, 113));
+            border-style: none;
           }
+
           .muted-saraga{
             color: rgb(176, 176, 176);
             font-size: 16px;
