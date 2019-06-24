@@ -31,6 +31,14 @@
 		border-color: rgb(9, 58, 102)!important;
 		background-color: white;
 	}
+
+	.bg-button {
+	  border-radius: 0.5rem; 
+	  background-size: cover;
+	  background-repeat: no-repeat;
+	  color: white;
+
+	}
 </style>
 @endsection
 
@@ -128,26 +136,15 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					<div class="card">
-					  <div class="card-body">
-					    Semua
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="card-body">
-					    Futsal
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="card-body">
-					  	Basketball 
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="card-body">
-					  	Badminton 
-					  </div>
-					</div>
+					@foreach($categories as $category)
+					<a href="#">
+						<div class="card text-center mr-2" style="width: 8rem; border-style: none;">
+						  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
+						    {{$category->name}}
+						  </div>
+						</div>
+					</a>
+					@endforeach
 				</div>
 			</div>
 		</div>

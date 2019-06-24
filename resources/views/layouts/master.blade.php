@@ -69,7 +69,6 @@
           .background-saraga{
             background-color: rgb(9, 58, 102);
             color: white;
-            font-size: 25px;
           }
 
           .button-saraga{

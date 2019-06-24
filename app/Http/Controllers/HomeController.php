@@ -30,7 +30,15 @@ class HomeController extends Controller
     {
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
-        $res = $client->request('GET', config('app.api_url')."/spots");
-        return view('classimax.index')->with('spots', json_decode($res->getBody())->data);
+        $res = $client->request('GET', config('app.api_url')."/spots", [
+            'query' => [
+                'paginate' => 5
+            ]
+        ]);
+
+        $category_data = $client->request('GET', config('app.api_url')."/sports", [
+        ]);
+
+        return view('classimax.index')->with('spots', json_decode($res->getBody())->data)->with('categories', json_decode($category_data->getBody())->data);
     }
 }
