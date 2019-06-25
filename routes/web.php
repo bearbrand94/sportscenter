@@ -31,14 +31,16 @@ Route::post('/register','LoginController@register')->name('register');
 
 
 //Profile
-Route::get('/profile', function () {
-    return view('classimax.user-profile');
-})->name('profile');
-Route::post('/profile/update','ProfileController@update_profile')->name('update-profile');
-Route::post('/profile/password','ProfileController@change_password')->name('change-password');
-Route::get('/profile/password', function () {
-    return view('classimax.user-profile');
-})->name('change-password');
+Route::group(['middleware' => ['initial_data']], function() {
+	Route::get('/profile', function () {
+	    return view('classimax.user-profile');
+	})->name('profile');
+	Route::post('/profile/update','ProfileController@update_profile')->name('update-profile');
+	Route::post('/profile/password','ProfileController@change_password')->name('change-password');
+	Route::get('/profile/password', function () {
+	    return view('classimax.user-profile');
+	})->name('change-password');
+});
 //End Profile
 
 
