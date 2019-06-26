@@ -28,6 +28,7 @@ class initial_data
                 session(['auth_data'=>$user_info->data]);
             }
         } catch (RequestException $e) {
+            return redirect()->intended('login');
         }
         return $next($request);
     }
