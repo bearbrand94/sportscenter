@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Cookie\CookieJarInterface;
+use GuzzleHttp\Cookie\SessionCookieJar;
 
 use Illuminate\Http\Request;
 
@@ -22,35 +23,26 @@ class LoginController extends Controller
 	function oauth2_login_google(Request $request) {
         $client = new Client();
         try {
-	        $res = $client->request('GET', 'https://www.googleapis.com/oauth2/v3/tokeninfo', [
-			    'query' => [
-			    	'access_token' => $request->access_token
+	        $res = $client->request('POST', config('app.api_url')."/login/google", [
+			    'form_params' => [
+			    	'access_token' => $request->access_token,
+			    	'name' => $request->name
 			    ]
 			]);
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
-				$user = User::where('email', $user_info->email)->first();
-				if($user == null){
-					$auto_password = str_random(8);
-					$user = User::create([
-			            'name' => $request->name,
-			            'email' => $user_info->email,
-			            'password' => Hash::make($auto_password)
-			        ]);
-			        Mail::to($user)->send(new NewAccountPassword($user, $auto_password));
-				}
-				Auth::login($user, true);
-				return response()->json(['message' => 'login success']);
+				session(['auth_data'=>$user_info->data]);
+				return response()->json(['message'=>'login success']);
 			}
 		} catch (RequestException $e) {
-		    return "Token Invalid";
+		    return $e;
 		}
-
 	}
 
 	function email_login(Request $request) {
+		$jar = session('jar');
         $credentials = $request->only('email', 'password');
-    	$client = new Client(['cookies' => true]);
+    	$client = new Client(['cookies' => $jar]);
     	try {
 	        $res = $client->request('POST', config('app.api_url')."/login/email", [
 	        	'timeout' => 30,
@@ -61,6 +53,7 @@ class LoginController extends Controller
 			]);
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
+				session(['auth_data'=>$user_info->data]);
 				return redirect()->intended('home');
 			}
 			else{
@@ -72,12 +65,13 @@ class LoginController extends Controller
 	}
 
 	function log_out(Request $request){
-		Auth::logout();
+		session()->flush();
 		return redirect()->intended('home');
 	}
 
 	function register(Request $request){
-    	$client = new Client();
+		$jar = session('jar');
+    	$client = new Client(['cookies' => $jar]);
     	try {
 	        $res = $client->request('POST', config('app.api_url')."/register", [
 			    'form_params' => [
@@ -89,6 +83,7 @@ class LoginController extends Controller
 			]);
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
+				session(['auth_data'=>$user_info->data]);
 				return redirect()->intended('home');
 			}
 		} catch (RequestException $e) {
@@ -96,17 +91,19 @@ class LoginController extends Controller
 		}
 	}
 
-	function check_data(){
-    	$client = new Client(['cookies' => true]);
+	//debugging functions
+	function login_data(){
+		$jar = session('jar');
+    	$client = new Client(['cookies' => $jar]);
     	try {
 	        $res = $client->request('POST', config('app.api_url')."/login/email", [
+	        	'cookies' => $jar,
 	        	'timeout' => 30,
 			    'form_params' => [
 			    	'email' => "paulusw.94@gmail.com",
 			    	'password' => "sportscenter"
 			    ]
 			]);
-			print_r($res->getHeader('set-cookie'));
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
 			}
@@ -116,8 +113,11 @@ class LoginController extends Controller
 		} catch (RequestException $e) {
 			return view('classimax.login')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
 		}
-		
-		$client = new Client(['cookies' => true]);
+	}
+
+	function check_data(){
+		$jar = session('jar');
+		$client = new Client(['cookies' => $jar]);
         try {
             $res = $client->request('GET', config('app.api_url')."/initialData");
             print_r($res->getHeader('set-cookie'));

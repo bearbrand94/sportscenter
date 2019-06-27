@@ -31,6 +31,14 @@
 		border-color: rgb(9, 58, 102)!important;
 		background-color: white;
 	}
+
+	.bg-button {
+	  border-radius: 0.5rem; 
+	  background-size: cover;
+	  background-repeat: no-repeat;
+	  color: white;
+
+	}
 </style>
 @endsection
 
@@ -128,62 +136,35 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					<div class="card">
-					  <div class="card-body">
-					    Semua
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="card-body">
-					    Futsal
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="card-body">
-					  	Basketball 
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="card-body">
-					  	Badminton 
-					  </div>
-					</div>
+					@foreach($categories as $category)
+					<a href="#">
+						<div class="card text-center mr-2" style="width: 8rem; border-style: none;">
+						  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
+						    {{$category->name}}
+						  </div>
+						</div>
+					</a>
+					@endforeach
 				</div>
 			</div>
 		</div>
+
+
 		<div class="row" style="padding-top: 30px;">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
+					@foreach($spots as $spot)
 					<a href="#">
 						<div class="card" style="width: 18rem;">
 						  <img class="card-img-top" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
 						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
+						    <h5 class="card-title text-truncate">{{$spot->name}}</h5>
 						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						    <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$spot->address}}</p>
 						  </div>
 						</div>
 					</a>
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  </div>
-						</div>
-					</a>
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  </div>
-						</div>
-					</a>
+					@endforeach
 				</div>
 			</div>
 		</div>

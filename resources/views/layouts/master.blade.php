@@ -30,6 +30,11 @@
 <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/tonystar/bootstrap-float-label/v4.0.0/dist/bootstrap-float-label.min.css"/> -->
 
         <style type="text/css">
+          :root {
+            --saraga-color: rgb(9, 58, 102);
+            --alpha: 0.5;
+          }
+          
           .col-xs-5ths {
             width: 20%;
             float: left;
@@ -49,7 +54,7 @@
 
           .form-control{
             border-radius: 0.5rem;
-            border-color: rgb(9, 58, 102) !important;
+            border-color: var(--saraga-color) !important;
           }
 
           .has-float-label{
@@ -59,24 +64,26 @@
           .has-float-label span{
             font-size: 15px;
             font-weight: bold;
-            color: rgb(9, 58, 102);
+            color: var(--saraga-color);
           }
 
           .text-saraga{
-            color: rgb(9, 58, 102);
+            color: var(--saraga-color);
           }
 
           .background-saraga{
-            background-color: rgb(9, 58, 102);
+            background-color: var(--saraga-color);
             color: white;
-            font-size: 25px;
           }
 
           .button-saraga{
-            background-color: rgb(189, 158, 95);
+            /*background-color: rgb(189, 158, 95);*/
             border-radius: 5rem;
             color: white;
+            background-image: linear-gradient(to right, rgb(184, 149, 90) , rgb(202, 187, 113));
+            border-style: none;
           }
+
           .muted-saraga{
             color: rgb(176, 176, 176);
             font-size: 16px;

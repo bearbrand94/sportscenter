@@ -18,8 +18,10 @@ Route::get('/login', function () {
 Route::get('oauth2/login','LoginController@oauth2_login_google')->name('validate_oauth2');
 Route::post('/login','LoginController@email_login')->name('email-login');
 Route::get('/logout','LoginController@log_out')->name('logout');
-Route::get('/check', 'LoginController@check_data');
 
+//debug function.
+Route::get('/check', 'LoginController@check_data');
+Route::get('/login/data', 'LoginController@login_data');
 
 Route::get('/register', function () {
     return view('classimax.register');
@@ -29,14 +31,19 @@ Route::post('/register','LoginController@register')->name('register');
 
 
 //Profile
-Route::get('/profile', function () {
-    return view('classimax.user-profile');
-})->name('profile');
-Route::post('/profile/update','ProfileController@update_profile')->name('update-profile');
-Route::post('/profile/password','ProfileController@change_password')->name('change-password');
-Route::get('/profile/password', function () {
-    return view('classimax.user-profile');
-})->name('change-password');
+Route::group(['middleware' => ['initial_data']], function() {
+	Route::get('/profile', function () {
+	    return view('classimax.user-profile');
+	})->name('profile');
+	Route::get('/profile/edit', function (){
+		return view('classimax.edit-profile');
+	})->name('edit-profile');
+	Route::post('/profile/update','ProfileController@update_profile')->name('update-profile');
+	Route::post('/profile/password','ProfileController@change_password')->name('change-password');
+	Route::get('/profile/password', function () {
+	    return view('classimax.user-profile');
+	})->name('change-password');
+});
 //End Profile
 
 
