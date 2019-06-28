@@ -62,24 +62,25 @@
 					<div class="container">
 						<div class="row justify-content-center">
 							<div class="col-12 align-content-center">
-								<form>
+								<form method="POST" action="{{ route('field-search') }}">
+									@csrf
 									<div class="form-row">
 										<div class="form-group col-md-12">
 											<label class="has-float-label"> 
-												<select class="w-100 form-control custom-select">
-													<option selected value="1">Batminton</option>
-													<option value="2">Futsal</option>
-													<option value="3">Tennis</option>
-													<option value="4">Basket</option>
+												<select class="w-100 form-control custom-select" name="category">
+													<option value="">Semua</option>
+													@foreach($categories as $category)
+														<option value="{{$category->id}}">{{$category->name}}</option>
+													@endforeach
 												</select>
 												<span>Olahraga Terpilih</span>
 											</label>
 											<label class="has-float-label">
-												<input type="date" class="form-control datepicker">
+												<input type="date" class="form-control datepicker" name="search_date">
 												<span>Tanggal</span>
 											</label>
 											<label class="has-float-label">
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="keyword">
 												<span>Lokasi atau Lapang</span>
 											</label>
 											<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
@@ -225,7 +226,7 @@
 	<script type="text/javascript">
 		$(".datepicker").flatpickr({
 		    altInput: true,
-		    altFormat: "F j, Y",
+		    altFormat: "j F Y",
 		    dateFormat: "Y-m-d",
 		    minDate: "today"
 		});
