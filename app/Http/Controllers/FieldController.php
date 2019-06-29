@@ -19,8 +19,10 @@ class FieldController extends Controller
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
 
-        $category_data = $client->request('GET', config('app.api_url')."/sports");
-        $request['category_name'] = $request->category ? json_decode($category_data->getBody())->data[$request->category]->name : null;
+        $req_category = $client->request('GET', config('app.api_url')."/sports");
+        $category_data = json_decode($req_category->getBody())->data;
+
+        $request['category_name'] = $request->category ? $category_data[$request->category-1]->name : null;
         $field_data;
         try {
 	        $res = $client->request('POST', config('app.api_url')."/spots/filter/available", [
@@ -39,6 +41,6 @@ class FieldController extends Controller
 		    return $e;
 		}
 
-        return view('classimax.category')->with('fields', $field_data)->with('links', $paginate_links)->with('requests', $request->all());
+        return view('classimax.category')->with('fields', $field_data)->with('links', $paginate_links)->with('requests', $request->all())->with('categories', $category_data);
     }
 }
