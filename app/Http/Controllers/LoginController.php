@@ -65,6 +65,9 @@ class LoginController extends Controller
 	}
 
 	function log_out(Request $request){
+		$jar = session('jar');
+		$client = new Client(['cookies' => $jar]);
+        $res = $client->request('POST', config('app.api_url')."/logout");
 		session()->flush();
 		return redirect()->intended('home');
 	}

@@ -100,7 +100,7 @@
 										</div>
 									</a>
 								</div>
-								<a href="#">
+								<a href="{{ route('setting-profile') }}">
 									<div class="d-flex">
 									  <div class="d-flex align-items-center">
 									  	<span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span>
@@ -119,7 +119,7 @@
 					<!-- Logout -->
 					<div class="row pt-2" >
 						<div class="col-12">
-							<a href="#">
+							<a href="{{ route('logout') }}">
 							<div class="widget personal-info">
 								<div class="d-flex">
 								  <div class="d-flex align-items-center">
