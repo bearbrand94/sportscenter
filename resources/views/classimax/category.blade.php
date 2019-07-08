@@ -75,7 +75,7 @@
 				<div class="form-row pt-3">
 					<div class="form-group col-md-12">
 						<label class="has-float-label"> 
-							<select class="w-100 form-control custom-select" name="category">
+							<select class="w-100 form-control custom-select" name="category" id="select-category">
 								<option value="">Semua</option>
 								@foreach($categories as $category)
 									<option value="{{$category->id}}">{{$category->name}}</option>
@@ -148,20 +148,27 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 					@foreach($fields as $field)
-					<a href="{{url('field-detail').'/'.$field->id}}">
-						<div class="card my-4">
-						  <img class="card-img-top" src="{{ $field->cover_image }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title text-truncate">{{$field->name}}</h5>
-						    <p class="card-text">{{$field->description}}</p>
-						    <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$field->address}}</p>
-						  </div>
+						<div class="pb-3 pt-3"> 
+						@component('card', [
+							'review_star' => 5,
+							'price'		  => 300000,
+							'image_url'	  => asset('images/products/sports-3.jpg'),
+							'title'		  => $field->name,
+							'address'	  => $field->address,
+							'a_url'		  => url('field-detail').'/'.$field->id,
+						])
+						@endcomponent
 						</div>
-					</a>
 					@endforeach
 				</div>
 			</div>
 		</div>
     </div>
 </section>
+@endsection
+
+@section('script')
+	<script type="text/javascript">
+		$("#select-category").val("{{$requests['category']}}");
+	</script>
 @endsection

@@ -69,7 +69,7 @@
                         <div class="col-xs-5ths"><a href="{{ url('home') }}"><i class="fa fa-home fa-lg"></i><br>Home</a></div>
                         <div class="col-xs-5ths"><a href="#"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
                         <div class="col-xs-5ths"><a href="#"><i class="fa fa-envelope fa-lg"></i><br>Inbox</a></div>
-                        <div class="col-xs-5ths"><a href="#"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
+                        <div class="col-xs-5ths"><a href="{{ url('favorit') }}"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
                         <div class="col-xs-5ths"><a href="{{ url('profile') }}"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div>
                       </div>
                     </nav>

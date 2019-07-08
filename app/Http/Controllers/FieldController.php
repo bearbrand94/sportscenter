@@ -43,4 +43,14 @@ class FieldController extends Controller
 
         return view('classimax.category')->with('fields', $field_data)->with('links', $paginate_links)->with('requests', $request->all())->with('categories', $category_data);
     }
+
+    public function favorit(Request $request){
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        $res = $client->request('POST', config('app.api_url')."/spots/get-favorite");
+        $category_data = $client->request('GET', config('app.api_url')."/sports", [
+        ]);
+
+        return view('classimax.favorit')->with('fields', json_decode($res->getBody())->data)->with('categories', json_decode($category_data->getBody())->data);
+    }
 }
