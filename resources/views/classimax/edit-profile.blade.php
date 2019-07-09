@@ -76,7 +76,7 @@
 </section>
 @endsection
 
-@section('script')
+@section('master_script')
 <script type="text/javascript">
 
   document.getElementById("upload").onchange = function() {

@@ -33,8 +33,9 @@ Route::group(['middleware' => ['api']], function() {
 
 });
 
-//Profile
+//Group Must Logged In.
 Route::group(['middleware' => ['initial_data']], function() {
+	//Profile
 	Route::get('/profile', function () {
 	    return view('classimax.user-profile');
 	})->name('profile');
@@ -51,15 +52,17 @@ Route::group(['middleware' => ['initial_data']], function() {
 	Route::get('/profile/password', function () {
 	    return view('classimax.user-profile');
 	})->name('change-password');
+
+	//Favorit
+	Route::get('/favorit', 'FieldController@favorit')->name('favorit');
 });
-//End Profile
+//End Group
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
 
 Route::post('/field/search','FieldController@search')->name('field-search');
-//Favorit
-Route::get('/favorit', 'FieldController@favorit')->name('favorit');
+
 Route::get('/field', function () {
     return view('classimax.category');
 });

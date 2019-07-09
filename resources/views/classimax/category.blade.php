@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('css')
+@section('master_css')
 <style type="text/css">
 	.card{
 		width: 100%;
@@ -167,7 +167,7 @@
 </section>
 @endsection
 
-@section('script')
+@section('master_script')
 	<script type="text/javascript">
 		$("#select-category").val("{{$requests['category']}}");
 	</script>

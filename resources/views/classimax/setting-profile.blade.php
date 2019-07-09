@@ -87,5 +87,5 @@
 </section>
 @endsection
 
-@section('script')
+@section('master_script')
 @endsection

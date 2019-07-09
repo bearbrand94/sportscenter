@@ -13,9 +13,11 @@
 	  overflow-y: hidden;
 	  white-space: nowrap;
 	}
+
 	.card {
-	 display: inline-block;
-	 width: 18rem;
+	 display: inline-flex;
+	 width: 20rem;
+
 	}
 
 	.card p{
@@ -166,6 +168,7 @@
 							'title'		  => $spot->name,
 							'address'	  => $spot->address,
 							'a_url'		  => url('field-detail').'/'.$spot->id,
+							'spot_id'	  => $spot->id
 						])
 						@endcomponent
 					@endforeach
@@ -186,7 +189,7 @@
 		</div>
 		<div class="row">
 			<div class="col-12">
-				<div class="scrolling-wrapper">
+				<div class="scrolling-wrapper ">
 					<a href="#">
 						<div class="card" style="width: 18rem;">
 						  <img class="card-img-top d-flex" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
