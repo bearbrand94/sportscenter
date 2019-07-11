@@ -53,4 +53,11 @@ class FieldController extends Controller
 
         return view('classimax.favorit')->with('fields', json_decode($res->getBody())->data)->with('categories', json_decode($category_data->getBody())->data);
     }
+
+    public function detail(Request $request){
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
+        return view('classimax.detail')->with('detail', json_decode($res->getBody())->data);  
+    }
 }

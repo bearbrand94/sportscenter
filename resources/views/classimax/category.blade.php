@@ -152,10 +152,10 @@
 						@component('card', [
 							'review_star' => 5,
 							'price'		  => 300000,
-							'image_url'	  => asset('images/products/sports-3.jpg'),
+							'image_url'	  => $field->cover_image,
 							'title'		  => $field->name,
 							'address'	  => $field->address,
-							'a_url'		  => url('field-detail').'/'.$field->id,
+							'a_url'		  => route('field-detail', $field->slug),
 						])
 						@endcomponent
 						</div>

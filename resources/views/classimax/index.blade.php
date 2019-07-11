@@ -164,10 +164,10 @@
 						@component('card', [
 							'review_star' => 5,
 							'price'		  => 300000,
-							'image_url'	  => asset('images/products/sports-3.jpg'),
+							'image_url'	  => $spot->cover_image,
 							'title'		  => $spot->name,
 							'address'	  => $spot->address,
-							'a_url'		  => url('field-detail').'/'.$spot->id,
+							'a_url'		  => route('field-detail', $spot->slug),
 							'spot_id'	  => $spot->id
 						])
 						@endcomponent
