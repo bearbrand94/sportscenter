@@ -12,18 +12,39 @@
   margin-bottom: auto;
   border-radius: 50%;
 } 
-  .scrolling-wrapper {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-  }
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+.date-button{
+  border-color: var(--saraga-color) !important;
+}
+.date-button:hover, .time-button:hover {
+    outline: none !important;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+.date-button.active, .time-button.active{
+    background: var(--saraga-color);
+    color: white;
+}
+.date-button.active>p, .time-button.active>p{
+    color: white;
+}
+
+@media (max-width: 992px) {
+   .container {
+      width: 100%;
+   }
+}
 </style>
 @endsection
 
 @section('body')
 
 <section>
-  <div class="container-fluid bg-muted">
+  <div class="container bg-muted">
     <div class="row">
       <div class="card border-0 rounded-0">
         <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem">
@@ -71,7 +92,7 @@
             <li class="list-inline-item">
               <div class="card-body text-center">
                 <i class="fa fa-home fa-3x border p-2 mb-2"></i>
-                <h5>Home</h5>
+                <p>Mushola</p>
               </div>
             </li>
             @endfor
@@ -84,7 +105,7 @@
                 <div class="row">
                 <div class="mr-auto pl-3">
                   <p class="card-text text-truncate"><i class="fa fa-map-marker" aria-hidden="true"></i>{{$detail->spot->address}}</p>
-                  <p class="text-saraga">Get Directions</p>
+                  <a href="#">Get Directions</a>
                 </div>
                 </div>
               </div>
@@ -94,17 +115,41 @@
     <div class="row mt-4">
       <div class="col-12 ml-1">
         <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
-            <div class="card">
-              <div class="card-body text-left">
-                <div class="row">
-                <div class="mr-auto pl-3">
-                  <p class="card-text text-truncate"><i class="fa fa-map-marker" aria-hidden="true"></i>{{$detail->spot->address}}</p>
-                  <p class="text-saraga">Get Directions</p>
-                </div>
-                </div>
+        <div class="row">
+          @for($i=0; $i<5; $i++)
+            <div class="text-center col-2 p-2">
+              <div class="form-control pt-2 date-button" style="height: 4rem;">
+                <p style="font-size: 0.8rem; font-weight: bold;">Jum<br>12 Jul</p>
               </div>
             </div>
+          @endfor
+          <div class="text-center col-2 p-2">
+            <div class="form-control pt-2 date-button" style="height: 4rem;">
+              <i class="fa fa-calendar fa-3x" aria-hidden="true" style="font-size: 2.5rem;"></i>
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="col-12 ml-1">
+        <div class="row">
+        @for($i=0; $i<16; $i++)
+          <div class="text-center col-3 pt-2 pb-2">
+            <div class="border pt-3 time-button" tabindex="2" style="border-radius: 0.4rem;">
+              <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
+            </div>
+          </div>
+        @endfor
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 mb-2">
+      <div class="col-12 clearfix">
+      <h5 class="float-left"><i class="fa fa-clock-o fa-lg" aria-hidden="true" style="font-size: 1.5rem;"></i> Durasi Booking</h5>
+      <h5 class="float-right" style="color: orange;" id="duration">2 Jam</h5>
+      </div>
+    </div>
+    <div class="mt-2 mb-4">
+      <button type="submit" class="btn btn-block button-saraga">Pilih Lapang</button>
     </div>
   </div>
 </section>
@@ -112,6 +157,16 @@
 
 @section('master_script')
 <script type="text/javascript">
+  $(document).ready(function () {
+      $('.date-button').click(function () {
+          $('.date-button').removeClass('active');
+          $(this).addClass('active');
+      });
+      $('.time-button').click(function () {
+        $(this).toggleClass( 'active' );
+      });
+
+  }); 
 
   document.getElementById("upload").onchange = function() {
       document.getElementById("fimage").submit();

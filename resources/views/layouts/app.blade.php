@@ -4,7 +4,7 @@
   @yield('css')
   <style type="text/css">
     .active{
-            color: var(--saraga-color);;
+        color: var(--saraga-color);
     }
   </style>
 @endsection
