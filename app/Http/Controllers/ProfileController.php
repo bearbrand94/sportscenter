@@ -75,23 +75,63 @@ class ProfileController extends Controller
         }
 	}
 
-	function change_password(Request $request) {
-		$input = $request->only('current_password', 'new_password');
-		$validator = Validator::make($input, [
-			'current_password' => ['required', 'string', 'max:255'],
-            'new_password' => ['required', 'string', 'max:255']
-        ])->validate();
-
-        if (Auth::attempt(['email' => Auth::user()->email, 'password' => $request->current_password])) {
-			$user_data = User::find(Auth::id());
-			$user_data->password = Hash::make($request->new_password);
-			$user_data->save();
-            return redirect()->back()->with('password-success', 'Password Changed!');
+    function update_phone(Request $request) {
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        try {
+            $res = $client->request('POST', config('app.api_url')."/profile/update/phone", [
+                'form_params' => [
+                    'telephone' => $request->new_phone
+                ]
+            ]);
+            if($res->getStatusCode() == 200){ // 200 = Success
+                $user_info = json_decode($res->getBody()); // { "type": "User", ..
+                session(['auth_data'=>$user_info->data]);
+                return redirect()->intended('profile');
+            }
+        } catch (RequestException $e) {
+            return view('classimax.setting-profile')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
         }
-        else{
-        	$errors = new MessageBag();
-        	$errors->add('credentials', "Your Current Password is not valid");
-        	return view('classimax.user-profile')->withErrors($errors);
+    }
+
+    function update_email(Request $request) {
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        try {
+            $res = $client->request('POST', config('app.api_url')."/profile/update/email", [
+                'form_params' => [
+                    'email' => $request->new_email
+                ]
+            ]);
+            if($res->getStatusCode() == 200){ // 200 = Success
+                $user_info = json_decode($res->getBody()); // { "type": "User", ..
+                session(['auth_data'=>$user_info->data]);
+                return redirect()->intended('profile');
+            }
+        } catch (RequestException $e) {
+            return view('classimax.setting-profile')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
+        }
+    }
+
+	function change_password(Request $request) {
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        try {
+            $res = $client->request('POST', config('app.api_url')."/password/change", [
+                'form_params' => [
+                    'current_password' => $request->current_password,
+                    'new_password' => $request->new_password,
+                    'new_password_confirmation' => $request->confirm_password
+                ]
+            ]);
+            if($res->getStatusCode() == 200){ // 200 = Success
+                $user_info = json_decode($res->getBody()); // { "type": "User", ..
+                session(['auth_data'=>$user_info->data]);
+                return redirect()->intended('profile');
+            }
+        } catch (RequestException $e) {
+            // return $e->getResponse()->getBody()->getContents();
+            return view('classimax.setting-profile')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
         }
 	}
 }

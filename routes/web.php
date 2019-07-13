@@ -48,6 +48,8 @@ Route::group(['middleware' => ['initial_data']], function() {
 
 	Route::post('/profile/password','ProfileController@change_password')->name('change-password');
 	Route::post('/profile/update','ProfileController@update_profile')->name('update-profile');
+	Route::post('/profile/update/phone','ProfileController@update_phone')->name('update-phone');
+	Route::post('/profile/update/email','ProfileController@update_email')->name('update-email');
 	Route::post('/profile/upload/image','ProfileController@upload_image')->name('upload-image');
 	Route::get('/profile/password', function () {
 	    return view('classimax.user-profile');

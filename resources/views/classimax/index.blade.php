@@ -162,7 +162,7 @@
 				<div class="scrolling-wrapper">
 					@foreach($spots as $spot)
 						@component('card', [
-							'review_star' => 5,
+							'review_star' => $spot->rating,
 							'price'		  => 300000,
 							'image_url'	  => $spot->cover_image,
 							'title'		  => $spot->name,

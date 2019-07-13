@@ -150,7 +150,7 @@
 					@foreach($fields as $field)
 						<div class="pb-3 pt-3"> 
 						@component('card', [
-							'review_star' => 5,
+							'review_star' => $field->rating,
 							'price'		  => 300000,
 							'image_url'	  => $field->cover_image,
 							'title'		  => $field->name,
