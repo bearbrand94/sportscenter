@@ -160,7 +160,7 @@
         <ul class="navbar-nav mr-auto p-3">
           <li class="nav-item active">    
               <b class="text-saraga" style="font-size: 22px;">
-              Email
+              Password
               </b>
           </li>
         </ul>

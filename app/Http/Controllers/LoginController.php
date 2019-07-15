@@ -21,7 +21,8 @@ use App\Mail\NewAccountPassword;
 class LoginController extends Controller
 {
 	function oauth2_login_google(Request $request) {
-        $client = new Client();
+		$jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
         try {
 	        $res = $client->request('POST', config('app.api_url')."/login/google", [
 			    'form_params' => [
@@ -35,7 +36,7 @@ class LoginController extends Controller
 				return response()->json(['message'=>'login success']);
 			}
 		} catch (RequestException $e) {
-		    return $e;
+			return $e;
 		}
 	}
 

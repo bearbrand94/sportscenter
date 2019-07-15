@@ -103,7 +103,7 @@
   </div>
 </div>
 
-<nav class="navbar navbar-expand shadow-sm background-saraga">
+<nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
   <a class="navbar-brand" href="{{url('home')}}">
     <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
   </a>
