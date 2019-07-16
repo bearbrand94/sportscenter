@@ -2,64 +2,6 @@
 
 @section('master_css')
 <style type="text/css">
-  .half-modal-dialog {
-    position: fixed;
-    margin: 0;
-    top: 50%;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    overflow-y: scroll;
-  }
-
-  .half-modal-content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border: 2px solid #3c7dcf;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow-y: scroll;
-  }
-
-  .modal-dialog {
-    position: fixed;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    overflow-y: scroll;
-  }
-
-  .modal-content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border: 2px solid #3c7dcf;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .modal-header {
-    background: white;
-  }
-
-  .modal-body {
-    min-height: 80%;
-  }
-
   #innerelements{
     padding: 0.75em;
     position:relative;
@@ -100,107 +42,6 @@
 @endsection
 
 @section('body')
-<!-- The Modal -->
-<div class="modal" id="field-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Top Header -->
-      <nav class="navbar navbar-expand shadow-sm sticky-top" style="background-color: white;">
-        <a class="navbar-brand" href="#" data-dismiss="modal">
-          <i class="fa fa-close fa-lg text-saraga"></i>
-        </a>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link text-saraga">     
-                <b class="text-saraga" style="font-size: 20px;">
-                Pilih Lapangan
-                </b>
-            </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <div class="container bg-light">
-        @foreach($detail->courts as $field)
-          <div class="pb-3 pt-3"> 
-            <div class="card">
-              <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem">
-              <div class="card-body">
-                <h5 class="card-title text-truncate">{{$field->name}}</h5>
-                <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
-                <div class="form-inline">
-                  <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format(300000,0)}}</p>
-                  <p class="card-text ml-2">/Jam</p>
-                </div>
-                <button type="button" class="btn btn-block button-saraga" onclick="select_field({{$field->id}})" data-dismiss="modal">Pilih Lapang</button>
-              </div>
-            </div>
-          </div>
-        @endforeach
-        @foreach($detail->courts as $field)
-          <div class="pb-3 pt-3"> 
-            <div class="card">
-              <div class="card-body">
-                <div style="opacity: 0.6;">
-                  <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem">
-                  <h5 class="card-title text-truncate">{{$field->name}}</h5>
-                  <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
-                  <div class="form-inline">
-                    <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format(300000,0)}}</p>
-                    <p class="card-text ml-2">/Jam</p>
-                  </div>
-                </div>
-                <p class="card-text" style="color: red; font-weight: bold; font-style: italic;">*Tidak tersedia diwaktu ini </p>
-                <a href="#" data-toggle="modal" data-target="#time-modal">Lihat waktu tersedia</a>
-              </div>
-            </div>
-          </div>
-        @endforeach
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="time-modal">
-  <div class="half-modal-dialog">
-    <div class="half-modal-content">
-      <!-- Top Header -->
-      <nav class="navbar navbar-expand shadow-sm" style="background-color: white;">
-        <a class="navbar-brand" href="#" data-dismiss="modal">
-          <i class="fa fa-close fa-lg text-saraga"></i>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link text-saraga">     
-                <b class="text-saraga" style="font-size: 20px;">
-                Waktu Tersedia
-                </b>
-            </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <div class="container bg-light">
-        <div class="col-12 ml-1">
-          <div class="row">
-          @for($i=0; $i<16; $i++)
-            <div class="text-center col-3 pt-2 pb-2">
-              <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} style="border-radius: 0.4rem;">
-                <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
-              </div>
-            </div>
-          @endfor
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <section>
   <div class="container bg-muted">
     <div class="row">
@@ -293,7 +134,7 @@
         <div class="row">
         @for($i=0; $i<16; $i++)
           <div class="text-center col-3 pt-2 pb-2">
-            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} style="border-radius: 0.4rem;">
+            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$i+8}}" style="border-radius: 0.4rem;">
               <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
             </div>
           </div>
@@ -303,12 +144,19 @@
     </div>
     <div class="row mt-4 mb-2">
       <div class="col-12 clearfix">
-      <h5 class="float-left"><i class="fa fa-clock-o fa-lg" aria-hidden="true" style="font-size: 1.5rem;"></i> Durasi Booking</h5>
-      <h5 class="float-right" style="color: orange;" id="duration">-</h5>
+        <h5 class="float-left"><i class="fa fa-clock-o fa-lg" aria-hidden="true" style="font-size: 1.5rem;"></i> Durasi Booking</h5>
+        <h5 class="float-right" style="color: orange;" id="duration">-</h5>
       </div>
     </div>
     <div class="mt-2 mb-4">
-      <button type="submit" class="btn btn-block button-saraga" onclick="check_data()" data-toggle="modal" data-target="#field-modal">Pilih Lapang</button>
+      <form method="GET" action="{{ route('select-court', $detail->spot->slug) }}">
+        
+        <input type="hidden" name="input-date" id="input-date" value="">
+        <input type="hidden" name="input-time" id="input-time" value="">
+        <input type="hidden" name="input-duration" id="input-duration" value="">
+        @csrf
+        <button type="submit" class="btn btn-block button-saraga">Pilih Lapang</button>
+      </form>
     </div>
   </div>
 </section>
@@ -329,12 +177,14 @@
       $('.date-button').click(function () {
           $('.date-button').removeClass('active');
           $(this).addClass('active');
+          $("#input-date").val("2019-07-06");
       });
       $('.time-button').click(function () {
         $('.time-button').removeClass('active');
         if(start_index == -1){
           start_index = parseInt($(this).attr('index'));
           $(this).addClass('active');
+          $("#input-time").val($(this).attr('time'));
         }
         else{
           end_index = parseInt($(this).attr('index'));
@@ -344,6 +194,7 @@
               $(id_name).addClass('active');
             }
             $("#duration").html((end_index-start_index) + " Jam");
+            $("#input-duration").val((end_index-start_index));
             start_index = -1;
           }
           else{

@@ -60,4 +60,11 @@ class FieldController extends Controller
         $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
         return view('classimax.detail')->with('detail', json_decode($res->getBody())->data);  
     }
+
+    public function court(Request $request){
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
+        return view('classimax.select-court')->with('detail', json_decode($res->getBody())->data);  
+    }
 }

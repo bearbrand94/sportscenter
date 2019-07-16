@@ -67,8 +67,10 @@ Route::post('/field/search','FieldController@search')->name('field-search');
 Route::get('/field', function () {
     return view('classimax.category');
 });
-Route::get('/field/detail/{slug}','FieldController@detail')->name('field-detail');
 
+//Field
+Route::get('/field/detail/{slug}','FieldController@detail')->name('field-detail');
+Route::get('/field/detail/{slug}/court','FieldController@court')->name('select-court');
 
 Route::get('/field/list', function () {
     return view('classimax.category');
