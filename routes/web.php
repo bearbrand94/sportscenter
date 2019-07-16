@@ -72,6 +72,8 @@ Route::get('/field', function () {
 Route::get('/field/detail/{slug}','FieldController@detail')->name('field-detail');
 Route::get('/field/detail/{slug}/court','FieldController@court')->name('select-court');
 
+Route::post('/booking/confirmation','BookingController@confirmation')->name('booking-confirmation');
+
 Route::get('/field/list', function () {
     return view('classimax.category');
 });

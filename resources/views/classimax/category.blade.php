@@ -41,6 +41,14 @@
 	.modal-body {
 		min-height: 80%;
 	}
+
+	.modal-footer {
+	     position:fixed;
+	     top:auto;
+	     right:0;
+	     left:0;
+	     bottom:0;		
+	}
 </style>
 @endsection
 

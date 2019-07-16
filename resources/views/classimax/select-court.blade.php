@@ -133,20 +133,28 @@
   </nav>
   <div class="container bg-light">
     @foreach($detail->courts as $field)
-      <div class="pb-3 pt-3"> 
-        <div class="card">
-          <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem">
-          <div class="card-body">
-            <h5 class="card-title text-truncate">{{$field->name}}</h5>
-            <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
-            <div class="form-inline">
-              <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format(300000,0)}}</p>
-              <p class="card-text ml-2">/Jam</p>
+      <form method="POST" action="{{ route('booking-confirmation') }}">
+        <div class="pb-3 pt-3"> 
+          <div class="card">
+            <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem">
+            @csrf
+            <input type="hidden" name="slug" value="{{$detail->spot->slug}}">
+            <input type="hidden" name="court_id" value="{{$field->id}}">
+            <input type="hidden" name="input_date" value="{{ app('request')->input('input-date') }}">
+            <input type="hidden" name="input_time" value="{{ app('request')->input('input-time') }}">
+            <input type="hidden" name="duration" value="{{ app('request')->input('input-duration') }}">
+            <div class="card-body">
+              <h5 class="card-title text-truncate">{{$field->name}}</h5>
+              <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
+              <div class="form-inline">
+                <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format(300000,0)}}</p>
+                <p class="card-text ml-2">/Jam</p>
+              </div>
+              <button type="submit" class="btn btn-block button-saraga">Pilih Lapang</button>
             </div>
-            <button type="button" class="btn btn-block button-saraga" onclick="select_field({{$field->id}})" data-dismiss="modal">Pilih Lapang</button>
           </div>
         </div>
-      </div>
+      </form>
     @endforeach
     @foreach($detail->courts as $field)
       <div class="pb-3 pt-3"> 

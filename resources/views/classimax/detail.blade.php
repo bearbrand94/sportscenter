@@ -115,14 +115,21 @@
       <div class="col-12 ml-1">
         <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
         <div class="row">
-          @for($i=0; $i<5; $i++)
-            <div class="text-center col-2 p-2">
+          @for($i=0; $i<3; $i++)
+            <div class="text-center col-3 col-sm-2 p-2">
               <div class="form-control pt-2 date-button" style="height: 4rem;">
                 <p style="font-size: 0.8rem; font-weight: bold;">Jum<br>12 Jul</p>
               </div>
             </div>
           @endfor
-          <div class="text-center col-2 p-2 flatpickr">
+          @for($i=0; $i<2; $i++)
+            <div class="text-center d-none d-sm-block col-sm-2 p-2">
+              <div class="form-control pt-2 date-button" style="height: 4rem;">
+                <p style="font-size: 0.8rem; font-weight: bold;">Jum<br>12 Jul</p>
+              </div>
+            </div>
+          @endfor
+          <div class="text-center col-3 col-sm-2 p-2 flatpickr">
             <input type="hidden">
             <div class="form-control pt-2 date-button" style="height: 4rem;" data-toggle>
               <i class="fa fa-calendar fa-3x" aria-hidden="true" id="button-date-booking" style="font-size: 2.5rem;"></i>
