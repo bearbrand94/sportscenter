@@ -19,10 +19,14 @@
   }
   .date-button{
     border-color: var(--saraga-color) !important;
+    cursor:hand;
+  }
+  .time-button{
+    cursor:hand;
   }
   .date-button:hover, {
       outline: none !important;
-      box-shadow: 0 0 10px #719ECE;
+      box-shadow: 0 0 10px #719ECE;   
   }
 
   .date-button.active, .time-button.active{
@@ -117,22 +121,29 @@
         <div class="row">
           @for($i=0; $i<3; $i++)
             <div class="text-center col-3 col-sm-2 p-2">
-              <div class="form-control pt-2 date-button" style="height: 4rem;">
-                <p style="font-size: 0.8rem; font-weight: bold;">Jum<br>12 Jul</p>
+              <div class="form-control pt-2 date-button" style="height: 4rem;" value='{{date("Y-m-d", time() + (86400*$i))}}'>
+                <p style="font-size: 0.8rem; font-weight: bold;">
+                  {{date("D", time() + (86400*$i))}}
+                  <br>
+                  {{date("d M", time() + (86400*$i))}}
+                </p>
               </div>
             </div>
           @endfor
-          @for($i=0; $i<2; $i++)
+          @for($i=3; $i<5; $i++)
             <div class="text-center d-none d-sm-block col-sm-2 p-2">
-              <div class="form-control pt-2 date-button" style="height: 4rem;">
-                <p style="font-size: 0.8rem; font-weight: bold;">Jum<br>12 Jul</p>
+              <div class="form-control pt-2 date-button" style="height: 4rem;" value='{{date("Y-m-d", time() + (86400*$i))}}'>
+                <p style="font-size: 0.8rem; font-weight: bold;">
+                  {{date("D", time() + (86400*$i))}}
+                  <br>
+                  {{date("d M", time() + (86400*$i))}}
+                </p>
               </div>
             </div>
           @endfor
           <div class="text-center col-3 col-sm-2 p-2 flatpickr">
-            <input type="hidden">
-            <div class="form-control pt-2 date-button" style="height: 4rem;" data-toggle>
-              <i class="fa fa-calendar fa-3x" aria-hidden="true" id="button-date-booking" style="font-size: 2.5rem;"></i>
+            <div class="form-control pt-2 date-button" id="button-date-booking" style="height: 4rem;">
+              <i class="fa fa-calendar fa-3x" aria-hidden="true" style="font-size: 2.5rem;"></i>
             </div>
           </div>
         </div>
@@ -172,10 +183,13 @@
 @section('master_script')
 <script type="text/javascript">
   var flatpickr = $(".flatpickr").flatpickr({
-      altFormat: "j F Y",
+      altFormat: "Y-m-d",
       dateFormat: "Y-m-d",
       minDate: "today",
-      disableMobile: "true"
+      disableMobile: "true",
+      onChange : function(selectedDates, dateStr, instance) {
+        $("#input-date").val(dateStr);
+      }
   });
   var start_index =-1;
   var end_index =-1;
@@ -184,7 +198,7 @@
       $('.date-button').click(function () {
           $('.date-button').removeClass('active');
           $(this).addClass('active');
-          $("#input-date").val("2019-07-06");
+          $("#input-date").val($(this).attr('value'));
       });
       $('.time-button').click(function () {
         $('.time-button').removeClass('active');

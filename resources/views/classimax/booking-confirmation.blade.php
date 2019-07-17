@@ -36,10 +36,10 @@
     	<h5 class="bigger-text">Detail Booking</h5>
     	<hr class="my-4">
         <div class="form-inline">
-			<img src="{{$detail->spot->cover_image}}" class="img-responsive inline-block" height="100px" width="100px" />
+			<img src="{{$spot->cover_image}}" class="img-responsive inline-block" height="100px" width="100px" />
 			<div class="ml-3">
-				<p class="bigger-text mb-2">{{$detail->spot->name}}</p>
-				<p class="bigger-text mb-2">{{$detail->courts[0]->name}}</p>
+				<p class="bigger-text mb-2">{{$spot->name}}</p>
+				<p class="bigger-text mb-2">{{$court->name}}</p>
                 <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
 			</div>
         </div>
