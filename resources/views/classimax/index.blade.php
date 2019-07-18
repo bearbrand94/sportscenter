@@ -13,8 +13,11 @@
 	  overflow-y: hidden;
 	  white-space: nowrap;
 	}
+
 	.card {
-	 display: inline-block;
+	 display: inline-flex;
+	 width: 20rem;
+
 	}
 
 	.card p{
@@ -37,7 +40,6 @@
 	  background-size: cover;
 	  background-repeat: no-repeat;
 	  color: white;
-
 	}
 </style>
 @endsection
@@ -136,15 +138,19 @@
 		</div>
 		<div class="row">
 			<div class="col-12">
-				<div class="scrolling-wrapper">
+				<div class="scrolling-wrapper" >
 					@foreach($categories as $category)
-					<a href="#">
-						<div class="card text-center mr-2" style="width: 8rem; border-style: none;">
-						  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
-						    {{$category->name}}
-						  </div>
-						</div>
-					</a>
+					<form method="POST" action="{{ route('field-search') }}" style="display: inline-block;">
+						@csrf
+						<input type="hidden" name="category" value="{{$category->id}}">
+						<a href="#" onclick='this.parentNode.submit(); return false;'>
+							<div class="card text-center mr-2" style="width: 8rem; border-style: none;">
+							  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
+							    {{$category->name}}
+							  </div>
+							</div>
+						</a>
+					</form>
 					@endforeach
 				</div>
 			</div>
@@ -155,16 +161,16 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 					@foreach($spots as $spot)
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title text-truncate">{{$spot->name}}</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$spot->address}}</p>
-						  </div>
-						</div>
-					</a>
+						@component('card', [
+							'review_star' => $spot->rating,
+							'price'		  => $spot->price,
+							'image_url'	  => $spot->cover_image,
+							'title'		  => $spot->name,
+							'address'	  => $spot->address,
+							'a_url'		  => route('field-detail', $spot->slug),
+							'spot_id'	  => $spot->id
+						])
+						@endcomponent
 					@endforeach
 				</div>
 			</div>
@@ -183,7 +189,7 @@
 		</div>
 		<div class="row">
 			<div class="col-12">
-				<div class="scrolling-wrapper">
+				<div class="scrolling-wrapper ">
 					<a href="#">
 						<div class="card" style="width: 18rem;">
 						  <img class="card-img-top d-flex" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">

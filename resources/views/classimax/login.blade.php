@@ -45,7 +45,7 @@
 </section>
 @endsection
 
-@section('script')
+@section('master_script')
 
 <script type="text/javascript">
     function check_login_status(){

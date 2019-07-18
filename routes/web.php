@@ -33,8 +33,9 @@ Route::group(['middleware' => ['api']], function() {
 
 });
 
-//Profile
+//Group Must Logged In.
 Route::group(['middleware' => ['initial_data']], function() {
+	//Profile
 	Route::get('/profile', function () {
 	    return view('classimax.user-profile');
 	})->name('profile');
@@ -47,29 +48,39 @@ Route::group(['middleware' => ['initial_data']], function() {
 
 	Route::post('/profile/password','ProfileController@change_password')->name('change-password');
 	Route::post('/profile/update','ProfileController@update_profile')->name('update-profile');
+	Route::post('/profile/update/phone','ProfileController@update_phone')->name('update-phone');
+	Route::post('/profile/update/email','ProfileController@update_email')->name('update-email');
 	Route::post('/profile/upload/image','ProfileController@upload_image')->name('upload-image');
 	Route::get('/profile/password', function () {
 	    return view('classimax.user-profile');
 	})->name('change-password');
-});
-//End Profile
 
+	//Favorit
+	Route::get('/favorit', 'FieldController@favorit')->name('favorit');
+});
+//End Group
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
 Route::post('/field/search','FieldController@search')->name('field-search');
+
 Route::get('/field', function () {
     return view('classimax.category');
 });
-Route::get('/field/detail', function () {
-    return view('classimax.single');
-});
+
+//Field
+Route::get('/field/detail/{slug}','FieldController@detail')->name('field-detail');
+Route::get('/field/detail/{slug}/court','FieldController@court')->name('select-court');
+
+Route::post('/booking/confirmation','BookingController@confirmation')->name('booking-confirmation');
+
 Route::get('/field/list', function () {
     return view('classimax.category');
 });
 Route::get('/my-order', function () {
     return view('classimax.dashboard-my-order');
 });
+
 
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('css')
+@section('master_css')
 <style type="text/css">
 	.card{
 		width: 100%;
@@ -41,6 +41,14 @@
 	.modal-body {
 		min-height: 80%;
 	}
+
+	.modal-footer {
+	     position:fixed;
+	     top:auto;
+	     right:0;
+	     left:0;
+	     bottom:0;		
+	}
 </style>
 @endsection
 
@@ -75,7 +83,7 @@
 				<div class="form-row pt-3">
 					<div class="form-group col-md-12">
 						<label class="has-float-label"> 
-							<select class="w-100 form-control custom-select" name="category">
+							<select class="w-100 form-control custom-select" name="category" id="select-category">
 								<option value="">Semua</option>
 								@foreach($categories as $category)
 									<option value="{{$category->id}}">{{$category->name}}</option>
@@ -103,7 +111,7 @@
   </div>
 </div>
 
-<nav class="navbar navbar-expand shadow-sm background-saraga">
+<nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
   <a class="navbar-brand" href="{{url('home')}}">
     <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
   </a>
@@ -148,20 +156,27 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 					@foreach($fields as $field)
-					<a href="{{url('field-detail').'/'.$field->id}}">
-						<div class="card my-4">
-						  <img class="card-img-top" src="{{ $field->cover_image }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title text-truncate">{{$field->name}}</h5>
-						    <p class="card-text">{{$field->description}}</p>
-						    <p class="card-text"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$field->address}}</p>
-						  </div>
+						<div class="pb-3 pt-3"> 
+						@component('card', [
+							'review_star' => $field->rating,
+							'price'		  => $field->price,
+							'image_url'	  => $field->cover_image,
+							'title'		  => $field->name,
+							'address'	  => $field->address,
+							'a_url'		  => route('field-detail', $field->slug),
+						])
+						@endcomponent
 						</div>
-					</a>
 					@endforeach
 				</div>
 			</div>
 		</div>
     </div>
 </section>
+@endsection
+
+@section('master_script')
+	<script type="text/javascript">
+		$("#select-category").val("{{$requests['category']}}");
+	</script>
 @endsection

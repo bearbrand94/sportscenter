@@ -1,7 +1,12 @@
 @extends('layouts.master')
 
-@section('css')
+@section('master_css')
   @yield('css')
+  <style type="text/css">
+    .active{
+        color: var(--saraga-color);
+    }
+  </style>
 @endsection
 
 @section('title')
@@ -66,11 +71,11 @@
                     </nav>
                     <nav class="navbar fixed-bottom navbar-expand bg-light navigation d-lg-none">
                       <div class="container-fluid text-center">
-                        <div class="col-xs-5ths"><a href="{{ url('home') }}"><i class="fa fa-home fa-lg"></i><br>Home</a></div>
-                        <div class="col-xs-5ths"><a href="#"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
-                        <div class="col-xs-5ths"><a href="#"><i class="fa fa-envelope fa-lg"></i><br>Inbox</a></div>
-                        <div class="col-xs-5ths"><a href="#"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
-                        <div class="col-xs-5ths"><a href="{{ url('profile') }}"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div>
+                        <div class="col-xs-5ths navbot"><a href="{{ url('home') }}"><i class="fa fa-home fa-lg"></i><br>Home</a></div>
+                        <div class="col-xs-5ths navbot"><a href="#"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
+                        <div class="col-xs-5ths navbot"><a href="#"><i class="fa fa-envelope fa-lg"></i><br>Inbox</a></div>
+                        <div class="col-xs-5ths navbot"><a href="{{ url('favorit') }}"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
+                        <div class="col-xs-5ths navbot"><a href="{{ url('profile') }}"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div>
                       </div>
                     </nav>
                 </div>
@@ -84,6 +89,22 @@
     @yield('content')
 @endsection
 
-@section('script')
+@section('master_script')
   @yield('script')
+  <script type="text/javascript">
+    $(function () {
+        setNavigation();
+    });
+
+    function setNavigation() {
+        var path = window.location;
+
+        $(".navbot a").each(function () {
+            var href = $(this).attr('href');
+            if (path == href) {
+                $(this).closest('a').addClass('active');
+            }
+        });
+    }
+  </script>
 @endsection
