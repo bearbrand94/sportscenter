@@ -92,7 +92,10 @@
                 <?php 
                   $flag = false;
                   foreach ($field->timeslots as $timeslot) {
-                    if($timeslot->start_at == ($i+8).":00:00"){
+                    if(date('H', strtotime($timeslot->start_at)) == $i+8){
+                      $flag = true;
+                    }
+                    if(date('H', strtotime($timeslot->end_at)) == $i+8){
                       $flag = true;
                     }
                   }
@@ -139,6 +142,10 @@
             <b class="text-saraga" style="font-size: 20px;">
             Pilih Lapangan
             </b>
+          <br>
+          {{date("D, j M Y", strtotime(app('request')->input('input-date')))}}
+          | 
+          {{ app('request')->input('input-time') }}:00 - {{ app('request')->input('input-time')+app('request')->input('input-duration') }}:00
         </a>
         </li>
       </ul>
