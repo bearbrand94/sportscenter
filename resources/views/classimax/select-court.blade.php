@@ -58,9 +58,13 @@
 @endsection
 
 @section('body')
+
 <section>
+  <!-- <pre>{{print_r($detail->courts)}}</pre> -->
+
+@foreach($detail->courts as $field)
   <!-- The Modal -->
-  <div class="modal" id="time-modal">
+  <div class="modal" id="time-modal-{{$field->id}}">
     <div class="modal-dialog">
       <div class="modal-content">
         <!-- Top Header -->
@@ -73,7 +77,7 @@
               <li class="nav-item active">
                 <a class="nav-link text-saraga">     
                   <b class="text-saraga" style="font-size: 20px;">
-                  Waktu Tersedia
+                  Waktu Tersedia {{$field->name}}
                   </b>
               </a>
               </li>
@@ -85,9 +89,17 @@
             <div class="row">
             @for($i=0; $i<16; $i++)
               <div class="text-center col-3 pt-2 pb-2">
-                @if ($i<14)
+                <?php 
+                  $flag = false;
+                  foreach ($field->timeslots as $timeslot) {
+                    if($timeslot->start_at == ($i+8).":00:00"){
+                      $flag = true;
+                    }
+                  }
+                ?>
+                @if($flag == true)
                 <div class="border pt-3 time-button" style="border-radius: 0.4rem;">
-                @else
+                @else    
                 <div class="border pt-3 time-button disabled" style="border-radius: 0.4rem;">
                 @endif
                   <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
@@ -112,6 +124,7 @@
       </div>
     </div>
   </div>
+@endforeach
 
   <!-- Top Header -->
   <nav class="navbar navbar-expand shadow-sm sticky-top" style="background-color: white;">
@@ -133,6 +146,7 @@
   </nav>
   <div class="container bg-light">
     @foreach($detail->courts as $field)
+      @if ($field->status == 1)
       <form method="POST" action="{{ route('booking-confirmation') }}">
         <div class="pb-3 pt-3"> 
           <div class="card">
@@ -147,7 +161,7 @@
               <h5 class="card-title text-truncate">{{$field->name}}</h5>
               <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
               <div class="form-inline">
-                <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format(300000,0)}}</p>
+                <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format($field->price,0)}}</p>
                 <p class="card-text ml-2">/Jam</p>
               </div>
               <button type="submit" class="btn btn-block button-saraga">Pilih Lapang</button>
@@ -155,8 +169,7 @@
           </div>
         </div>
       </form>
-    @endforeach
-    @foreach($detail->courts as $field)
+      @else
       <div class="pb-3 pt-3"> 
         <div class="card">
           <div class="card-body">
@@ -165,15 +178,16 @@
               <h5 class="card-title text-truncate">{{$field->name}}</h5>
               <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
               <div class="form-inline">
-                <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format(300000,0)}}</p>
+                <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format($field->price,0)}}</p>
                 <p class="card-text ml-2">/Jam</p>
               </div>
             </div>
             <p class="card-text" style="color: red; font-weight: bold; font-style: italic;">*Tidak tersedia diwaktu ini </p>
-            <a href="#" data-toggle="modal" data-target="#time-modal">Lihat waktu tersedia</a>
+            <a href="#" data-toggle="modal" data-target="#time-modal-{{$field->id}}">Lihat waktu tersedia</a>
           </div>
         </div>
       </div>
+      @endif
     @endforeach
   </div>
 </section>

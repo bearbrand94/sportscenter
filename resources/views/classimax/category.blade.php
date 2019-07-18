@@ -159,7 +159,7 @@
 						<div class="pb-3 pt-3"> 
 						@component('card', [
 							'review_star' => $field->rating,
-							'price'		  => 300000,
+							'price'		  => $field->price,
 							'image_url'	  => $field->cover_image,
 							'title'		  => $field->name,
 							'address'	  => $field->address,

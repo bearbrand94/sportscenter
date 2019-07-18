@@ -163,7 +163,7 @@
 					@foreach($spots as $spot)
 						@component('card', [
 							'review_star' => $spot->rating,
-							'price'		  => 300000,
+							'price'		  => $spot->price,
 							'image_url'	  => $spot->cover_image,
 							'title'		  => $spot->name,
 							'address'	  => $spot->address,

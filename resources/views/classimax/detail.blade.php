@@ -66,7 +66,7 @@
 
         <div class="card-body" style="margin-top: -50px;">
           <h5 class="card-title text-truncate">{{$detail->spot->name}}</h5>
-          <p class="card-text">Rp {{number_format(300000,0)}} /Jam</p>
+          <p class="card-text">Rp {{number_format($detail->spot->price,0)}} /Jam</p>
           <p class="card-text text-truncate"><i class="fa fa-map-marker" aria-hidden="true"></i>{{$detail->spot->address}}</p>
           
           <p class="card-text">

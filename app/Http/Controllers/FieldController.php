@@ -65,6 +65,27 @@ class FieldController extends Controller
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
-        return view('classimax.select-court')->with('detail', json_decode($res->getBody())->data);  
+        $detail = json_decode($res->getBody())->data;
+
+        //modify timeslots data from API. add timeslots status.
+        for ($i=0; $i < count($detail->courts); $i++) { 
+            //set status to not available
+            $detail->courts[$i]->status=0;
+
+            for ($j=0; $j < count($detail->courts[$i]->timeslots); $j++) { 
+                $start_time = (int) date('H', strtotime($detail->courts[$i]->timeslots[$j]->start_at));
+                $end_time = (int) date('H', strtotime($detail->courts[$i]->timeslots[$j]->end_at));
+
+                $input_start=(int) $request->input('input-time');
+                $input_end=(int) $request->input('input-time')+$request->input('duration');
+                //if request time given is acceptable from timeslots, then set status to available.
+                if($input_start >= $start_time){
+                  if($input_end <= $end_time){
+                    $detail->courts[$i]->status=1;
+                  }
+                }
+            }
+        }
+        return view('classimax.select-court')->with('detail', $detail);  
     }
 }

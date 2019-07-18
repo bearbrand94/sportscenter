@@ -65,7 +65,7 @@
 						<div class="pb-3 pt-3"> 
 						@component('card', [
 							'review_star' => 5,
-							'price'		  => 300000,
+							'price'		  => $field->price,
 							'image_url'	  => asset('images/products/sports-3.jpg'),
 							'title'		  => $field->name,
 							'address'	  => $field->address,
