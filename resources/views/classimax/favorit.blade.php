@@ -42,11 +42,11 @@
 </nav>
 
 <section class="border-top-1 bg-light">
+	@if(isset($fields))
     <div class="container">
 		<div class="row pt-3">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					@if(isset($fields))
 					@foreach($categories as $category)
 					<a href="#">
 						<div class="card text-center mr-2" style="width: 8rem; border-style: none; display: inline-block;">
@@ -56,14 +56,12 @@
 						</div>
 					</a>
 					@endforeach
-					@endif
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					@if(isset($fields))
 					@foreach($fields as $spot)
 						<div class="pb-3 pt-3"> 
 						@component('card', [
@@ -79,10 +77,18 @@
 						@endcomponent
 						</div>
 					@endforeach
-					@endif
 				</div>
 			</div>
 		</div>
     </div>
+    @else
+    <div class="container h-100">
+    	<div class="row align-items-center h-100">
+    		<div class="mx-auto">
+		      <img src="{{asset('/images/no-fav.png')}}" class="img-fluid" alt="Belum ada lapangan favorit">
+		  	</div>
+		</div>
+    </div>
+    @endif
 </section>
 @endsection
