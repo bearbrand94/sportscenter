@@ -57,6 +57,7 @@ Route::group(['middleware' => ['initial_data']], function() {
 
 	//Favorit
 	Route::get('/favorit', 'FieldController@favorit')->name('favorit');
+	Route::post('ajax/set-favorit', 'FieldController@set_favorit')->name('set-favorit');
 });
 //End Group
 

@@ -91,14 +91,16 @@
         <h5 style="font-weight: bold;">Fasilitas</h5>
         <div class="scrolling-wrapper">
           <ul class="list-inline">
-            @for($i=0; $i<10; $i++)
+            @if(isset($detail->facilities))
+            @foreach($detail->facilities as $facility)
             <li class="list-inline-item">
               <div class="card-body text-center">
-                <i class="fa fa-home fa-3x border p-2 mb-2"></i>
-                <p>Mushola</p>
+                <img class="icon pb-2" src="{{ asset('images/facilities/'.$facility->icon) }}" height="60px" width="60px">
+                <p>{{$facility->name}}</p>
               </div>
             </li>
-            @endfor
+            @endforeach
+            @endif
           </ul>
         </div>
         <hr class="my-4">

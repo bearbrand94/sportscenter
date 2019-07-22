@@ -168,7 +168,8 @@
 							'title'		  => $spot->name,
 							'address'	  => $spot->address,
 							'a_url'		  => route('field-detail', $spot->slug),
-							'spot_id'	  => $spot->id
+							'spot_id'	  => $spot->id,
+							'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
 						])
 						@endcomponent
 					@endforeach

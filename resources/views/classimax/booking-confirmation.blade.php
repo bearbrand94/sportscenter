@@ -78,7 +78,7 @@
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black;">Harga / Jam</p>
-	        <p class="float-right" style="color: black; font-weight: bold;"><del class="mr-2 text-muted" style=" font-weight: normal; font-size: 0.8rem;">Rp 300.000</del>Rp 300.000</p>
+	        <p class="float-right" style="color: black; font-weight: bold;"><del class="mr-2 text-muted" style=" font-weight: normal; font-size: 0.8rem;">Rp 300.000</del>Rp {{number_format($court->price,0)}}</p>
 	      </div>
 		</div>
 		<p class="mb-2 mt-4" style="font-weight: bold; color: black; font-size: 1.1rem;">Tipe Pembayaran</p>
@@ -92,19 +92,19 @@
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black;">Harga / Jam</p>
-	        <p class="float-right" style="color: black;">Rp 300.000</p>
+	        <p class="float-right" style="color: black;">Rp {{number_format($court->price,0)}}</p>
 	      </div>
 		</div>
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black;">Total yang harus dibayar</p>
-	        <p class="float-right" style="color: black;">Rp {{number_format(300000*$input['duration'],0)}}</p>
+	        <p class="float-right" style="color: black;">Rp {{number_format($court->price*$input['duration'],0)}}</p>
 	      </div>
 		</div>
 		<div class="row mt-4">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
-	        <p class="float-right" style="color: orange; font-size: 1.05rem; font-weight: bold;">Rp {{number_format(300000*$input['duration'],0)}}</p>
+	        <p class="float-right" style="color: orange; font-size: 1.05rem; font-weight: bold;">Rp {{number_format($court->price*$input['duration'],0)}}</p>
 	      </div>
 		</div>
 		<button type="submit" class="btn btn-block button-saraga mb-4">Pilih Metode Pembayaran</button>

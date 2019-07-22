@@ -46,6 +46,7 @@
 		<div class="row pt-3">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
+					@if(isset($fields))
 					@foreach($categories as $category)
 					<a href="#">
 						<div class="card text-center mr-2" style="width: 8rem; border-style: none; display: inline-block;">
@@ -55,25 +56,30 @@
 						</div>
 					</a>
 					@endforeach
+					@endif
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					@foreach($fields as $field)
+					@if(isset($fields))
+					@foreach($fields as $spot)
 						<div class="pb-3 pt-3"> 
 						@component('card', [
-							'review_star' => 5,
-							'price'		  => $field->price,
-							'image_url'	  => asset('images/products/sports-3.jpg'),
-							'title'		  => $field->name,
-							'address'	  => $field->address,
-							'a_url'		  => url('field-detail').'/'.$field->id,
+							'review_star' => $spot->rating,
+							'price'		  => $spot->price,
+							'image_url'	  => $spot->cover_image,
+							'title'		  => $spot->name,
+							'address'	  => $spot->address,
+							'a_url'		  => route('field-detail', $spot->slug),
+							'spot_id'	  => $spot->id,
+							'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
 						])
 						@endcomponent
 						</div>
 					@endforeach
+					@endif
 				</div>
 			</div>
 		</div>

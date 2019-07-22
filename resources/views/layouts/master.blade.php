@@ -183,6 +183,36 @@
       firebase.initializeApp(firebaseConfig);
     </script>
 
+
+    <script type="text/javascript">
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+          }
+      });
+      $(document).ready(function () {
+        $('.fav-button').click(function () {  
+            $.ajax({
+               type:'POST',
+               url:'{{ route("set-favorit") }}',
+               data:{spot_id:$(this).attr('id'), current_value:$(this).attr('value')},
+               success:function(data){
+
+               }
+            });
+          if($(this).attr('value')=="false"){
+            $(this).removeClass('fa-heart-o');
+            $(this).addClass('fa-heart');
+            $(this).attr('value',"true");
+          }
+          else{
+            $(this).removeClass('fa-heart');
+            $(this).addClass('fa-heart-o');
+            $(this).attr('value',"false");
+          }
+        });
+      });
+    </script>
     <!-- MASTER SCRIPT -->
     @yield('master_script')
     </body>

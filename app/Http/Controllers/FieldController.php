@@ -47,17 +47,44 @@ class FieldController extends Controller
     public function favorit(Request $request){
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
-        $res = $client->request('POST', config('app.api_url')."/spots/get-favorite");
         $category_data = $client->request('GET', config('app.api_url')."/sports", [
         ]);
-
+        try {
+            $res = $client->request('POST', config('app.api_url')."/spots/get-favorite");
+        } catch (RequestException $e) {
+            return view('classimax.favorit')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data)->with('categories', json_decode($category_data->getBody())->data);
+        }
         return view('classimax.favorit')->with('fields', json_decode($res->getBody())->data)->with('categories', json_decode($category_data->getBody())->data);
+    }
+
+    public function set_favorit(Request $request){
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        // return $request->current_value;
+        if($request->current_value == "false"){
+            $res = $client->request('POST', config('app.api_url')."/spots/set-favorite", [
+                'form_params' => [
+                    'id' => $request->spot_id,
+                ]
+            ]);
+        }
+        else{
+            $res = $client->request('POST', config('app.api_url')."/spots/unset-favorite", [
+                'form_params' => [
+                    'id' => $request->spot_id,
+                ]
+            ]);
+        }
     }
 
     public function detail(Request $request){
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
-        $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
+        try {
+            $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
+        } catch (RequestException $e) {
+            return view('classimax.404');
+        }
         return view('classimax.detail')->with('detail', json_decode($res->getBody())->data);  
     }
 

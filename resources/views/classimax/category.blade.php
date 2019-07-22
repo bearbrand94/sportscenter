@@ -155,15 +155,17 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					@foreach($fields as $field)
+					@foreach($fields as $spot)
 						<div class="pb-3 pt-3"> 
 						@component('card', [
-							'review_star' => $field->rating,
-							'price'		  => $field->price,
-							'image_url'	  => $field->cover_image,
-							'title'		  => $field->name,
-							'address'	  => $field->address,
-							'a_url'		  => route('field-detail', $field->slug),
+							'review_star' => $spot->rating,
+							'price'		  => $spot->price,
+							'image_url'	  => $spot->cover_image,
+							'title'		  => $spot->name,
+							'address'	  => $spot->address,
+							'a_url'		  => route('field-detail', $spot->slug),
+							'spot_id'	  => $spot->id,
+							'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
 						])
 						@endcomponent
 						</div>
