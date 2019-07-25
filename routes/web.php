@@ -58,6 +58,13 @@ Route::group(['middleware' => ['initial_data']], function() {
 	//Favorit
 	Route::get('/favorit', 'FieldController@favorit')->name('favorit');
 	Route::post('ajax/set-favorit', 'FieldController@set_favorit')->name('set-favorit');
+
+	//Booking
+	Route::post('/booking/confirmation','BookingController@confirmation')->name('booking-confirmation');
+	Route::post('/booking/create','BookingController@create')->name('booking-create');
+
+	//Favorit
+	Route::get('/booking', 'BookingController@index')->name('booking-list');
 });
 //End Group
 
@@ -73,7 +80,6 @@ Route::get('/field', function () {
 Route::get('/field/detail/{slug}','FieldController@detail')->name('field-detail');
 Route::get('/field/detail/{slug}/court','FieldController@court')->name('select-court');
 
-Route::post('/booking/confirmation','BookingController@confirmation')->name('booking-confirmation');
 
 Route::get('/field/list', function () {
     return view('classimax.category');

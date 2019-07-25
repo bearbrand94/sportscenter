@@ -37,9 +37,15 @@
   .modal-header {
     background: white;
   }
-
-  .modal-body {
-    min-height: 80%;
+  
+  .modal-footer {
+    border-radius: 0;
+    width:100%;
+  }
+  
+  .fixed {
+    bottom:0px;
+    position:fixed;
   }
 </style>
 @endsection
@@ -49,7 +55,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm">
+    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -88,7 +94,7 @@
         </div>
       </div>
       <!-- Modal footer -->
-      <div class="modal-footer">
+      <div class="modal-footer fixed">
         <button type="submit" class="btn btn-block button-saraga">Simpan</button>
       </div>
     </form>
@@ -100,7 +106,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm">
+    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -139,7 +145,7 @@
         </div>
       </div>
       <!-- Modal footer -->
-      <div class="modal-footer">
+      <div class="modal-footer fixed">
         <button type="submit" class="btn btn-block button-saraga">Simpan</button>
       </div>
     </form>
@@ -151,7 +157,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm">
+    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -167,10 +173,10 @@
       </div>
     </nav>
     <!-- Modal body -->
-    <form method="POST" action="{{ route('change-password') }}">
+    <form method="POST" action="{{ route('change-password') }}" style="overflow-y: auto;">
       @csrf
       <div class="modal-body">
-        <div class="form-row pt-3">
+        <div class="form-row pt-4">
           <div class="form-group col-md-12">
             <label class="has-float-label">
               <input type="password" class="form-control" name="current_password">
@@ -199,9 +205,10 @@
             @endif
           </div>
         </div>
+        <div style="height: 700px;"></div>
       </div>
       <!-- Modal footer -->
-      <div class="modal-footer">
+      <div class="modal-footer fixed">
         <button type="submit" class="btn btn-block button-saraga">Simpan</button>
       </div>
     </form>
@@ -423,6 +430,16 @@
   @if ($errors->has('new_password'))
     $('#password_modal').modal('show');
   @endif
+    $(document).ready(function() {
+      var _originalSize = $(window).width() + $(window).height()
+      $(window).resize(function() {
+        if ($(window).width() + $(window).height() != _originalSize) {
+          $(".modal-footer").removeClass("fixed");
+        } else {
+          $(".modal-footer").addClass("fixed");
+        }
+      });
+    });
 </script>
 
 @endsection

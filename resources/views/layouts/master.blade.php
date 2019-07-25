@@ -138,13 +138,13 @@
     <script src="{{ asset('plugins/slick-carousel/slick/slick.min.js') }}"></script>
     <!-- <script src="{{ asset('plugins/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script> -->
     <script src="{{ asset('plugins/fancybox/jquery.fancybox.pack.js') }}"></script>
-    <script src="{{ asset('plugins/smoothscroll/SmoothScroll.min.js') }}"></script>
+    <!-- <script src="{{ asset('plugins/smoothscroll/SmoothScroll.min.js') }}"></script> -->
     <!-- google map -->
     <script src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places') }}"></script>
     <script src="{{ asset('plugins/google-map/gmap.js') }}"></script>
 
     <!-- Custom JS -->
-    <script src="{{ asset('js/script.js') }}"></script>
+    <!-- <script src="{{ asset('js/script.js') }}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- Jquery UI -->

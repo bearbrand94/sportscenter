@@ -72,7 +72,7 @@
                     <nav class="navbar fixed-bottom navbar-expand bg-light navigation d-lg-none">
                       <div class="container-fluid text-center">
                         <div class="col-xs-5ths navbot"><a href="{{ url('home') }}"><i class="fa fa-home fa-lg"></i><br>Home</a></div>
-                        <div class="col-xs-5ths navbot"><a href="#"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
+                        <div class="col-xs-5ths navbot"><a href="{{ route('booking-list') }}"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
                         <div class="col-xs-5ths navbot"><a href="#"><i class="fa fa-envelope fa-lg"></i><br>Inbox</a></div>
                         <div class="col-xs-5ths navbot"><a href="{{ url('favorit') }}"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
                         <div class="col-xs-5ths navbot"><a href="{{ url('profile') }}"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div>
@@ -88,6 +88,7 @@
     =============================-->
     @yield('content')
 @endsection
+</body>
 
 @section('master_script')
   @yield('script')

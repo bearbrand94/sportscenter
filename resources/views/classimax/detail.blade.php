@@ -59,11 +59,21 @@
             <i class="fa fa-share-alt fa-2x pull-right" style="color: white;"></i>
           </a>
         </div>
-
+        
         <div id="innerelements" class="shadow">
-          <i class="fa fa-heart fa-2x" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+          <a style="cursor: hand">
+            @if (isset($detail->spot->is_favorite))
+              @if ($detail->spot->is_favorite == true)
+              <i class="fav-button fa fa-heart fa-2x" id="{{$detail->spot->id}}" value="true" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+              @else
+              <i class="fav-button fa fa-heart-o fa-2x" id="{{$detail->spot->id}}" value="false" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+              @endif
+            @else
+            <i class="fav-button fa fa-heart fa-2x" id="{{$detail->spot->id}}" value="true" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+            @endif
+          </a>
         </div>
-
+        
         <div class="card-body" style="margin-top: -50px;">
           <h5 class="card-title text-truncate">{{$detail->spot->name}}</h5>
           <p class="card-text">Rp {{number_format($detail->spot->price,0)}} /Jam</p>

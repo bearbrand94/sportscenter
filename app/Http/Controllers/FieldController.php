@@ -22,6 +22,7 @@ class FieldController extends Controller
         $req_category = $client->request('GET', config('app.api_url')."/sports");
         $category_data = json_decode($req_category->getBody())->data;
 
+        $request->category = $request->category ? $request->category : 0;
         $request['category_name'] = $request->category ? $category_data[$request->category-1]->name : null;
         $field_data;
         try {

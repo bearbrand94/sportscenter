@@ -11,6 +11,10 @@
 		font-weight: bold;
 	}
 </style>
+    <script type="text/javascript"
+            src="{{ config('app.snap_url') }}/snap.js"
+            data-client-key="{{ config('app.client_key') }}"></script>
+
 @endsection
 
 @section('body')
@@ -107,7 +111,17 @@
 	        <p class="float-right" style="color: orange; font-size: 1.05rem; font-weight: bold;">Rp {{number_format($court->price*$input['duration'],0)}}</p>
 	      </div>
 		</div>
-		<button type="submit" class="btn btn-block button-saraga mb-4">Pilih Metode Pembayaran</button>
+		<button type="submit" class="btn btn-block button-saraga mb-4" id="pay-button">Pilih Metode Pembayaran</button>
+	    <script type="text/javascript">
+	      var payButton = document.getElementById('pay-button');
+	      payButton.addEventListener('click', function () {
+	        snap.pay('{{ $snapres->token }}', {
+			  onSuccess: function(result){window.location.replace("{{route('booking-list')}}")},
+			  onPending: function(result){window.location.replace("{{route('booking-list')}}")}
+	        });
+	      });
+	    </script>
+
     </div>
 </section>
 @endsection

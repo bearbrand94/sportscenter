@@ -4,36 +4,24 @@
 <style type="text/css">
 
 
-	.scrolling-wrapper {
-	  overflow-x: scroll;
-	  overflow-y: hidden;
-	  white-space: nowrap;
+	.nav-link{
+		color: grey;
 	}
-
-	.card p{
-	  white-space: initial;
-	  overflow: hidden;
-	}
-
-	.bg-button {
-	  border-radius: 0.5rem; 
-	  background-size: cover;
-	  background-repeat: no-repeat;
-	  color: white;
+	.nav-link.active{
+		color: var(--saraga-color) !important;
+		font-weight: bold;
 	}
 </style>
 @endsection
 
 @section('content')
 <nav class="navbar navbar-expand shadow-sm background-saraga">
-
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" style="color: white">  		
         	<b style="font-size: 20px;">
-			    Favorit
+			    Booking
         	</b>
   		</a>
       </li>
@@ -47,21 +35,14 @@
 @endif
 	@if(isset($fields))
     <div class="container">
-		<div class="row pt-3">
-			<div class="col-12">
-				<div class="scrolling-wrapper">
-					@foreach($categories as $category)
-					<a href="#">
-						<div class="card text-center mr-2" style="width: 8rem; border-style: none; display: inline-block;">
-						  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
-						    {{$category->name}}
-						  </div>
-						</div>
-					</a>
-					@endforeach
-				</div>
-			</div>
-		</div>
+		<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+		  <li class="nav-item">
+		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="active" aria-selected="true">Aktif</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Selesai</a>
+		  </li>
+		</ul>
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
@@ -88,7 +69,11 @@
     <div class="container h-100">
     	<div class="row align-items-center h-100">
     		<div class="mx-auto p-4">
-		      <img src="{{asset('/images/no-fav.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
+		      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
+		      <form method="POST" action="http://localhost/sportscenter/field/search">
+		      	@csrf
+		      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
+		      </form>
 		      <div class="p-4"></div>
 		  	</div>
 		</div>

@@ -179,6 +179,8 @@
 
 @section('master_script')
 	<script type="text/javascript">
-		$("#select-category").val("{{$requests['category']}}");
+		@if (isset($requests['category']))
+			$("#select-category").val("{{$requests['category']}}");
+		@endif
 	</script>
 @endsection
