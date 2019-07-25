@@ -70,7 +70,7 @@
     	<div class="row align-items-center h-100">
     		<div class="mx-auto p-4">
 		      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
-		      <form method="POST" action="http://localhost/sportscenter/field/search">
+		      <form method="POST" action="{{route('field-search')}}">
 		      	@csrf
 		      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
 		      </form>
