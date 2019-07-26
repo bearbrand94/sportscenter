@@ -60,7 +60,6 @@
 @section('body')
 
 <section>
-  <!-- <pre>{{print_r($detail->courts)}}</pre> -->
 
 @foreach($detail->courts as $field)
   <!-- The Modal -->
@@ -131,7 +130,7 @@
 
   <!-- Top Header -->
   <nav class="navbar navbar-expand shadow-sm sticky-top" style="background-color: white;">
-    <a class="navbar-brand" href="javascript:history.back()">
+    <a class="navbar-brand" href="{{ route('field-detail', $detail->spot->slug) }}">
       <i class="fa fa-arrow-left fa-lg text-saraga"></i>
     </a>
 

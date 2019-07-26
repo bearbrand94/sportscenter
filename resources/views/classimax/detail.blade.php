@@ -24,6 +24,11 @@
   .time-button{
     cursor:hand;
   }
+  .time-button.disabled{
+    border-color: rgb(209,209,209);
+    background-color: rgb(209,209,209);
+  }
+
   .date-button:hover, {
       outline: none !important;
       box-shadow: 0 0 10px #719ECE;   
@@ -130,6 +135,11 @@
     <div class="row mt-4">
       <div class="col-12 ml-1">
         <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
+        @if ($errors->has('input-date'))
+            <div class="alert alert-warning">
+                <strong>Pilih tanggal booking terlebih dahulu.</strong>
+            </div>
+        @endif
         <div class="row">
           @for($i=0; $i<3; $i++)
             <div class="text-center col-3 col-sm-2 p-2">
@@ -160,7 +170,14 @@
           </div>
         </div>
       </div>
+      <!-- Time button -->
       <div class="col-12 ml-1">
+        <!-- {{session('input-date')}} -->
+        @if ($errors->has('input-time'))
+            <div class="alert alert-warning">
+                <strong>Pilih waktu yang tersedia.</strong>
+            </div>
+        @endif
         <div class="row">
         @for($i=0; $i<16; $i++)
           <div class="text-center col-3 pt-2 pb-2">
@@ -181,7 +198,7 @@
     <div class="mt-2 mb-4">
       <form method="GET" action="{{ route('select-court', $detail->spot->slug) }}">
         
-        <input type="hidden" name="input-date" id="input-date" value="">
+        <input type="hidden" name="input-date" id="input-date" value="{{session('input-date')}}">
         <input type="hidden" name="input-time" id="input-time" value="">
         <input type="hidden" name="input-duration" id="input-duration" value="">
         @csrf
@@ -206,39 +223,58 @@
   var start_index =-1;
   var end_index =-1;
 
-  $(document).ready(function () {
-      $('.date-button').click(function () {
-          $('.date-button').removeClass('active');
-          $(this).addClass('active');
-          $("#input-date").val($(this).attr('value'));
+  $('.date-button').click(function () {
+    $('.date-button').removeClass('active');
+    $('.time-button').removeClass('active');
+    $(this).addClass('active');
+    $("#input-date").val($(this).attr('value'));
+
+    if($(this).attr('value') == "{{date('Y-m-d')}}"){
+      $('.time-button').each(function(i, obj) {
+        if({{date("H")}} >= $(obj).attr('time')){
+          console.log(obj);
+          $(obj).addClass('disabled');
+        }
       });
-      $('.time-button').click(function () {
-        $('.time-button').removeClass('active');
-        if(start_index == -1){
-          start_index = parseInt($(this).attr('index'));
-          $(this).addClass('active');
-          $("#input-time").val($(this).attr('time'));
+    }
+    else{
+      $('.time-button').removeClass('disabled');
+    }
+  });
+
+  $('.time-button').click(function () {
+    if(!$(this).hasClass("disabled")){
+      $('.time-button').removeClass('active');
+      if(start_index == -1){
+        start_index = parseInt($(this).attr('index'));
+        $(this).addClass('active');
+        $("#input-time").val($(this).attr('time'));
+      }
+      else{
+        end_index = parseInt($(this).attr('index'));
+        if(end_index > start_index){
+          for (var i = start_index; i <= end_index; i++) {
+            var id_name = "#time-button-" + i;
+            $(id_name).addClass('active');
+          }
+          $("#duration").html((end_index-start_index) + " Jam");
+          $("#input-duration").val((end_index-start_index));
+          start_index = -1;
         }
         else{
-          end_index = parseInt($(this).attr('index'));
-          if(end_index > start_index){
-            for (var i = start_index; i <= end_index; i++) {
-              var id_name = "#time-button-" + i;
-              $(id_name).addClass('active');
-            }
-            $("#duration").html((end_index-start_index) + " Jam");
-            $("#input-duration").val((end_index-start_index));
-            start_index = -1;
-          }
-          else{
-            start_index = parseInt($(this).attr('index'));
-          }
-          $(this).addClass('active');
+          start_index = parseInt($(this).attr('index'));
         }
-      });
-      $('#button-date-booking').click(function () {
-        flatpickr.open();
-      });
+        $(this).addClass('active');
+      }
+    }
+  });
+
+  $('#button-date-booking').click(function () {
+    flatpickr.open();
+  });
+
+  $(document).ready(function () {
+    autofill();
   }); 
 
   function check_data(){
@@ -250,6 +286,15 @@
 
   function select_field(field_id){
     // alert(field_id);
+  }
+
+  function autofill(){
+    $(".date-button").each(function(){
+      if($(this).attr('value') == "{{session('input-date')}}"){
+        $(this).click();
+      }
+    });
+    
   }
 </script>
 @endsection

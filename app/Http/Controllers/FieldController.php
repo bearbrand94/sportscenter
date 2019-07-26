@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use Validator;
 
 class FieldController extends Controller
 {
@@ -90,6 +91,13 @@ class FieldController extends Controller
     }
 
     public function court(Request $request){
+        session(['input-date'=>$request->input('input-date')]);
+        $validator = Validator::make($request->all(), [
+            'input-date' => 'required|date|after:yesterday',
+            'input-time' => 'required',
+            'input-duration' => 'required'
+        ])->validate();
+
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
