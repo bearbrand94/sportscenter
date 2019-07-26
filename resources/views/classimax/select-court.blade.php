@@ -130,7 +130,7 @@
 
   <!-- Top Header -->
   <nav class="navbar navbar-expand shadow-sm sticky-top" style="background-color: white;">
-    <a class="navbar-brand" href="{{ route('field-detail', $detail->spot->slug) }}">
+    <a class="navbar-brand" href="javascript:history.back()">
       <i class="fa fa-arrow-left fa-lg text-saraga"></i>
     </a>
 

@@ -74,7 +74,7 @@
               <i class="fav-button fa fa-heart-o fa-2x" id="{{$detail->spot->id}}" value="false" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
               @endif
             @else
-            <i class="fav-button fa fa-heart fa-2x" id="{{$detail->spot->id}}" value="true" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+            <i class="fav-button fa fa-heart-o fa-2x" id="{{$detail->spot->id}}" value="true" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
             @endif
           </a>
         </div>
@@ -135,11 +135,10 @@
     <div class="row mt-4">
       <div class="col-12 ml-1">
         <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
-        @if ($errors->has('input-date'))
-            <div class="alert alert-warning">
-                <strong>Pilih tanggal booking terlebih dahulu.</strong>
-            </div>
-        @endif
+        <div class="alert alert-warning" id="input-date-error" hidden>
+            <strong>Pilih tanggal booking terlebih dahulu.</strong>
+        </div>
+
         <div class="row">
           @for($i=0; $i<3; $i++)
             <div class="text-center col-3 col-sm-2 p-2">
@@ -173,11 +172,10 @@
       <!-- Time button -->
       <div class="col-12 ml-1">
         <!-- {{session('input-date')}} -->
-        @if ($errors->has('input-time'))
-            <div class="alert alert-warning">
-                <strong>Pilih waktu yang tersedia.</strong>
-            </div>
-        @endif
+        <div class="alert alert-warning" id="input-time-error" hidden>
+            <strong>Pilih waktu yang tersedia.</strong>
+        </div>
+
         <div class="row">
         @for($i=0; $i<16; $i++)
           <div class="text-center col-3 pt-2 pb-2">
@@ -196,7 +194,7 @@
       </div>
     </div>
     <div class="mt-2 mb-4">
-      <form method="GET" action="{{ route('select-court', $detail->spot->slug) }}">
+      <form method="GET" action="{{ route('select-court', $detail->spot->slug) }}" onsubmit="return checkform()">
         
         <input type="hidden" name="input-date" id="input-date" value="{{session('input-date')}}">
         <input type="hidden" name="input-time" id="input-time" value="">
@@ -294,7 +292,22 @@
         $(this).click();
       }
     });
-    
+  }
+
+  function checkform(){
+    if($("#input-date").val() == ""){
+      $("#input-date-error").removeAttr( "hidden" );
+      return false;
+    }
+    if($("#input-time").val() == ""){
+      $("#input-time-error").removeAttr( "hidden" );
+      return false;
+    }
+    if($("#input-duration").val() == ""){
+      $("#input-time-error").removeAttr( "hidden" );
+      return false;
+    }
+    return true;
   }
 </script>
 @endsection

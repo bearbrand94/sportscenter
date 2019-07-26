@@ -70,6 +70,7 @@ Route::group(['middleware' => ['initial_data']], function() {
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
+Route::get('/field/search','FieldController@search')->name('field-search');
 Route::post('/field/search','FieldController@search')->name('field-search');
 
 Route::get('/field', function () {
