@@ -64,7 +64,7 @@ Route::group(['middleware' => ['initial_data']], function() {
 	Route::post('/booking/create','BookingController@create')->name('booking-create');
 
 	//Favorit
-	Route::get('/booking', 'BookingController@index')->name('booking-list');
+	Route::get('/booking', 'BookingController@show')->name('booking-list');
 });
 //End Group
 

@@ -116,10 +116,20 @@
 	      var payButton = document.getElementById('pay-button');
 	      payButton.addEventListener('click', function () {
 	        snap.pay('{{ $snapres->token }}', {
-			  onSuccess: function(result){window.location.replace("{{route('booking-list')}}")},
-			  onPending: function(result){window.location.replace("{{route('booking-list')}}")}
+			  onSuccess: function(result){create_order(result)},
+			  onPending: function(result){create_order(result)}
 	        });
 	      });
+	      function create_order(result){
+			$.post("{{route('booking-create')}}",
+			{
+				data: result
+			},
+			function(data, status){
+				// console.log(data);
+				window.location.replace("{{route('booking-list')}}")
+			});
+	      }
 	    </script>
 
     </div>
