@@ -34,7 +34,7 @@
 					<p>{{session('auth_data')->telephone}}</p>
 					<p>{{session('auth_data')->email}}</p>
 				</div>
-				<div class="ml-auto pr-4">
+				<div class="ml-auto pr-1">
 					<a href="{{ route('edit-profile' )}}"><span><i class="fa fa-pencil fa-lg p-2 span-bordered" aria-hidden="true"></i></span></a>
 				</div>
 			</div>

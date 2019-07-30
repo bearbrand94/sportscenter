@@ -1,7 +1,4 @@
 @extends('layouts.app')
-<!-- <pre>
-	{{print_r($booking_list)}}
-</pre> -->
 @section('css')
 <style type="text/css">
 	#innerelements{
@@ -30,7 +27,7 @@
 		color: white;
 		padding: 0;
 		margin: 0;
-		font-size: 1.05rem;
+		font-size: 1rem;
 	}
 </style>
 @endsection
@@ -49,13 +46,13 @@
   	</ul>
   </div>
 </nav>
-@if(isset($booking_list))
+@if(isset($booking_list->active))
 <section class="border-top-1 bg-light">
 @else
 <section class="border-top-1">
 @endif
 
-@if(isset($booking_list))
+@if(isset($booking_list->active))
 	@if(count($booking_list->active))
     <div class="container pb-5">
 		<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
@@ -68,6 +65,7 @@
 		</ul>
 		<div class="tab-content">
 			<div id="active" class="tab-pane fade in active">
+				@if(isset($booking_list->active))
 				@foreach($booking_list->active as $booking)
 				<div class="row p-4">
 					<div class="card">
@@ -112,8 +110,10 @@
 					</div>
 				</div>
 				@endforeach
+				@endif
 			</div>
 			<div id="selesai" class="tab-pane fade">
+				@if(isset($booking_list->past))
 				@foreach($booking_list->past as $booking)
 				<div class="row p-4">
 					<div class="card">
@@ -158,10 +158,12 @@
 					</div>
 				</div>
 				@endforeach
+				@endif
 			</div>
 		</div>
     </div>
-    @else
+    @endif
+@else
     <div class="container h-100">
     	<div class="row align-items-center h-100">
     		<div class="mx-auto p-4">
@@ -174,7 +176,6 @@
 		  	</div>
 		</div>
     </div>
-    @endif
 @endif
 </section>
 
