@@ -62,19 +62,21 @@
     <div class="modal-content">
       <!-- Modal Header -->
 		<nav class="navbar navbar-expand shadow-sm">
-		  <a class="navbar-brand" href="#" data-dismiss="modal">
-		    <i class="fa fa-close fa-lg text-saraga"></i>
-		  </a>
+			<div class="container">
+			  <a class="navbar-brand" href="#" data-dismiss="modal">
+			    <i class="fa fa-close fa-lg text-saraga"></i>
+			  </a>
 
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto p-3">
-		      <li class="nav-item active">		
-		        	<b class="text-saraga" style="font-size: 22px;">
-					    Ubah Pencarian
-		        	</b>
-		      </li>
-		  	</ul>
-		  </div>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav mr-auto p-3">
+			      <li class="nav-item active">		
+			        	<b class="text-saraga" style="font-size: 22px;">
+						    Ubah Pencarian
+			        	</b>
+			      </li>
+			  	</ul>
+			  </div>
+			</div>
 		</nav>
 		<!-- Modal body -->
 		<form method="POST" action="{{ route('field-search') }}">
@@ -112,42 +114,44 @@
 </div>
 
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
-  <a class="navbar-brand" href="{{url('home')}}">
-    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
-  </a>
+	<div class="container">
+	  <a class="navbar-brand" href="{{url('home')}}">
+	    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+	  </a>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: white">  		
-        	<b style="font-size: 20px;">
-			    @if (empty($requests['category_name']))
-			      {{"Semua Kategori"}}
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" style="color: white">  		
+	        	<b style="font-size: 20px;">
+				    @if (empty($requests['category_name']))
+				      {{"Semua Kategori"}}
+				    @else
+				      {{$requests['category_name']}}
+				    @endif
+	        	</b>
+	        	<br>
+			    @if (empty($requests['keyword']))
+			      {{"Semua tempat"}}
 			    @else
-			      {{$requests['category_name']}}
-			    @endif
-        	</b>
-        	<br>
-		    @if (empty($requests['keyword']))
-		      {{"Semua tempat"}}
-		    @else
-		      {{$requests['keyword']}}
-	        @endif
-  			| 
-		    @if (empty($requests['search_date']))
-		      {{"Semua waktu"}}
-		    @else
-		      {{date("d F Y", strtotime($requests['search_date']))}}
-	        @endif
-  		</a>
-      </li>
-  	</ul>
-  	<a href="#" data-toggle="modal" data-target="#myModal">
-      <li class="nav-item form-inline my-2" style="font-size: 20px; color: white;">
-      	Ubah
-      </li>
-    </a>
-  </div>
+			      {{$requests['keyword']}}
+		        @endif
+	  			| 
+			    @if (empty($requests['search_date']))
+			      {{"Semua waktu"}}
+			    @else
+			      {{date("d F Y", strtotime($requests['search_date']))}}
+		        @endif
+	  		</a>
+	      </li>
+	  	</ul>
+	  	<a href="#" data-toggle="modal" data-target="#myModal">
+	      <li class="nav-item form-inline my-2" style="font-size: 20px; color: white;">
+	      	Ubah
+	      </li>
+	    </a>
+	  </div>
+	</div>
 </nav>
 
 <section class="border-top-1 bg-light">

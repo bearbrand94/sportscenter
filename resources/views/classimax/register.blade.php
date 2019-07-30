@@ -2,9 +2,11 @@
 
 @section('body')
 <nav class="navbar navbar-light shadow-sm p-3">
-  <a class="navbar-brand" href="{{ route('login') }}">
-    <i class="fa fa-arrow-left fa-lg" style="padding-right: 30px;"></i>Daftar
-  </a>
+  <div class="container">
+    <a class="navbar-brand" href="{{ route('login') }}">
+      <i class="fa fa-arrow-left fa-lg" style="padding-right: 30px;"></i>Daftar
+    </a>
+  </div>
 </nav>
 <section class="login py-5 border-top-1">
     <div class="container">

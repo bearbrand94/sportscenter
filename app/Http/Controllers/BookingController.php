@@ -39,16 +39,6 @@ class BookingController extends Controller
         $customer->email = $auth_user->email;
         $customer->phone = $auth_user->telephone;
 
-        session([
-            'booking_data'=>json_encode([
-                'spot'        => $spot,
-                'court'       => $court,
-                'input'       => $request->all(),
-                'customer'    => $customer,
-                'transaction' => $transaction
-            ])
-        ]);
-
         $client = new Client();
         $snapres = $client->request('POST', config('app.snap_url')."/v1/transactions", [
             'headers' => [
@@ -60,6 +50,17 @@ class BookingController extends Controller
                 'transaction_details' => $transaction,
                 'customer_details' => $customer
             ]
+        ]);
+
+        session([
+            'booking_data'=>json_encode([
+                'spot'        => $spot,
+                'court'       => $court,
+                'input'       => $request->all(),
+                'customer'    => $customer,
+                'transaction' => $transaction,
+                'snapres'     => json_decode($snapres->getBody())
+            ])
         ]);
         // return $snapres->getBody();
         return view('classimax.booking-confirmation')->with('spot', $spot)->with('court', $court)->with('input', $request->all())->with('snapres', json_decode($snapres->getBody()));  
@@ -75,7 +76,9 @@ class BookingController extends Controller
                     'id'            => $booking_data->transaction->order_id,
                     'court_id'      => $booking_data->court->id,
                     'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
-                    'duration'      => $booking_data->input->duration
+                    'duration'      => $booking_data->input->duration,
+                    'token'         => $booking_data->snapres->token,
+                    'pdf_url'       => $request->data['pdf_url']
                 ]
             ]);
             return $res->getBody();

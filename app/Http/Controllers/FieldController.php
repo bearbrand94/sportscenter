@@ -100,7 +100,11 @@ class FieldController extends Controller
 
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
-        $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
+        try {
+            $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
+        } catch (RequestException $e) {
+            return view('classimax.404');
+        }
         $detail = json_decode($res->getBody())->data;
 
         //modify timeslots data from API. add timeslots status.

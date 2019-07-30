@@ -19,20 +19,22 @@
 
 @section('body')
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
-  <a class="navbar-brand" href="javascript:history.back()">
-    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
-  </a>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: white">  		
-        	<b style="font-size: 20px;">
-			    Konfirmasi Booking
-        	</b>
-  		</a>
-      </li>
-  	</ul>
-  </div>
+	<div class="container">
+	  <a class="navbar-brand" href="javascript:history.back()">
+	    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+	  </a>
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" style="color: white">  		
+	        	<b style="font-size: 20px;">
+				    Konfirmasi Booking
+	        	</b>
+	  		</a>
+	      </li>
+	  	</ul>
+	  </div>
+	</div>
 </nav>
 
 <section class="border-top-1">
@@ -126,7 +128,7 @@
 				data: result
 			},
 			function(data, status){
-				// console.log(data);
+				console.log(data);
 				window.location.replace("{{route('booking-list')}}")
 			});
 	      }

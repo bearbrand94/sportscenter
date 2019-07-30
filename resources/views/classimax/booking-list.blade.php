@@ -35,7 +35,7 @@
 
 @section('content')
 <nav class="navbar navbar-expand shadow-sm background-saraga">
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" style="color: white">  		
@@ -53,6 +53,7 @@
 <section class="border-top-1">
 @endif
 	@if(isset($booking_list))
+	@if(count($booking_list))
     <div class="container pb-5">
 		<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
 		  <li class="nav-item">
@@ -66,7 +67,7 @@
 			@foreach($booking_list as $booking)
 			<div class="row p-4">
 				<div class="card">
-				  	<a href="#">
+				  	<a href="{{$booking->pdf_url}}">
 				    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
 				  	</a>
 					<div id="innerelements" class="shadow">
@@ -124,6 +125,7 @@
 		  	</div>
 		</div>
     </div>
+    @endif
     @endif
 </section>
 @endsection
