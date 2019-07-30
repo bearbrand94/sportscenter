@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+<!-- <pre>
+	{{print_r($booking_list)}}
+</pre> -->
 @section('css')
 <style type="text/css">
 	#innerelements{
@@ -52,64 +54,111 @@
 @else
 <section class="border-top-1">
 @endif
-	@if(isset($booking_list))
-	@if(count($booking_list))
+
+@if(isset($booking_list))
+	@if(count($booking_list->active))
     <div class="container pb-5">
 		<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
-		  <li class="nav-item">
-		    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="active" aria-selected="true">Aktif</a>
+		  <li class="nav-item active">
+		    <a class="nav-link" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Aktif</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Selesai</a>
+		    <a class="nav-link" id="selesai-tab" data-toggle="tab" href="#selesai" role="tab" aria-controls="selesai" aria-selected="false">Selesai</a>
 		  </li>
 		</ul>
-		<div id="active">
-			@foreach($booking_list as $booking)
-			<div class="row p-4">
-				<div class="card">
-				  	<a href="{{$booking->pdf_url}}">
-				    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
-				  	</a>
-					<div id="innerelements" class="shadow">
-
-					    <i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i>
-
-					</div>
-					<div class="card-body">
-					    <h5 class="card-title text-truncate pt-3" style="margin-top:-50px;">{{$booking->court->name}}</h5>
-					    <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$booking->court->type}}</span>
-					    
-					    <p class="card-text">
-					    	<div class="d-inline-block" style="font-size: 1.05rem">
-					    		<div class="text-muted mb-2">Hari dan Tanggal</div>
-					    		<div style="font-weight: bold">
-					      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
-				        			{{ date("D, j M Y", strtotime($booking->order_date)) }}
-				        		</div>
-					    	</div>
-					    	<div class="d-inline-block pl-4">
-					    		<div class="text-muted mb-2">Jam</div>
-					    		<div style="font-weight: bold">
-					      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-				        			{{ date("H:i", strtotime($booking->order_date)) }}
-				        		</div>
-					    	</div>
-					    	<div class="d-inline-block pl-4">
-					    		<div class="text-muted mb-2">Durasi</div>
-					    		<div style="font-weight: bold">
-					      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-				        			{{ $booking->duration }} Jam
-				        		</div>
-					    	</div>
-					    </p>
-					</div>
-					<div class="card-footer p">
-					  	<p class="d-inline-block">Konfirmasi Pembayaran Sebelum</p>
-					  	<p class="d-inline-block pull-right payment-time" time="{{ date('d-M-Y H:i:s', strtotime($booking->created_at . '+2 days')) }}">Waiting..</p>
+		<div class="tab-content">
+			<div id="active" class="tab-pane fade in active">
+				@foreach($booking_list->active as $booking)
+				<div class="row p-4">
+					<div class="card">
+					  	<a href="{{$booking->pdf_url}}">
+					    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
+					  	</a>
+						<div id="innerelements" class="shadow">
+						    <i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i>
+						</div>
+						<div class="card-body">
+						    <h5 class="card-title text-truncate pt-3" style="margin-top:-50px;">{{$booking->court->name}}</h5>
+						    <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$booking->court->type}}</span>
+						    
+						    <p class="card-text">
+						    	<div class="d-inline-block" style="font-size: 1.05rem">
+						    		<div class="text-muted mb-2">Hari dan Tanggal</div>
+						    		<div style="font-weight: bold">
+						      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
+					        			{{ date("D, j M Y", strtotime($booking->order_date)) }}
+					        		</div>
+						    	</div>
+						    	<div class="d-inline-block pl-4">
+						    		<div class="text-muted mb-2">Jam</div>
+						    		<div style="font-weight: bold">
+						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
+					        			{{ date("H:i", strtotime($booking->order_date)) }}
+					        		</div>
+						    	</div>
+						    	<div class="d-inline-block pl-4">
+						    		<div class="text-muted mb-2">Durasi</div>
+						    		<div style="font-weight: bold">
+						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
+					        			{{ $booking->duration }} Jam
+					        		</div>
+						    	</div>
+						    </p>
+						</div>
+						<div class="card-footer p">
+						  	<p class="d-inline-block">Konfirmasi Pembayaran Sebelum</p>
+						  	<p class="d-inline-block pull-right payment-time" time="{{ date('d-M-Y H:i:s', strtotime($booking->order_date)) }}">Waiting..</p>
+						</div>
 					</div>
 				</div>
+				@endforeach
 			</div>
-			@endforeach
+			<div id="selesai" class="tab-pane fade">
+				@foreach($booking_list->past as $booking)
+				<div class="row p-4">
+					<div class="card">
+					  	<a href="{{$booking->pdf_url}}">
+					    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
+					  	</a>
+						<div id="innerelements" class="shadow">
+						    <i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i>
+						</div>
+						<div class="card-body">
+						    <h5 class="card-title text-truncate pt-3" style="margin-top:-50px;">{{$booking->court->name}}</h5>
+						    <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$booking->court->type}}</span>
+						    
+						    <p class="card-text">
+						    	<div class="d-inline-block" style="font-size: 1.05rem">
+						    		<div class="text-muted mb-2">Hari dan Tanggal</div>
+						    		<div style="font-weight: bold">
+						      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
+					        			{{ date("D, j M Y", strtotime($booking->order_date)) }}
+					        		</div>
+						    	</div>
+						    	<div class="d-inline-block pl-4">
+						    		<div class="text-muted mb-2">Jam</div>
+						    		<div style="font-weight: bold">
+						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
+					        			{{ date("H:i", strtotime($booking->order_date)) }}
+					        		</div>
+						    	</div>
+						    	<div class="d-inline-block pl-4">
+						    		<div class="text-muted mb-2">Durasi</div>
+						    		<div style="font-weight: bold">
+						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
+					        			{{ $booking->duration }} Jam
+					        		</div>
+						    	</div>
+						    </p>
+						</div>
+						<div class="card-footer p">
+						  	<p class="d-inline-block">Konfirmasi Pembayaran Sebelum</p>
+						  	<p class="d-inline-block pull-right payment-time" time="{{ date('d-M-Y H:i:s', strtotime($booking->order_date)) }}">Waiting..</p>
+						</div>
+					</div>
+				</div>
+				@endforeach
+			</div>
 		</div>
     </div>
     @else
@@ -126,8 +175,9 @@
 		</div>
     </div>
     @endif
-    @endif
+@endif
 </section>
+
 @endsection
 
 @section('script')
@@ -145,19 +195,24 @@
 		  var distance = countDownDate - now;
 
 		  // Time calculations for hours, minutes and seconds
+	      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
 		  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 		  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 		  // Display the result in the element with id="demo"
-		  $(this).html(hours + "h " + minutes + "m " + seconds + "s ");
+		  $(this).html((hours+days*24) + "h " + minutes + "m " + seconds + "s ");
 
 		  // If the count down is finished, write some text 
 		  if (distance < 0) {
-		    clearInterval(x);
+		    // clearInterval(x);
 		    $(this).html("EXPIRED");
+		    $(this).parent( ".card-footer" ).css( "background-color", "red" );
 		  }
 		});
 	}, 1000);
+	$(document).ready(function(){
+	   $('#active-tab').trigger("click"); 
+	});
 </script>
 @endsection

@@ -33,11 +33,18 @@ class BookingController extends Controller
         $transaction->order_id = "BASIC-".str_random(8);
         $transaction->gross_amount = $court->price*$request->duration;
 
-        $customer=new class{};
-        $auth_user = session('auth_data');
+        $customer        = new class{};
+        $auth_user       = session('auth_data');
         $customer->first_name = $auth_user->name;
         $customer->email = $auth_user->email;
         $customer->phone = $auth_user->telephone;
+
+        $expiry             = new class{};
+        $expiry->start_time = date("Y-m-d H:i:s O");
+        $end_time           = date("Y-m-d H:i:s O", strtotime($request->input_date." ".$request->input_time.":00:00"));
+        $duration           = strtotime ( $end_time ) - strtotime ( $expiry->start_time );
+        $expiry->duration   = $duration;
+        $expiry->unit       = "second";
 
         $client = new Client();
         $snapres = $client->request('POST', config('app.snap_url')."/v1/transactions", [
@@ -48,7 +55,8 @@ class BookingController extends Controller
             ],
             'json' => [
                 'transaction_details' => $transaction,
-                'customer_details' => $customer
+                'customer_details'    => $customer,
+                'expiry'              => $expiry
             ]
         ]);
 
@@ -63,6 +71,7 @@ class BookingController extends Controller
             ])
         ]);
         // return $snapres->getBody();
+
         return view('classimax.booking-confirmation')->with('spot', $spot)->with('court', $court)->with('input', $request->all())->with('snapres', json_decode($snapres->getBody()));  
     }
 
@@ -91,11 +100,25 @@ class BookingController extends Controller
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         try {
-            $res = $client->request('GET', config('app.api_url')."/order?sort=desc");
+            $res = $client->request('GET', config('app.api_url')."/order?sort=asc");
         } catch (RequestException $e) {
             // return $e;
             return view('classimax.booking-list')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
         }
-        return view('classimax.booking-list')->with('booking_list', json_decode($res->getBody())->data);
+
+        $res_booking = json_decode($res->getBody())->data;
+        $booking_list = new Class{};
+
+
+        foreach ($res_booking as $booking) {
+            $duration = strtotime ( $booking->order_date ) - strtotime ('now');
+            if($duration < 0){
+                $booking_list->past[] = $booking;
+            }
+            else{
+                $booking_list->active[] = $booking;
+            }
+        }
+        return view('classimax.booking-list')->with('booking_list', $booking_list);
     }
 }
