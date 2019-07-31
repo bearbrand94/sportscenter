@@ -31,13 +31,14 @@ class FieldController extends Controller
 	            'form_params' => [
 	                'sport_id' => $request->category,
 	                'date' => $request->search_date,
-	                'text' => $request->keyword
+	                'text' => $request->keyword,
+                    'page' => $request->page ? $request->page : 1
 	            ]
 	        ]);
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$body = $res->getBody();
 				$field_data = json_decode($body)->data;
-				$paginate_links = json_decode($body)->links;
+				$paginate_links = json_decode($body)->meta;
 			}
 		} catch (RequestException $e) {
 		    return $e;

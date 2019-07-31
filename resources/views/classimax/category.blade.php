@@ -79,8 +79,7 @@
 			</div>
 		</nav>
 		<!-- Modal body -->
-		<form method="POST" action="{{ route('field-search') }}">
-			@csrf
+		<form method="GET" action="{{ route('field-search') }}">
 			<div class="modal-body">
 				<div class="form-row pt-3">
 					<div class="form-group col-md-12">
@@ -176,6 +175,42 @@
 					@endforeach
 				</div>
 			</div>
+		</div>
+		<?php 
+			$next5 = ($links->current_page+5) > $links->last_page ? $links->last_page : $links->current_page+5; 
+			$next = ($links->current_page+1) > $links->last_page ? $links->last_page : $links->current_page+1; 
+			$prev5 = ($links->current_page-5) < 1 ? 1 : $links->current_page-5; 
+			$prev = ($links->current_page-1) < 1 ? 1 : $links->current_page-1; 
+		?>
+		<div class="row mb-5">
+			<nav class="col-12">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$prev5}}">&laquo;</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$prev}}">&lsaquo;</a>
+			    </li>
+			    @for($i=1; $i <= $links->last_page; $i++)
+			    	@if($i==$links->current_page)
+					    <li class="page-item active">
+					      <span class="page-link">
+					        {{$links->current_page}}
+					        <span class="sr-only">(current)</span>
+					      </span>
+					    </li>
+			    	@else
+			    		<li class="page-item"><a class="page-link" href="{{url()->full().'&page='.$i}}">{{$i}}</a></li>
+			    	@endif
+			    @endfor
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$next}}">&rsaquo;</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$next5}}">&raquo;</a>
+			    </li>
+			  </ul>
+			</nav>
 		</div>
     </div>
 </section>

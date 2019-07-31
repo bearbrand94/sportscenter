@@ -64,8 +64,7 @@
 					<div class="container">
 						<div class="row justify-content-center">
 							<div class="col-12 align-content-center">
-								<form method="POST" action="{{ route('field-search') }}">
-									@csrf
+								<form method="GET" action="{{ route('field-search') }}">
 									<div class="form-row">
 										<div class="form-group col-md-12">
 											<label class="has-float-label"> 

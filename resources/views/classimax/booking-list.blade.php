@@ -46,15 +46,9 @@
   	</ul>
   </div>
 </nav>
-@if(isset($booking_list->active))
-<section class="border-top-1 bg-light">
-@else
-<section class="border-top-1">
-@endif
 
-@if(isset($booking_list->active))
-	@if(count($booking_list->active))
-    <div class="container pb-5">
+<section class="border-top-1 bg-light">
+    <div class="pb-5">
 		<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
 		  <li class="nav-item active">
 		    <a class="nav-link" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Aktif</a>
@@ -63,11 +57,11 @@
 		    <a class="nav-link" id="selesai-tab" data-toggle="tab" href="#selesai" role="tab" aria-controls="selesai" aria-selected="false">Selesai</a>
 		  </li>
 		</ul>
-		<div class="tab-content">
+		<div class="tab-content container">
 			<div id="active" class="tab-pane fade in active">
 				@if(isset($booking_list->active))
 				@foreach($booking_list->active as $booking)
-				<div class="row p-4">
+				<div class="row p-3">
 					<div class="card">
 					  	<a href="{{$booking->pdf_url}}">
 					    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
@@ -80,21 +74,21 @@
 						    <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$booking->court->type}}</span>
 						    
 						    <p class="card-text">
-						    	<div class="d-inline-block" style="font-size: 1.05rem">
+						    	<div class="d-inline-block mr-4 mb-2">
 						    		<div class="text-muted mb-2">Hari dan Tanggal</div>
 						    		<div style="font-weight: bold">
 						      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
 					        			{{ date("D, j M Y", strtotime($booking->order_date)) }}
 					        		</div>
 						    	</div>
-						    	<div class="d-inline-block pl-4">
+						    	<div class="d-inline-block mr-4 mb-2">
 						    		<div class="text-muted mb-2">Jam</div>
 						    		<div style="font-weight: bold">
 						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
 					        			{{ date("H:i", strtotime($booking->order_date)) }}
 					        		</div>
 						    	</div>
-						    	<div class="d-inline-block pl-4">
+						    	<div class="d-inline-block">
 						    		<div class="text-muted mb-2">Durasi</div>
 						    		<div style="font-weight: bold">
 						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
@@ -110,12 +104,25 @@
 					</div>
 				</div>
 				@endforeach
+				@else
+			    <div class="container h-100">
+			    	<div class="row align-items-center h-100">
+			    		<div class="mx-auto p-4">
+					      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
+					      <form method="POST" action="{{route('field-search')}}">
+					      	@csrf
+					      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
+					      </form>
+					      <div class="p-4"></div>
+					  	</div>
+					</div>
+			    </div>
 				@endif
 			</div>
 			<div id="selesai" class="tab-pane fade">
 				@if(isset($booking_list->past))
 				@foreach($booking_list->past as $booking)
-				<div class="row p-4">
+				<div class="row p-3">
 					<div class="card">
 					  	<a href="{{$booking->pdf_url}}">
 					    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
@@ -128,21 +135,21 @@
 						    <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$booking->court->type}}</span>
 						    
 						    <p class="card-text">
-						    	<div class="d-inline-block" style="font-size: 1.05rem">
+						    	<div class="d-inline-block mr-4 mb-2">
 						    		<div class="text-muted mb-2">Hari dan Tanggal</div>
 						    		<div style="font-weight: bold">
 						      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
 					        			{{ date("D, j M Y", strtotime($booking->order_date)) }}
 					        		</div>
 						    	</div>
-						    	<div class="d-inline-block pl-4">
+						    	<div class="d-inline-block mr-4 mb-2">
 						    		<div class="text-muted mb-2">Jam</div>
 						    		<div style="font-weight: bold">
 						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
 					        			{{ date("H:i", strtotime($booking->order_date)) }}
 					        		</div>
 						    	</div>
-						    	<div class="d-inline-block pl-4">
+						    	<div class="d-inline-block">
 						    		<div class="text-muted mb-2">Durasi</div>
 						    		<div style="font-weight: bold">
 						      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
@@ -158,25 +165,20 @@
 					</div>
 				</div>
 				@endforeach
+				@else
+			    <div class="container h-100">
+			    	<div class="row align-items-center h-100">
+			    		<div class="mx-auto p-4">
+					      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
+					      <div class="p-4"></div>
+					  	</div>
+					</div>
+			    </div>
 				@endif
 			</div>
 		</div>
     </div>
-    @endif
-@else
-    <div class="container h-100">
-    	<div class="row align-items-center h-100">
-    		<div class="mx-auto p-4">
-		      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
-		      <form method="POST" action="{{route('field-search')}}">
-		      	@csrf
-		      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
-		      </form>
-		      <div class="p-4"></div>
-		  	</div>
-		</div>
-    </div>
-@endif
+<div class="pb-5"></div>
 </section>
 
 @endsection
