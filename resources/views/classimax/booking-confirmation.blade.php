@@ -87,11 +87,22 @@
 	        <p class="float-right" style="color: black; font-weight: bold;"><del class="mr-2 text-muted" style=" font-weight: normal; font-size: 0.8rem;">Rp 300.000</del>Rp {{number_format($court->price,0)}}</p>
 	      </div>
 		</div>
+
 		<p class="mb-2 mt-4" style="font-weight: bold; color: black; font-size: 1.1rem;">Tipe Pembayaran</p>
 		<p style="color: black; font-size: 1rem;">Full Payment</p>
 
 		<p class="mb-2 mt-4" style="font-weight: bold; color: black; font-size: 1.1rem;">Voucher</p>
-		<input type="text" class="form-control pt-0" name="voucher" placeholder="Punya kode voucher atau promo">
+		<div class="form-inline">
+			<input type="text" class="form-control col-9" name="voucher" placeholder="Punya kode voucher atau promo" id="voucher">
+			<button class="btn btn-primary col-3" id="apply">Apply</button>
+		</div>
+        <div class="alert alert-danger" id="promo-error" style="display: none;">
+            <strong>Promo Invalid</strong>
+        </div>
+        <div class="alert alert-success" id="promo-success" style="display: none;">
+            <strong>Yay! You can use this promo code!</strong>
+        </div>
+
         <hr class="my-4">
     	<h4>Rincian Pembayaran</h4>
     	<hr class="my-4">
@@ -107,36 +118,77 @@
 	        <p class="float-right" style="color: black;">Rp {{number_format($court->price*$input['duration'],0)}}</p>
 	      </div>
 		</div>
+		<div class="row" id="discount" style="display: none;">
+	      <div class="col-12 clearfix">
+	        <p class="float-left" style="color: black;">Discount</p>
+	        <p class="float-right" style="color: black;" id="discount-html"></p>
+	      </div>
+		</div>
 		<div class="row mt-4">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
-	        <p class="float-right" style="color: orange; font-size: 1.05rem; font-weight: bold;">Rp {{number_format($court->price*$input['duration'],0)}}</p>
+	        <p class="float-right" style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($court->price*$input['duration'],0)}}</p>
 	      </div>
 		</div>
-		<button type="submit" class="btn btn-block button-saraga mb-4" id="pay-button">Pilih Metode Pembayaran</button>
+		<button type="button" class="btn btn-block button-saraga mb-4" onclick="select_payment()">Pilih Metode Pembayaran</button>
 	    <script type="text/javascript">
-	      var payButton = document.getElementById('pay-button');
-	      payButton.addEventListener('click', function () {
-	        snap.pay('{{ $snapres->token }}', {
-			  onSuccess: function(result){create_order(result)},
-			  onPending: function(result){create_order(result)}
-	        });
-	      });
-	      function create_order(result){
-			$.post("{{route('booking-create')}}",
-			{
-				data: result
-			},
-			function(data, status){
-				console.log(data);
-				window.location.replace("{{route('booking-list')}}")
-			});
-	      }
 	    </script>
-
     </div>
 </section>
 @endsection
 
 @section('master_script')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#apply").click(function() {
+		$.post("{{route('apply-coupon')}}",
+		{
+			_token: "{{ csrf_token() }}",
+			code: $("#voucher").val()
+		},
+		function(data, status){
+			if(data.status=="true"){
+			  	$("#promo-success").css("display", "block");
+			  	$("#promo-error").css("display", "none");
+			  	console.log(data.data.discount);
+			  	$("#discount").css("display", "block");
+			  	$("#discount-html").html("Rp " + number_format(data.data.discount));
+			  	$("#grand-total-html").html("Rp " + number_format(data.data.grand_total));
+			}
+			else{
+			  	$("#promo-success").css("display", "none");
+			  	$("#promo-error").css("display", "block");
+			  	$("#discount").css("display", "none");
+			  	$("#grand-total-html").html("Rp {{number_format($court->price*$input['duration'],0)}}");
+			}			
+		});
+  	});
+  });	
+  function create_order(result){
+	$.post("{{route('booking-create')}}",
+	{
+		data: result
+	},
+	function(data, status){
+		console.log(data);
+	});
+  };
+  function select_payment(){
+	$.post("{{route('booking-snap')}}",
+	{
+		_token: "{{ csrf_token() }}",
+		code: $("#voucher").val()
+	},
+	function(data, status){
+		// console.log(data);
+		// console.log(status);
+
+		if(status=="success"){
+			var d = JSON.parse(data)
+			// console.log(d.redirect_url);
+			window.location.href = d.redirect_url;
+		}
+	});
+  }
+</script>
 @endsection

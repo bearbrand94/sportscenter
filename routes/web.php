@@ -30,7 +30,11 @@ Route::post('/register','LoginController@register')->name('register');
 //End Login
 
 Route::group(['middleware' => ['api']], function() {
-
+	//Midtrans
+	Route::post('/midtrans/notification/handling', 'MidtransController@notification');
+	Route::post('/midtrans/finish', 'MidtransController@finish');
+	Route::post('/midtrans/unfinish', 'MidtransController@unfinish');
+	Route::post('/midtrans/error', 'MidtransController@error');
 });
 
 //Group Must Logged In.
@@ -61,13 +65,15 @@ Route::group(['middleware' => ['initial_data']], function() {
 
 	//Booking
 	Route::post('/booking/confirmation','BookingController@confirmation')->name('booking-confirmation');
+	
 	Route::post('/booking/create','BookingController@create')->name('booking-create');
-
-	//Favorit
 	Route::get('/booking', 'BookingController@show')->name('booking-list');
+	Route::post('/booking', 'BookingController@show')->name('booking-list');
+
 });
 //End Group
-
+Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
+Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
 Route::get('/field/search','FieldController@search')->name('field-search');
@@ -87,7 +93,6 @@ Route::get('/field/list', function () {
 Route::get('/my-order', function () {
     return view('classimax.dashboard-my-order');
 });
-
 
 
 

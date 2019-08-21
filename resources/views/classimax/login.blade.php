@@ -4,7 +4,10 @@
 
 <section class="login py-5 border-top-1">
     <div class="container">
-      <img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap">
+      <i class="fa fa-close fa-2x pl-3 text-saraga" onclick="window.history.back();"></i>
+      <div class="text-center">
+        <img class="card-img-top pb-5" src="{{ asset('images/saraga.png') }}" alt="Card image cap" style="width: 300px;">
+      </div>
       <form method="POST" action="{{ route('email-login') }}">
         @csrf
         <br>

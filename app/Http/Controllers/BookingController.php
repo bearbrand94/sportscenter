@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Cookie\CookieJarInterface;
+use GuzzleHttp\Cookie\SessionCookieJar;
 
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -29,9 +30,69 @@ class BookingController extends Controller
 		    return $value->id==$request->court_id;
 		});
 
+        session([
+            'booking_data'=>json_encode([
+                'spot'        => $spot,
+                'court'       => $court,
+                'input'       => $request->all(),
+            ])
+        ]);
+
+        return view('classimax.booking-confirmation')->with('spot', $spot)->with('court', $court)->with('input', $request->all());  
+    }
+
+    public function apply_coupon(Request $request){
+        $booking_data = json_decode(session('booking_data'));
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        try {
+            $res = $client->request('POST', config('app.api_url')."/order/apply", [
+                'form_params' => [
+                    'court_id'      => $booking_data->court->id,
+                    'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
+                    'duration'      => $booking_data->input->duration,
+                    'code'          => $request->code,
+                ]
+            ]);
+            $res_data = json_decode($res->getBody())->data;
+            if(json_decode($res->getBody())->status_code=="200"){
+                return response()->json([
+                        'status' => 'true',
+                        'data'  => $res_data
+                    ]);
+            }
+            else{
+                return response()->json([
+                        'status' => 'false',
+                        'errors'  => 'Promo Invalid',
+                    ]);
+            }
+        } catch (RequestException $e) {
+            return response()->json([
+                    'status' => 'false',
+                    'errors'  => 'Promo Invalid',
+                ]);
+        }        
+    }
+
+    public function get_snap_url(Request $request){
+        $booking_data = json_decode(session('booking_data'));
+        // return print_r($booking_data);
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        $res = $client->request('POST', config('app.api_url')."/order/apply", [
+            'form_params' => [
+                'court_id'      => $booking_data->court->id,
+                'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
+                'duration'      => $booking_data->input->duration,
+                'code'          => $request->code ? $request->code : null,
+            ]
+        ]);
+        $res_data = json_decode($res->getBody())->data;
+
         $transaction = new class{};
         $transaction->order_id = "BASIC-".str_random(8);
-        $transaction->gross_amount = $court->price*$request->duration;
+        $transaction->gross_amount = $res_data->grand_total;
 
         $customer        = new class{};
         $auth_user       = session('auth_data');
@@ -41,7 +102,7 @@ class BookingController extends Controller
 
         $expiry             = new class{};
         $expiry->start_time = date("Y-m-d H:i:s O");
-        $end_time           = date("Y-m-d H:i:s O", strtotime($request->input_date." ".$request->input_time.":00:00"));
+        $end_time           = date("Y-m-d H:i:s O", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00"));
         $duration           = strtotime ( $end_time ) - strtotime ( $expiry->start_time );
         $expiry->duration   = $duration;
         $expiry->unit       = "second";
@@ -59,20 +120,7 @@ class BookingController extends Controller
                 'expiry'              => $expiry
             ]
         ]);
-
-        session([
-            'booking_data'=>json_encode([
-                'spot'        => $spot,
-                'court'       => $court,
-                'input'       => $request->all(),
-                'customer'    => $customer,
-                'transaction' => $transaction,
-                'snapres'     => json_decode($snapres->getBody())
-            ])
-        ]);
-        // return $snapres->getBody();
-
-        return view('classimax.booking-confirmation')->with('spot', $spot)->with('court', $court)->with('input', $request->all())->with('snapres', json_decode($snapres->getBody()));  
+        return $snapres->getBody();
     }
 
     public function create(Request $request){
@@ -87,7 +135,7 @@ class BookingController extends Controller
                     'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
                     'duration'      => $booking_data->input->duration,
                     'token'         => $booking_data->snapres->token,
-                    'pdf_url'       => $request->data['pdf_url']
+                    // 'pdf_url'       => $request->data['pdf_url']
                 ]
             ]);
             return $res->getBody();

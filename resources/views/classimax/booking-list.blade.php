@@ -63,7 +63,11 @@
 				@foreach($booking_list->active as $booking)
 				<div class="row p-3">
 					<div class="card">
-					  	<a href="{{$booking->pdf_url}}">
+						@if(isset($booking->token))
+					  	<a href="{{config('app.snap_url').'/v1/transactions/'.$booking->token.'/pdf'}}">
+					  	@else
+					  	<a href="#">
+					  	@endif
 					    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
 					  	</a>
 						<div id="innerelements" class="shadow">
@@ -109,7 +113,7 @@
 			    	<div class="row align-items-center h-100">
 			    		<div class="mx-auto p-4">
 					      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
-					      <form method="POST" action="{{route('field-search')}}">
+					      <form method="GET" action="{{route('field-search')}}">
 					      	@csrf
 					      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
 					      </form>
@@ -124,7 +128,12 @@
 				@foreach($booking_list->past as $booking)
 				<div class="row p-3">
 					<div class="card">
-					  	<a href="{{$booking->pdf_url}}">
+
+						@if(isset($booking->token))
+					  	<a href="{{config('app.snap_url').'/v1/transactions/'.$booking->token.'/pdf'}}">
+					  	@else
+					  	<a href="#">
+					  	@endif
 					    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
 					  	</a>
 						<div id="innerelements" class="shadow">

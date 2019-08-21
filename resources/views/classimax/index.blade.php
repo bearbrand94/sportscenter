@@ -115,11 +115,11 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
+				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap" style="max-width: 400px; max-height: 250px;"></a>
+				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap" style="max-width: 400px; max-height: 250px;"></a>
+				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap" style="max-width: 400px; max-height: 250px;"></a>
+				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap" style="max-width: 400px; max-height: 250px;"></a>
+				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap" style="max-width: 400px; max-height: 250px;"></a>
 				</div>
 			</div>
 		</div>
@@ -139,7 +139,7 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper" >
 					@foreach($categories as $category)
-					<form method="POST" action="{{ route('field-search') }}" style="display: inline-block;">
+					<form method="GET" action="{{ route('field-search') }}" style="display: inline-block;">
 						@csrf
 						<input type="hidden" name="category" value="{{$category->id}}">
 						<a href="#" onclick='this.parentNode.submit(); return false;'>

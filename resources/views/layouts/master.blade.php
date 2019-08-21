@@ -212,6 +212,9 @@
           }
         });
       });
+      function number_format(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
     </script>
     <!-- MASTER SCRIPT -->
     @yield('master_script')
