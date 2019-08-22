@@ -10,7 +10,7 @@
 	  margin-right: auto;
 	  margin-bottom: auto;
 	  border-radius: 50%;
-	  background-color:  var(--saraga-color);
+	  /*background-color:  var(--saraga-color);*/
 	  color: white;
 	}	
 	.nav-link{
@@ -71,7 +71,7 @@
 					    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
 					  	</a>
 						<div id="innerelements" class="shadow">
-						    <i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i>
+						    <img class="icon" src="{{ asset('images/sports/'.$booking->icon) }}" height="30px" width="30px">
 						</div>
 						<div class="card-body">
 						    <h5 class="card-title text-truncate pt-3" style="margin-top:-50px;">{{$booking->court->name}}</h5>

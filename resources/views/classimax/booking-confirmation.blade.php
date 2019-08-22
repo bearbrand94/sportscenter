@@ -184,8 +184,9 @@
 		// console.log(status);
 
 		if(status=="success"){
-			var d = JSON.parse(data)
-			// console.log(d.redirect_url);
+			// console.log(data);
+			var d = JSON.parse(data);
+			// console.log(d);
 			window.location.href = d.redirect_url;
 		}
 	});

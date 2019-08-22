@@ -74,6 +74,9 @@ Route::group(['middleware' => ['initial_data']], function() {
 //End Group
 Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
 Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
+
+Route::get('/payment/finish', 'BookingController@create')->name('snap-finish');
+
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
 Route::get('/field/search','FieldController@search')->name('field-search');

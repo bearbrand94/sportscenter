@@ -76,12 +76,14 @@ class BookingController extends Controller
     }
 
     public function get_snap_url(Request $request){
+        $order_id = "BASIC-".str_random(8);
         $booking_data = json_decode(session('booking_data'));
         // return print_r($booking_data);
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         $res = $client->request('POST', config('app.api_url')."/order/apply", [
             'form_params' => [
+                'id'            => $order_id,
                 'court_id'      => $booking_data->court->id,
                 'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
                 'duration'      => $booking_data->input->duration,
@@ -91,7 +93,7 @@ class BookingController extends Controller
         $res_data = json_decode($res->getBody())->data;
 
         $transaction = new class{};
-        $transaction->order_id = "BASIC-".str_random(8);
+        $transaction->order_id = $order_id;
         $transaction->gross_amount = $res_data->grand_total;
 
         $customer        = new class{};
@@ -120,24 +122,32 @@ class BookingController extends Controller
                 'expiry'              => $expiry
             ]
         ]);
+        $request->session()->put('snap_token', json_decode($snapres->getBody())->token);
+        $request->session()->put('order_id', json_encode($transaction->order_id));
+        // return session('snapres');
         return $snapres->getBody();
     }
 
     public function create(Request $request){
         $booking_data = json_decode(session('booking_data'));
+        $snap_token = session('snap_token');
+        $order_id = session('order_id');
+        // return dd($booking_data);
+        // return $snap_token;
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         try {
             $res = $client->request('POST', config('app.api_url')."/order/create", [
                 'form_params' => [
-                    'id'            => $booking_data->transaction->order_id,
+                    'id'            => $request->order_id,
                     'court_id'      => $booking_data->court->id,
                     'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
                     'duration'      => $booking_data->input->duration,
-                    'token'         => $booking_data->snapres->token,
+                    'token'         => $snap_token,
                     // 'pdf_url'       => $request->data['pdf_url']
                 ]
             ]);
+            return redirect(route('booking-list'));
             return $res->getBody();
         } catch (RequestException $e) {
             return $e;
@@ -150,8 +160,8 @@ class BookingController extends Controller
         try {
             $res = $client->request('GET', config('app.api_url')."/order?sort=asc");
         } catch (RequestException $e) {
-            // return $e;
-            return view('classimax.booking-list')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
+            return $e;
+            // return view('classimax.booking-list')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
         }
 
         $res_booking = json_decode($res->getBody())->data;
