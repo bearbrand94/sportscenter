@@ -11,6 +11,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 
+
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -20,5 +21,4 @@ class Controller extends BaseController
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
     }
-
 }

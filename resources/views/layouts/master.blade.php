@@ -129,7 +129,7 @@
 
     <!-- JAVASCRIPTS -->
     <script src="{{ asset('plugins/jQuery/jquery.min.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap-slider.js') }}"></script>
       <!-- tether js -->
@@ -185,12 +185,36 @@
 
 
     <script type="text/javascript">
+      function link_copy(){
+          var input = document.createElement('input');
+          input.setAttribute('value', window.location.href);
+          document.body.appendChild(input);
+          input.select();
+          var result = document.execCommand('copy');
+          document.body.removeChild(input);
+          tempAlert("Link Copied!",1000);
+          return result;
+      }
+      function tempAlert(msg,duration)
+      {
+           var el = document.createElement("span");
+           el.setAttribute("class","badge badge-secondary");
+           el.setAttribute("style","position:fixed; bottom:100; left: 40%; padding:10px; text-align:center");
+           el.innerHTML = msg;
+           setTimeout(function(){
+            el.parentNode.removeChild(el);
+           },1200);
+           document.body.appendChild(el);
+      }
       $.ajaxSetup({
           headers: {
             'X-CSRF-TOKEN': "{{ csrf_token() }}"
           }
       });
       $(document).ready(function () {
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
         $('.fav-button').click(function () {  
             $.ajax({
                type:'POST',

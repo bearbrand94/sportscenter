@@ -76,12 +76,12 @@
               },
               success: function (response)
               {
-                // console.log(response);
-                window.location.replace("{{ route('home') }}");
+                console.log(response);
+                window.location.replace(response);
               },
               error: function(xhr) {
-                alert(xhr.responseText); // this line will save you tons of hours while debugging
-                console.log(xhr.responseText); 
+                // alert(xhr.responseText); // this line will save you tons of hours while debugging
+                // console.log(xhr.responseText); 
                 // do something here because of error
              }
           });

@@ -51,6 +51,7 @@
 @endsection
 
 @section('body')
+<body>
 <section>
   <div class="container bg-muted">
     <div class="row">
@@ -60,7 +61,7 @@
           <a href="javascript:history.back()">
             <i class="fa fa-arrow-left fa-2x" style="color: white;"></i>
           </a>
-          <a href="#">
+          <a onclick="link_copy()">
             <i class="fa fa-share-alt fa-2x pull-right" style="color: white;"></i>
           </a>
         </div>
@@ -125,7 +126,7 @@
                 <div class="row">
                 <div class="mr-auto pl-3">
                   <p class=""><i class="fa fa-map-marker" aria-hidden="true"></i>{{$detail->spot->address}}</p>
-                  <a href="#">Get Directions</a>
+                  <a href="{{$detail->spot->gmaps_url}}" target="_blank">Get Directions</a>
                 </div>
                 </div>
               </div>
@@ -205,6 +206,7 @@
     </div>
   </div>
 </section>
+</body>
 @endsection
 
 @section('master_script')
@@ -308,6 +310,16 @@
       return false;
     }
     return true;
+  }
+  function link_copy(){
+      var input = document.createElement('input');
+      input.setAttribute('value', window.location.href);
+      document.body.appendChild(input);
+      input.select();
+      var result = document.execCommand('copy');
+      document.body.removeChild(input);
+      tempAlert("Link Copied!",1000);
+      return result;
   }
 </script>
 @endsection
