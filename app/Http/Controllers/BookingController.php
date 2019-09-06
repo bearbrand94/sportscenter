@@ -134,6 +134,10 @@ class BookingController extends Controller
         $order_id = session('order_id');
         // return dd($booking_data);
         // return $snap_token;
+        $status = "PAYMENT";
+        if($request->transaction_status == 'settlement'){
+            $status = "SUCCESS";
+        }
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         try {
@@ -142,6 +146,7 @@ class BookingController extends Controller
                     'id'            => $request->order_id,
                     'court_id'      => $booking_data->court->id,
                     'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
+                    'status'        => $status ? $status : "PAYMENT",
                     'duration'      => $booking_data->input->duration,
                     'token'         => $snap_token,
                     // 'pdf_url'       => $request->data['pdf_url']

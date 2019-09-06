@@ -76,6 +76,7 @@ Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coup
 Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
 
 Route::get('/payment/finish', 'BookingController@create')->name('snap-finish');
+Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');

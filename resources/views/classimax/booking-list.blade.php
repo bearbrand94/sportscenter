@@ -101,10 +101,17 @@
 						    	</div>
 						    </p>
 						</div>
+						@if($booking->status=="PAYMENT")
 						<div class="card-footer p">
 						  	<p class="d-inline-block">Konfirmasi Pembayaran Sebelum</p>
 						  	<p class="d-inline-block pull-right payment-time" time="{{ date('d-M-Y H:i:s', strtotime($booking->order_date)) }}">Waiting..</p>
+					  	</div>
+						@elseif($booking->status=="SUCCESS")
+						<div class="card-footer p" style="background-color: green;">
+						  	<p class="d-inline-block">Pembayaran Telah Berhasil!</p>
 						</div>
+						@endif
+						
 					</div>
 				</div>
 				@endforeach
