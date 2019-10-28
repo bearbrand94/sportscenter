@@ -30,7 +30,11 @@ Route::post('/register','LoginController@register')->name('register');
 //End Login
 
 Route::group(['middleware' => ['api']], function() {
-
+	//Midtrans
+	Route::post('/midtrans/notification/handling', 'MidtransController@notification');
+	Route::post('/midtrans/finish', 'MidtransController@finish');
+	Route::post('/midtrans/unfinish', 'MidtransController@unfinish');
+	Route::post('/midtrans/error', 'MidtransController@error');
 });
 
 //Group Must Logged In.
@@ -57,12 +61,26 @@ Route::group(['middleware' => ['initial_data']], function() {
 
 	//Favorit
 	Route::get('/favorit', 'FieldController@favorit')->name('favorit');
+	Route::post('ajax/set-favorit', 'FieldController@set_favorit')->name('set-favorit');
+
+	//Booking
+	Route::post('/booking/confirmation','BookingController@confirmation')->name('booking-confirmation');
+	
+	Route::post('/booking/create','BookingController@create')->name('booking-create');
+	Route::get('/booking', 'BookingController@show')->name('booking-list');
+	Route::post('/booking', 'BookingController@show')->name('booking-list');
+
 });
 //End Group
+Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
+Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
+
+Route::get('/payment/finish', 'BookingController@create')->name('snap-finish');
+Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
-Route::post('/field/search','FieldController@search')->name('field-search');
+Route::get('/field/search','FieldController@search')->name('field-search');
 
 Route::get('/field', function () {
     return view('classimax.category');
@@ -71,18 +89,9 @@ Route::get('/field', function () {
 //Field
 Route::get('/field/detail/{slug}','FieldController@detail')->name('field-detail');
 Route::get('/field/detail/{slug}/court','FieldController@court')->name('select-court');
-
-Route::post('/booking/confirmation','BookingController@confirmation')->name('booking-confirmation');
-
 Route::get('/field/list', function () {
     return view('classimax.category');
-});
-Route::get('/my-order', function () {
-    return view('classimax.dashboard-my-order');
-});
+})->name('field-list');
 
-
-
-
-
-
+Route::get('/promo','PromoController@list')->name('promo-list');
+Route::get('/promo/{id}','PromoController@detail')->name('promo-detail');

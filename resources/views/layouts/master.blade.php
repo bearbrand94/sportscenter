@@ -129,7 +129,7 @@
 
     <!-- JAVASCRIPTS -->
     <script src="{{ asset('plugins/jQuery/jquery.min.js') }}"></script>
-    <script src="{{ asset('plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap-slider.js') }}"></script>
       <!-- tether js -->
@@ -138,13 +138,13 @@
     <script src="{{ asset('plugins/slick-carousel/slick/slick.min.js') }}"></script>
     <!-- <script src="{{ asset('plugins/jquery-nice-select/js/jquery.nice-select.min.js') }}"></script> -->
     <script src="{{ asset('plugins/fancybox/jquery.fancybox.pack.js') }}"></script>
-    <script src="{{ asset('plugins/smoothscroll/SmoothScroll.min.js') }}"></script>
+    <!-- <script src="{{ asset('plugins/smoothscroll/SmoothScroll.min.js') }}"></script> -->
     <!-- google map -->
     <script src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places') }}"></script>
     <script src="{{ asset('plugins/google-map/gmap.js') }}"></script>
 
     <!-- Custom JS -->
-    <script src="{{ asset('js/script.js') }}"></script>
+    <!-- <script src="{{ asset('js/script.js') }}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- Jquery UI -->
@@ -183,6 +183,63 @@
       firebase.initializeApp(firebaseConfig);
     </script>
 
+
+    <script type="text/javascript">
+      function link_copy(){
+          var input = document.createElement('input');
+          input.setAttribute('value', window.location.href);
+          document.body.appendChild(input);
+          input.select();
+          var result = document.execCommand('copy');
+          document.body.removeChild(input);
+          tempAlert("Link Copied!",1000);
+          return result;
+      }
+      function tempAlert(msg,duration)
+      {
+           var el = document.createElement("span");
+           el.setAttribute("class","badge badge-secondary");
+           el.setAttribute("style","position:fixed; bottom:100; left: 40%; padding:10px; text-align:center");
+           el.innerHTML = msg;
+           setTimeout(function(){
+            el.parentNode.removeChild(el);
+           },1200);
+           document.body.appendChild(el);
+      }
+      $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+          }
+      });
+      $(document).ready(function () {
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+        $('.fav-button').click(function () {  
+            $.ajax({
+               type:'POST',
+               url:'{{ route("set-favorit") }}',
+               data:{spot_id:$(this).attr('id'), current_value:$(this).attr('value')},
+               success:function(data){
+
+               }
+            });
+          if($(this).attr('value')=="false"){
+            $(this).removeClass('fa-heart-o');
+            $(this).addClass('fa-heart');
+            $(this).attr('value',"true");
+          }
+          else{
+            $(this).removeClass('fa-heart');
+            $(this).addClass('fa-heart-o');
+            $(this).attr('value',"false");
+          }
+        });
+      });
+      function number_format(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+    </script>
     <!-- MASTER SCRIPT -->
     @yield('master_script')
     </body>

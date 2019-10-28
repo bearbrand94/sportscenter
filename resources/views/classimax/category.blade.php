@@ -62,23 +62,24 @@
     <div class="modal-content">
       <!-- Modal Header -->
 		<nav class="navbar navbar-expand shadow-sm">
-		  <a class="navbar-brand" href="#" data-dismiss="modal">
-		    <i class="fa fa-close fa-lg text-saraga"></i>
-		  </a>
+			<div class="container">
+			  <a class="navbar-brand" href="#" data-dismiss="modal">
+			    <i class="fa fa-close fa-lg text-saraga"></i>
+			  </a>
 
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto p-3">
-		      <li class="nav-item active">		
-		        	<b class="text-saraga" style="font-size: 22px;">
-					    Ubah Pencarian
-		        	</b>
-		      </li>
-		  	</ul>
-		  </div>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav mr-auto p-3">
+			      <li class="nav-item active">		
+			        	<b class="text-saraga" style="font-size: 22px;">
+						    Ubah Pencarian
+			        	</b>
+			      </li>
+			  	</ul>
+			  </div>
+			</div>
 		</nav>
 		<!-- Modal body -->
-		<form method="POST" action="{{ route('field-search') }}">
-			@csrf
+		<form method="GET" action="{{ route('field-search') }}">
 			<div class="modal-body">
 				<div class="form-row pt-3">
 					<div class="form-group col-md-12">
@@ -112,42 +113,44 @@
 </div>
 
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
-  <a class="navbar-brand" href="{{url('home')}}">
-    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
-  </a>
+	<div class="container">
+	  <a class="navbar-brand" href="{{url('home')}}">
+	    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+	  </a>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: white">  		
-        	<b style="font-size: 20px;">
-			    @if (empty($requests['category_name']))
-			      {{"Semua Kategori"}}
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" style="color: white">  		
+	        	<b style="font-size: 20px;">
+				    @if (empty($requests['category_name']))
+				      {{"Semua Kategori"}}
+				    @else
+				      {{$requests['category_name']}}
+				    @endif
+	        	</b>
+	        	<br>
+			    @if (empty($requests['keyword']))
+			      {{"Semua tempat"}}
 			    @else
-			      {{$requests['category_name']}}
-			    @endif
-        	</b>
-        	<br>
-		    @if (empty($requests['keyword']))
-		      {{"Semua tempat"}}
-		    @else
-		      {{$requests['keyword']}}
-	        @endif
-  			| 
-		    @if (empty($requests['search_date']))
-		      {{"Semua waktu"}}
-		    @else
-		      {{date("d F Y", strtotime($requests['search_date']))}}
-	        @endif
-  		</a>
-      </li>
-  	</ul>
-  	<a href="#" data-toggle="modal" data-target="#myModal">
-      <li class="nav-item form-inline my-2" style="font-size: 20px; color: white;">
-      	Ubah
-      </li>
-    </a>
-  </div>
+			      {{$requests['keyword']}}
+		        @endif
+	  			| 
+			    @if (empty($requests['search_date']))
+			      {{"Semua waktu"}}
+			    @else
+			      {{date("d F Y", strtotime($requests['search_date']))}}
+		        @endif
+	  		</a>
+	      </li>
+	  	</ul>
+	  	<a href="#" data-toggle="modal" data-target="#myModal">
+	      <li class="nav-item form-inline my-2" style="font-size: 20px; color: white;">
+	      	Ubah
+	      </li>
+	    </a>
+	  </div>
+	</div>
 </nav>
 
 <section class="border-top-1 bg-light">
@@ -155,15 +158,17 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					@foreach($fields as $field)
+					@foreach($fields as $spot)
 						<div class="pb-3 pt-3"> 
 						@component('card', [
-							'review_star' => $field->rating,
-							'price'		  => $field->price,
-							'image_url'	  => $field->cover_image,
-							'title'		  => $field->name,
-							'address'	  => $field->address,
-							'a_url'		  => route('field-detail', $field->slug),
+							'review_star' => $spot->rating,
+							'price'		  => $spot->price,
+							'image_url'	  => $spot->cover_image,
+							'title'		  => $spot->name,
+							'address'	  => $spot->address,
+							'a_url'		  => route('field-detail', $spot->slug),
+							'spot_id'	  => $spot->id,
+							'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
 						])
 						@endcomponent
 						</div>
@@ -171,12 +176,50 @@
 				</div>
 			</div>
 		</div>
+		<?php 
+			$next5 = ($links->current_page+5) > $links->last_page ? $links->last_page : $links->current_page+5; 
+			$next = ($links->current_page+1) > $links->last_page ? $links->last_page : $links->current_page+1; 
+			$prev5 = ($links->current_page-5) < 1 ? 1 : $links->current_page-5; 
+			$prev = ($links->current_page-1) < 1 ? 1 : $links->current_page-1; 
+		?>
+		<div class="row mb-5">
+			<nav class="col-12">
+			  <ul class="pagination justify-content-center">
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$prev5}}">&laquo;</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$prev}}">&lsaquo;</a>
+			    </li>
+			    @for($i=1; $i <= $links->last_page; $i++)
+			    	@if($i==$links->current_page)
+					    <li class="page-item active">
+					      <span class="page-link">
+					        {{$links->current_page}}
+					        <span class="sr-only">(current)</span>
+					      </span>
+					    </li>
+			    	@else
+			    		<li class="page-item"><a class="page-link" href="{{url()->full().'&page='.$i}}">{{$i}}</a></li>
+			    	@endif
+			    @endfor
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$next}}">&rsaquo;</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="{{url()->full().'&page='.$next5}}">&raquo;</a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
     </div>
 </section>
 @endsection
 
 @section('master_script')
 	<script type="text/javascript">
-		$("#select-category").val("{{$requests['category']}}");
+		@if (isset($requests['category']))
+			$("#select-category").val("{{$requests['category']}}");
+		@endif
 	</script>
 @endsection

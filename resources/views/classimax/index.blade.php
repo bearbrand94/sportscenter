@@ -64,8 +64,7 @@
 					<div class="container">
 						<div class="row justify-content-center">
 							<div class="col-12 align-content-center">
-								<form method="POST" action="{{ route('field-search') }}">
-									@csrf
+								<form method="GET" action="{{ route('field-search') }}">
 									<div class="form-row">
 										<div class="form-group col-md-12">
 											<label class="has-float-label"> 
@@ -109,18 +108,16 @@
 		<div class="row" style="margin-bottom: -30px;">
 			<div class="col-12">
 				<div class="section-title">
-					<p class="pull-left"><b>Promo</b></p> <a href="#" class="pull-right">Lihat Semua</a>
+					<p class="pull-left"><b>Promo</b></p> <a href="{{route('promo-list')}}" class="pull-right">Lihat Semua</a>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
-				  <a href="#"><img class="card-img-top" src="{{ asset('images/promo/promo-1.jpg') }}" alt="Card image cap"></a>
+				  @foreach($promos as $promo)
+				  <a href="{{route('promo-detail',$promo->id)}}"><img class="card-img-top" src="{{$promo->image}}" alt="Card image cap" style="width: 400px; height: 250px;"></a>
+				  @endforeach
 				</div>
 			</div>
 		</div>
@@ -132,7 +129,7 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section-title">
-					<p class="pull-left" style="text-align: left;"><b>Rekomendasi Saraga</b><br>Lapang dengan fasilitas terbaik</p> <a href="#" class="pull-right">Lihat Semua</a>
+					<p class="pull-left" style="text-align: left;"><b>Rekomendasi Saraga</b><br>Lapang dengan fasilitas terbaik</p> <a href="{{route('field-search')}}" class="pull-right">Lihat Semua</a>
 				</div>
 			</div>
 		</div>
@@ -140,7 +137,7 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper" >
 					@foreach($categories as $category)
-					<form method="POST" action="{{ route('field-search') }}" style="display: inline-block;">
+					<form method="GET" action="{{ route('field-search') }}" style="display: inline-block;">
 						@csrf
 						<input type="hidden" name="category" value="{{$category->id}}">
 						<a href="#" onclick='this.parentNode.submit(); return false;'>
@@ -168,7 +165,8 @@
 							'title'		  => $spot->name,
 							'address'	  => $spot->address,
 							'a_url'		  => route('field-detail', $spot->slug),
-							'spot_id'	  => $spot->id
+							'spot_id'	  => $spot->id,
+							'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
 						])
 						@endcomponent
 					@endforeach
@@ -190,36 +188,17 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper ">
+				  @foreach($banners as $banner)
 					<a href="#">
 						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top d-flex" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
+						  <img class="card-img-top d-flex" src="{{ $banner->path }}" alt="Card image cap" style="height: 10rem">
 						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						    <h5 class="card-title">{{ $banner->name }}</h5>
+						    <p class="card-text">{{ $banner->description }}</p>
 						  </div>
 						</div>
 					</a>
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top d-flex" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  </div>
-						</div>
-					</a>
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top d-flex" src="{{ asset('images/products/sports-3.jpg') }}" alt="Card image cap">
-						  <div class="card-body">
-						    <h5 class="card-title">Card title</h5>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						  </div>
-						</div>
-					</a>
+				  @endforeach
 				</div>
 			</div>
 		</div>

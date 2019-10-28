@@ -58,6 +58,12 @@ return [
 
     'api_url' => env('API_URL', 'http://localhost/saraga-admin/public/api'),
 
+    'snap_url' => env('SNAP_URL', 'https://app.sandbox.midtrans.com/snap/v1/transactions'),
+
+    'server_key' => env('SERVER_KEY', ''),
+
+    'client_key' => env('CLIENT_KEY', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -69,7 +75,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------

@@ -26,9 +26,7 @@
 
 @section('content')
 <nav class="navbar navbar-expand shadow-sm background-saraga">
-
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" style="color: white">  		
@@ -40,8 +38,12 @@
   	</ul>
   </div>
 </nav>
-
+@if(isset($fields))
 <section class="border-top-1 bg-light">
+@else
+<section class="border-top-1">
+@endif
+	@if(isset($fields))
     <div class="container">
 		<div class="row pt-3">
 			<div class="col-12">
@@ -61,22 +63,35 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					@foreach($fields as $field)
+					@foreach($fields as $spot)
 						<div class="pb-3 pt-3"> 
 						@component('card', [
-							'review_star' => 5,
-							'price'		  => $field->price,
-							'image_url'	  => asset('images/products/sports-3.jpg'),
-							'title'		  => $field->name,
-							'address'	  => $field->address,
-							'a_url'		  => url('field-detail').'/'.$field->id,
+							'review_star' => $spot->rating,
+							'price'		  => $spot->price,
+							'image_url'	  => $spot->cover_image,
+							'title'		  => $spot->name,
+							'address'	  => $spot->address,
+							'a_url'		  => route('field-detail', $spot->slug),
+							'spot_id'	  => $spot->id,
+							'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
 						])
 						@endcomponent
 						</div>
 					@endforeach
+					<div class="pb-5 pt-4"></div>
 				</div>
 			</div>
 		</div>
     </div>
+    @else
+    <div class="container h-100">
+    	<div class="row align-items-center h-100">
+    		<div class="mx-auto p-4">
+		      <img src="{{asset('/images/no-fav.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
+		      <div class="p-4"></div>
+		  	</div>
+		</div>
+    </div>
+    @endif
 </section>
 @endsection

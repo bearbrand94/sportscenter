@@ -15,8 +15,12 @@
     <img class="card-img-top" src="{{$image_url}}" alt="Card image cap" style="max-height: 35rem">
   </a>
     <div id="innerelements" class="shadow">
-      <a href="#">
-        <i class="fa fa-heart fa-2x" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+      <a style="cursor: hand">
+        @if ($is_favorite == true)
+        <i class="fav-button fa fa-heart fa-2x" id="{{$spot_id}}" value="true" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+        @else
+        <i class="fav-button fa fa-heart-o fa-2x" id="{{$spot_id}}" value="false" aria-hidden="true" style="color: rgb(226,42,42); font-size: 1.75rem;"></i>
+        @endif
       </a>
     </div>
     <a href="{{$a_url}}">

@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
 @section('css')
-	<style type="text/css">
-		p{
-			color:white;
-			font-size: 0.9rem;
-			margin-bottom: 5px;
-		}
+<style type="text/css">
+	p{
+		color:white;
+		font-size: 0.9rem;
+		margin-bottom: 5px;
+	}
 
-		p .lead{
-			font-size: 1rem;
-		}
+	p .lead{
+		font-size: 1rem;
+	}
 
-		.span-bordered{
-			color: white;
-			background-color: rgba(150,150,150,0.8);
-			border-radius: 0.25rem
-		}
-	</style>
+	.span-bordered{
+		color: white;
+		background-color: rgba(150,150,150,0.8);
+		border-radius: 0.25rem
+	}
+</style>
 @endsection
 @section('content')
 <section class="hero-area bg-1 " style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.25) 0%, rgba(9,58,102,1) 75%), url({{ asset('images/home/hero.png') }}); height: 500px;">
@@ -34,7 +34,7 @@
 					<p>{{session('auth_data')->telephone}}</p>
 					<p>{{session('auth_data')->email}}</p>
 				</div>
-				<div class="ml-auto pr-4">
+				<div class="ml-auto pr-1">
 					<a href="{{ route('edit-profile' )}}"><span><i class="fa fa-pencil fa-lg p-2 span-bordered" aria-hidden="true"></i></span></a>
 				</div>
 			</div>
@@ -49,11 +49,11 @@
 						  <div class="card-body text-left">
 						  	<div class="row">
 								<div class="mr-auto pl-3">
-								  	<p class="lead" style="color: black; font-size: 16px;">Kode Refferal</p>
+								  	<p class="lead" style="color: black; font-size: 16px;">Kode Referral</p>
 								  	<p class="text-saraga" style="font-weight: bold; font-size: 22px;">{{session('auth_data')->referral_code}}</p>
 								</div>
 								<div class="pr-3 d-flex align-items-center">
-									<a href="#"><span><i class="fa fa-share-alt fa-2x text-saraga text-center" aria-hidden="true"></i></span></a>
+									<a onclick="referral_copy()"><span><i class="fa fa-share-alt fa-2x text-saraga text-center" aria-hidden="true"></i></span></a>
 								</div>
 						    </div>
 						  </div>
@@ -136,7 +136,23 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
 </section>
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+	function referral_copy(){
+	    var input = document.createElement('input');
+	    input.setAttribute('value', '{{session("auth_data")->referral_code}}');
+	    document.body.appendChild(input);
+	    input.select();
+	    var result = document.execCommand('copy');
+	    document.body.removeChild(input);
+		tempAlert("Copied!",1000);
+	    return result;
+	}
+</script>	
+
 @endsection
