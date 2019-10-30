@@ -1,6 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
-@section('master_css')
+@section('css')
 <style type="text/css">
 	.card{
 		width: 100%;
@@ -52,10 +52,8 @@
 </style>
 @endsection
 
-@section('body')
-<!-- <pre>
-	{{print_r($links)}}	
-</pre> -->
+@section('content')
+
 <!-- The Modal -->
 <div class="modal" id="myModal">
   <div class="modal-dialog">
@@ -153,7 +151,7 @@
 	</div>
 </nav>
 
-<section class="border-top-1 bg-light">
+<section class="bg-light">
     <div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -212,11 +210,12 @@
 			  </ul>
 			</nav>
 		</div>
+		<div class="row mb-5"></div>
     </div>
 </section>
 @endsection
 
-@section('master_script')
+@section('script')
 	<script type="text/javascript">
 		@if (isset($requests['category']))
 			$("#select-category").val("{{$requests['category']}}");

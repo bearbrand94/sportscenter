@@ -1,6 +1,6 @@
-@extends('layouts.master')
+@extends('layouts.app')
 
-@section('master_css')
+@section('css')
 <style type="text/css">
   #innerelements{
     padding: 0.75em;
@@ -50,22 +50,36 @@
 </style>
 @endsection
 
-@section('body')
-<body>
-<section>
-  <div class="container bg-muted">
+@section('content')
+<nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="javascript:history.back()">
+      <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" style="color: white">     
+            <b style="font-size: 20px;">
+              Lokasi
+            </b>
+        </a>
+        </li>
+      </ul>
+    </div>
+    <a href="#">
+      <li class="nav-item form-inline my-2 mr-1">
+        <i class="fa fa-share-alt fa-2x" value="true" aria-hidden="true" style="color: white; font-size: 24px;" onclick="link_copy()"></i>
+      </li>
+    </a>
+  </div>
+</nav>
+
+<section class="border-top-1 bg-light">
+  <div class="container" style="background-color: white;">
     <div class="row">
       <div class="card border-0 rounded-0">
         <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem">
-        <div class="card-img-overlay">
-          <a href="javascript:history.back()">
-            <i class="fa fa-arrow-left fa-2x" style="color: white;"></i>
-          </a>
-          <a onclick="link_copy()">
-            <i class="fa fa-share-alt fa-2x pull-right" style="color: white;"></i>
-          </a>
-        </div>
-        
         <div id="innerelements" class="shadow">
           <a style="cursor: hand">
             @if (isset($detail->spot->is_favorite))
@@ -100,10 +114,13 @@
             <p>{{$detail->spot->description}}</p>
           <hr class="my-4">
         </div>
+
       </div>
     </div>
+
+    <!-- Text Fasilitas dan Lokasi -->
     <div class="row">
-      <div class="col-12 ml-1">
+      <div class="col-12">
         <h5 style="font-weight: bold;">Fasilitas</h5>
         <div class="scrolling-wrapper">
           <ul class="list-inline">
@@ -133,8 +150,10 @@
             </div>
       </div>
     </div>
+
+    <!-- Button Pilih Waktu -->
     <div class="row mt-4">
-      <div class="col-12 ml-1">
+      <div class="col-12">
         <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
         <div class="alert alert-warning" id="input-date-error" hidden>
             <strong>Pilih tanggal booking terlebih dahulu.</strong>
@@ -170,8 +189,7 @@
           </div>
         </div>
       </div>
-      <!-- Time button -->
-      <div class="col-12 ml-1">
+      <div class="col-12">
         <!-- {{session('input-date')}} -->
         <div class="alert alert-warning" id="input-time-error" hidden>
             <strong>Pilih waktu yang tersedia.</strong>
@@ -179,24 +197,27 @@
 
         <div class="row">
         @for($i=0; $i<16; $i++)
-          <div class="text-center col-3 pt-2 pb-2">
+          <div class="text-center col-4 pt-2 pb-2">
             <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$i+8}}" style="border-radius: 0.4rem;">
-              <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
+              <p style="font-size: 0.9rem; font-weight: bold;">{{$i+8}}:00 - {{$i+9}}:00</p>
             </div>
           </div>
         @endfor
         </div>
       </div>
     </div>
+
+    <!-- Text Durasi Booking -->
     <div class="row mt-4 mb-2">
       <div class="col-12 clearfix">
         <h5 class="float-left"><i class="fa fa-clock-o fa-lg" aria-hidden="true" style="font-size: 1.5rem;"></i> Durasi Booking</h5>
         <h5 class="float-right" style="color: orange;" id="duration">-</h5>
       </div>
     </div>
-    <div class="mt-2 mb-4">
+
+    <!-- Button Pilih Lapangan -->
+    <div class="mt-3 mb-4">
       <form method="GET" action="{{ route('select-court', $detail->spot->slug) }}" onsubmit="return checkform()">
-        
         <input type="hidden" name="input-date" id="input-date" value="{{session('input-date')}}">
         <input type="hidden" name="input-time" id="input-time" value="">
         <input type="hidden" name="input-duration" id="input-duration" value="">
@@ -204,12 +225,12 @@
         <button type="submit" class="btn btn-block button-saraga">Pilih Lapang</button>
       </form>
     </div>
+    <div class="row mb-5 pb-3"></div>
   </div>
 </section>
-</body>
 @endsection
 
-@section('master_script')
+@section('script')
 <script type="text/javascript">
   var flatpickr = $(".flatpickr").flatpickr({
       altFormat: "Y-m-d",
