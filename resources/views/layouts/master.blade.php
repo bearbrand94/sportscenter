@@ -216,24 +216,28 @@
           $('[data-toggle="tooltip"]').tooltip()
         })
         $('.fav-button').click(function () {  
+          @if(session()->has('auth_data'))
             $.ajax({
                type:'POST',
                url:'{{ route("set-favorit") }}',
                data:{spot_id:$(this).attr('id'), current_value:$(this).attr('value')},
                success:function(data){
-
                }
             });
-          if($(this).attr('value')=="false"){
-            $(this).removeClass('fa-heart-o');
-            $(this).addClass('fa-heart');
-            $(this).attr('value',"true");
-          }
-          else{
-            $(this).removeClass('fa-heart');
-            $(this).addClass('fa-heart-o');
-            $(this).attr('value',"false");
-          }
+            if($(this).attr('value')=="false"){
+              $(this).removeClass('fa-heart-o');
+              $(this).addClass('fa-heart');
+              $(this).attr('value',"true");
+            }
+            else{
+              $(this).removeClass('fa-heart');
+              $(this).addClass('fa-heart-o');
+              $(this).attr('value',"false");
+            }
+          @else 
+            window.location.href="{{ route('login') }}"
+          @endif
+
         });
       });
       function number_format(x) {

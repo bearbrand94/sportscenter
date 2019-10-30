@@ -34,7 +34,7 @@
 @endsection
 
 @section('content')
-<nav class="navbar navbar-expand shadow-sm background-saraga">
+<nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
   <div class="container collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -52,14 +52,12 @@
 <section class="border-top-1 bg-light">
     <div class="container" style="background-color: white;">
 	    <div class="row">
-	      <div class="card border-0 rounded-0">
-	        <img class="card-img-top" src="{{$detail->image}}" alt="Card image cap" style="max-height: 35rem">
-          </div>
-          <div id="innerelements" class="shadow">
-            <a style="cursor: hand">
-              <i class="fav-button fa fa-share-alt fa-2x text-saraga" value="true" aria-hidden="true" style="font-size: 1.75rem;" onclick="link_copy()"></i>
-            </a>
-          </div>
+        	<img class="card-img-top img-fluid" src="{{$detail->image}}" alt="Card image cap" style="max-height: 25rem; padding-right: 0px; padding-left: 0px;">
+          	<div id="innerelements" class="shadow">
+            	<a style="cursor: hand">
+              		<i class="fav-button fa fa-share-alt fa-2x text-saraga" value="true" aria-hidden="true" style="font-size: 1.75rem;" onclick="link_copy()"></i>
+            	</a>
+          	</div>
         </div>
     	<div class="row col-12 pb-4">
 	    	{{$detail->description}}

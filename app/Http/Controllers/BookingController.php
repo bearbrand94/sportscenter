@@ -109,6 +109,10 @@ class BookingController extends Controller
         $expiry->duration   = $duration;
         $expiry->unit       = "second";
 
+        // $gopay = new class{};
+        // $gopay->enable_callback = true;
+        // $gopay->callback_url = "http://saraga.esy.es/payment/finish";
+
         $client = new Client();
         $snapres = $client->request('POST', config('app.snap_url')."/v1/transactions", [
             'headers' => [
@@ -117,6 +121,7 @@ class BookingController extends Controller
                 'Authorization'   => 'Basic '.base64_encode(config('app.server_key'))
             ],
             'json' => [
+                // 'gopay'               => $gopay,
                 'transaction_details' => $transaction,
                 'customer_details'    => $customer,
                 'expiry'              => $expiry

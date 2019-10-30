@@ -44,10 +44,10 @@ class LoginController extends Controller
 
 	function email_login(Request $request) {
 		$jar = session('jar');
-        $credentials = $request->only('email', 'password');
     	$client = new Client(['cookies' => $jar]);
     	try {
 	        $res = $client->request('POST', config('app.api_url')."/login/email", [
+	        	'auth'	  => [$request->username, $request->password],
 	        	'timeout' => 30,
 			    'form_params' => [
 			    	'email' => $request->email,

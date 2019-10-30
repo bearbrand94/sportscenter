@@ -46,7 +46,7 @@
 	@if(isset($fields))
     <div class="container">
 		<div class="row pt-3">
-			<div class="col-12">
+<!-- 			<div class="col-12">
 				<div class="scrolling-wrapper">
 					@foreach($categories as $category)
 					<a href="#">
@@ -58,7 +58,7 @@
 					</a>
 					@endforeach
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="row">
 			<div class="col-12">
