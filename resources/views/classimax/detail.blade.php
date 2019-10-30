@@ -52,21 +52,29 @@
 
 @section('content')
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
-  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: white" href="javascript:history.back()">  
-          <i class="fa fa-arrow-left fa-2x" style="color: white; font-size: 20px;"></i>
+  <div class="container">
+    <a class="navbar-brand" href="javascript:history.back()">
+      <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" style="color: white">     
+            <b style="font-size: 20px;">
+              Lokasi
+            </b>
         </a>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
     <a href="#">
-      <li class="nav-item form-inline my-2">
+      <li class="nav-item form-inline my-2 mr-1">
         <i class="fa fa-share-alt fa-2x" value="true" aria-hidden="true" style="color: white; font-size: 24px;" onclick="link_copy()"></i>
       </li>
     </a>
   </div>
 </nav>
+
 <section class="border-top-1 bg-light">
   <div class="container" style="background-color: white;">
     <div class="row">
@@ -189,9 +197,9 @@
 
         <div class="row">
         @for($i=0; $i<16; $i++)
-          <div class="text-center col-3 pt-2 pb-2">
+          <div class="text-center col-4 pt-2 pb-2">
             <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$i+8}}" style="border-radius: 0.4rem;">
-              <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
+              <p style="font-size: 0.9rem; font-weight: bold;">{{$i+8}}:00 - {{$i+9}}:00</p>
             </div>
           </div>
         @endfor
