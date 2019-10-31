@@ -24,7 +24,7 @@
   }
 
   .modal-content {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -199,7 +199,7 @@
             </label>
             <input type="password" class="form-control" name="confirm_password" placeholder="Masukkan sekali lagi">
             @if ($errors->has('new_password'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger mt-2">
                     <strong>{{ $errors->first('new_password') }}</strong>
                 </div>
             @endif

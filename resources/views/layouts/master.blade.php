@@ -114,6 +114,10 @@
             left: 0.5em;
             margin-right: -50%;
           }
+
+          .container{
+            max-width: 750px;
+          }
         </style>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -124,7 +128,7 @@
         @yield('master_css')
     </head>
 
-    @yield('body')
+
 
 
     <!-- JAVASCRIPTS -->
@@ -244,7 +248,7 @@
           return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
     </script>
+    @yield('body')
     <!-- MASTER SCRIPT -->
     @yield('master_script')
-    </body>
 </html>

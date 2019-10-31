@@ -49,6 +49,10 @@
     border-color: rgb(209,209,209);
     background-color: rgb(209,209,209);
   }
+  .carousel-indicators .active {
+      opacity: 1;
+      width: 40px;
+  }
   @media (max-width: 992px) {
      .container {
         width: 100%;
@@ -61,80 +65,79 @@
 
 <section>
 
-@foreach($detail->courts as $field)
-  <!-- The Modal -->
-  <div class="modal" id="time-modal-{{$field->id}}">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Top Header -->
-        <nav class="navbar navbar-expand shadow-sm" style="background-color: white;">
-          <a class="navbar-brand" href="#" data-dismiss="modal">
-            <i class="fa fa-close fa-lg text-saraga"></i>
-          </a>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link text-saraga">     
-                  <b class="text-saraga" style="font-size: 20px;">
-                  Waktu Tersedia {{$field->name}}
-                  </b>
-              </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-        <div class="container bg-light">
-          <div class="col-12">
-            <div class="row">
-            @for($i=0; $i<16; $i++)
-              <div class="text-center col-3 pt-2 pb-2">
-                <?php 
-                  $flag = false;
-                  foreach ($field->timeslots as $timeslot) {
-                    if(date('H', strtotime($timeslot->start_at)) == $i+8){
-                      $flag = true;
+  @foreach($detail->courts as $field)
+    <!-- The Modal -->
+    <div class="modal" id="time-modal-{{$field->id}}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Top Header -->
+          <nav class="navbar navbar-expand shadow-sm" style="background-color: white;">
+            <a class="navbar-brand" href="#" data-dismiss="modal">
+              <i class="fa fa-close fa-lg text-saraga"></i>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link text-saraga">     
+                    <b class="text-saraga" style="font-size: 20px;">
+                    Waktu Tersedia {{$field->name}}
+                    </b>
+                </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div class="container bg-light">
+            <div class="col-12">
+              <div class="row">
+              @for($i=0; $i<16; $i++)
+                <div class="text-center col-3 pt-2 pb-2">
+                  <?php 
+                    $flag = false;
+                    foreach ($field->timeslots as $timeslot) {
+                      if(date('H', strtotime($timeslot->start_at)) == $i+8){
+                        $flag = true;
+                      }
+                      if(date('H', strtotime($timeslot->end_at)) == $i+8){
+                        $flag = true;
+                      }
                     }
-                    if(date('H', strtotime($timeslot->end_at)) == $i+8){
-                      $flag = true;
-                    }
-                  }
-                ?>
-                @if($flag == true)
-                <div class="border pt-3 time-button" style="border-radius: 0.4rem;">
-                @else    
-                <div class="border pt-3 time-button disabled" style="border-radius: 0.4rem;">
-                @endif
-                  <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
+                  ?>
+                  @if($flag == true)
+                  <div class="border pt-3 time-button" style="border-radius: 0.4rem;">
+                  @else    
+                  <div class="border pt-3 time-button disabled" style="border-radius: 0.4rem;">
+                  @endif
+                    <p style="font-size: 1rem; font-weight: bold;">{{$i+8}}:00</p>
+                  </div>
                 </div>
+              @endfor
               </div>
-            @endfor
             </div>
           </div>
-        </div>
-        <div class="col-12">
-          <div class="col-12 form-inline">
-            <div class="form-inline">
-              <div class="time-button disabled" style="height:25px; width: 25px; border-radius: 0.4rem"></div>
-              <p class="pt-3 ml-2">Tidak Tersedia</p>
-            </div>
-            <div class="form-inline ml-4">
-              <div class="border" style="height:25px; width: 25px; border-radius: 0.4rem;"></div>
-              <p class="pt-3 ml-2">Tersedia</p>
+          <div class="col-12">
+            <div class="col-12 form-inline">
+              <div class="form-inline">
+                <div class="time-button disabled" style="height:25px; width: 25px; border-radius: 0.4rem"></div>
+                <p class="pt-3 ml-2">Tidak Tersedia</p>
+              </div>
+              <div class="form-inline ml-4">
+                <div class="border" style="height:25px; width: 25px; border-radius: 0.4rem;"></div>
+                <p class="pt-3 ml-2">Tersedia</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-@endforeach
+  @endforeach
 
   <!-- Top Header -->
   <nav class="navbar navbar-expand shadow-sm sticky-top" style="background-color: white;">
+    <div class="container collapse navbar-collapse" id="navbarSupportedContent">
     <a class="navbar-brand" href="javascript:history.back()">
       <i class="fa fa-arrow-left fa-lg text-saraga"></i>
     </a>
-
-    <div class="container collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link text-saraga">     

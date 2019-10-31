@@ -81,7 +81,7 @@
 												<span>Tanggal</span>
 											</label>
 											<label class="has-float-label">
-												<input type="text" class="form-control" name="keyword">
+												<input type="text" class="form-control" name="keyword" data-toggle="modal" data-target="#searchModal">
 												<span>Lokasi atau Lapang</span>
 											</label>
 											<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
@@ -97,6 +97,9 @@
 	</div>
 	<!-- Container End -->
 </section>
+
+@component('search')
+@endcomponent
 
 <!--==========================================
 =            	 Promo Section               =
