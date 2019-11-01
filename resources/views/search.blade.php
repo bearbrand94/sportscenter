@@ -69,7 +69,7 @@
       <div class="modal-body bg-light" style="overflow-y: auto;">
         <p class="text-muted" style="font-size: 1rem">Lapang Rekomendasi</p>
         <div class="row">
-            <div class="widget personal-info" style="width: 100%">
+            <div class="widget personal-info" style="width: 100%" id="spots_list">
               <div class="widget-header">
                 <a href="#">
                   <div class="d-flex">
@@ -112,7 +112,7 @@
 
         <p class="text-muted" style="font-size: 1rem">Lokasi</p>
         <div class="row">
-            <div class="widget personal-info" style="width: 100%">
+            <div class="widget personal-info" style="width: 100%" id="location_list">
               <div class="widget-header">
                 <a href="#">
                   <div class="d-flex">
@@ -214,7 +214,7 @@
   // $(document).ready(function () {
     //setup before functions
     var typingTimer;                //timer identifier
-    var doneTypingInterval = 5000;  //time in ms, 5 second for example
+    var doneTypingInterval = 500;  //time in ms, 5 second for example
 
     //on keyup, start the countdown
     $('#searchInput').on('keyup', function () {
@@ -231,6 +231,84 @@
   //user is "finished typing," do something
   function doneTyping () {
     //do something
-    console.log("Ajax Request");
+    var spots_result = [
+      {
+        name: "Futsal Tubagus 45",
+        address: "Jl. Tubagus 46",
+        category: "futsal"
+      },
+      {
+        name: "Badminton Juara",
+        address: "Jl. Juara 46",
+        category: "badminton"
+      },
+      {
+        name: "Futsal Tubagus 45",
+        address: "Jl. Tubagus 46",
+        category: "badminton"
+      },
+    ]
+
+    var locations_result = [
+      {
+        name: "Surabaya",
+        address: "Jawa Timur, Indonesia",
+        category: "city"
+      },
+      {
+        name: "Sidoarjo",
+        address: "Jawa Timur, Indonesia",
+        category: "city"
+      },
+      {
+        name: "DKI Jakarta",
+        address: "Jakarta, Indonesia",
+        category: "city"
+      },
+      {
+        name: "Bandung",
+        address: "Jawa Barat, Indonesia",
+        category: "city"
+      },
+    ]
+
+    // Fill spots list
+    var spots_html = "";
+    for (var i = 0; i < spots_result.length-1; i++) {
+      spots_html += create_widget( spots_result[i].name, spots_result[i].address, spots_result[i].category )
+    }
+    i = spots_result.length-1;
+    spots_html += create_list( spots_result[i].name, spots_result[i].address, spots_result[i].category );
+    $("#spots_list").html(spots_html);
+
+    // Fill city list
+    var location_html = "";
+    for (var i = 0; i < locations_result.length-1; i++) {
+      location_html += create_widget( locations_result[i].name, locations_result[i].address, locations_result[i].category )
+    }
+    i = locations_result.length-1;
+    location_html += create_list( locations_result[i].name, locations_result[i].address, locations_result[i].category );
+    $("#location_list").html(location_html);
+  }
+
+  function create_widget(title, address, icon="badminton", link="#"){
+    var html = "<div class='widget-header'>";
+    html += create_list(title, address, icon, link)
+    html += "</div>";
+    return html;
+  }
+
+  function create_list(title, address, icon="badminton", link="#"){
+    var html = "<a href='" + link + "'>";
+    html += "<div class='d-flex'>";
+    html +=   "<div class='d-flex align-items-center'>";
+    html +=     "<span><img class='icon' src='{{ asset('images/sports') }}/" + icon + ".svg' height='30px' width='30px'></img></span>";
+    html +=   "</div>";
+    html +=   "<div class='pl-3'>";
+    html +=     "<p class='lead' style='color: black; font-weight: bold; margin-bottom: 0px; font-size: 1rem;'>" + title + "</p>";
+    html +=     "<p class='text-muted'>" + address + "</p>";;
+    html +=   "</div>";
+    html += "</div></a>";
+    return html
   }
 </script>

@@ -27,7 +27,7 @@
 		color: white;
 		padding: 0;
 		margin: 0;
-		font-size: 1rem;
+		font-size: 0.85rem;
 	}
 </style>
 @endsection
@@ -67,12 +67,13 @@
 							@if(isset($booking->token))
 						  	<a href="{{config('app.snap_url').'/v1/transactions/'.$booking->token.'/pdf'}}"></a>
 						  	@else
-						  	<a href="#">
+						  	<a href="{{ route('booking-detail') }}">
 						  	@endif
 						    	<img class="card-img-top" src="{{$booking->court->cover_image}}" alt="Card image cap" style="max-height: 35rem">
 						  	</a>
 							<div id="innerelements" class="shadow">
-							    <img class="icon" src="{{ asset('images/sports/'.$booking->icon) }}" height="30px" width="30px">
+								<i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i>
+							    <!-- <img class="icon" src="{{ asset('images/sports/futbol.svg') }}" height="30px" width="30px"> -->
 							</div>
 							<div class="card-body">
 							    <h5 class="card-title text-truncate pt-3" style="margin-top:-50px;">{{$booking->court->name}}</h5>

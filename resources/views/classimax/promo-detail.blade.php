@@ -52,7 +52,7 @@
 <section class="border-top-1 bg-light">
     <div class="container" style="background-color: white;">
 	    <div class="row">
-        	<img class="card-img-top img-fluid" src="{{$detail->image}}" alt="Card image cap" style="max-height: 25rem; padding-right: 0px; padding-left: 0px;">
+        	<img class="card-img-top img-fluid" src="{{$detail->image->path}}" alt="Card image cap" style="max-height: 25rem; padding-right: 0px; padding-left: 0px;">
           	<div id="innerelements" class="shadow">
             	<a style="cursor: hand">
               		<i class="fav-button fa fa-share-alt fa-2x text-saraga" value="true" aria-hidden="true" style="font-size: 1.75rem;" onclick="link_copy()"></i>

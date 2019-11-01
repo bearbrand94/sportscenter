@@ -119,7 +119,7 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 				  @foreach($promos as $promo)
-				  <a href="{{route('promo-detail',$promo->id)}}"><img class="card-img-top" src="{{$promo->image}}" alt="Card image cap" style="width: 400px; height: 250px;"></a>
+				  <a href="{{route('promo-detail',$promo->id)}}"><img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;"></a>
 				  @endforeach
 				</div>
 			</div>
