@@ -197,9 +197,9 @@
 
         <div class="row">
         @for($i=0; $i<16; $i++)
-          <div class="text-center col-4 pt-2 pb-2">
+          <div class="text-center col-3 pt-2 pb-2">
             <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$i+8}}" style="border-radius: 0.4rem;">
-              <p style="font-size: 0.9rem; font-weight: bold;">{{$i+8}}:00 - {{$i+9}}:00</p>
+              <p style="font-size: 0.7rem; font-weight: bold;">{{$i+8}}:00 - {{$i+9}}:00</p>
             </div>
           </div>
         @endfor

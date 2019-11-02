@@ -189,4 +189,8 @@ class BookingController extends Controller
         }
         return view('classimax.booking-list')->with('booking_list', $booking_list);
     }
+
+    public function detail(){
+        return view('classimax.booking-detail');
+    }
 }

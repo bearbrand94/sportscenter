@@ -24,7 +24,7 @@
 	}
 
 	.modal-content {
-	  position: absolute;
+	  position: fixed;
 	  top: 0;
 	  right: 0;
 	  bottom: 0;
@@ -95,7 +95,7 @@
 							<span>Tanggal</span>
 						</label>
 						<label class="has-float-label">
-							<input type="text" class="form-control" name="keyword">
+							<input type="text" class="form-control" name="keyword" data-toggle="modal" data-target="#searchModal">
 							<span>Lokasi atau Lapang</span>
 						</label>
 					</div>
@@ -109,6 +109,9 @@
     </div>
   </div>
 </div>
+
+@component('search')
+@endcomponent
 
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
 	<div class="container">
@@ -180,34 +183,10 @@
 			$prev5 = ($links->current_page-5) < 1 ? 1 : $links->current_page-5; 
 			$prev = ($links->current_page-1) < 1 ? 1 : $links->current_page-1; 
 		?>
+
 		<div class="row mb-5">
 			<nav class="col-12">
-			  <ul class="pagination justify-content-center">
-			    <li class="page-item">
-			      <a class="page-link" href="{{url()->full().'&page='.$prev5}}">&laquo;</a>
-			    </li>
-			    <li class="page-item">
-			      <a class="page-link" href="{{url()->full().'&page='.$prev}}">&lsaquo;</a>
-			    </li>
-			    @for($i=1; $i <= $links->last_page; $i++)
-			    	@if($i==$links->current_page)
-					    <li class="page-item active">
-					      <span class="page-link">
-					        {{$links->current_page}}
-					        <span class="sr-only">(current)</span>
-					      </span>
-					    </li>
-			    	@else
-			    		<li class="page-item"><a class="page-link" href="{{url()->full().'&page='.$i}}">{{$i}}</a></li>
-			    	@endif
-			    @endfor
-			    <li class="page-item">
-			      <a class="page-link" href="{{url()->full().'&page='.$next}}">&rsaquo;</a>
-			    </li>
-			    <li class="page-item">
-			      <a class="page-link" href="{{url()->full().'&page='.$next5}}">&raquo;</a>
-			    </li>
-			  </ul>
+				<ul id="pagination-demo" class="pagination justify-content-center"></ul>
 			</nav>
 		</div>
 		<div class="row mb-5"></div>
@@ -216,9 +195,28 @@
 @endsection
 
 @section('script')
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
 	<script type="text/javascript">
 		@if (isset($requests['category']))
 			$("#select-category").val("{{$requests['category']}}");
 		@endif
+
+    $('#pagination-demo').twbsPagination({
+        totalPages: {{$links->last_page}},
+        visiblePages: 5,
+        startPage: {{$links->current_page}},
+        prev: '<span aria-hidden="true">&lsaquo;</span>',
+        next: '<span aria-hidden="true">&rsaquo;</span>',
+        last: '',
+        first: '',
+        initiateStartPageClick: false,
+        onPageClick: function (event, page) {
+        	var category = "category=" + "{{ Request()->category }}";
+        	var search_date = "&search_date=" + "{{ Request()->search_date }}";
+        	var keyword = "&keyword=" + "{{ Request()->keyword }}";
+        	var page = "&page=" + page;
+        	window.location.replace("{{ url()->current() }}?" + category+search_date+keyword+page);
+        }
+    });
 	</script>
 @endsection
