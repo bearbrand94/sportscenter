@@ -81,6 +81,8 @@ Route::post('/payment/notification', 'MidtransController@notif')->name('snap-not
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
+Route::get('/filter/recommendation','FieldController@recommendation')->name('search-recommendation');
+
 Route::get('/field/search','FieldController@search')->name('field-search');
 
 Route::get('/field', function () {

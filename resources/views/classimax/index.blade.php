@@ -81,7 +81,7 @@
 												<span>Tanggal</span>
 											</label>
 											<label class="has-float-label">
-												<input type="text" class="form-control" name="keyword" data-toggle="modal" data-target="#searchModal">
+												<input type="text" class="form-control" name="keyword" data-toggle="modal" data-target="#searchModal" id="keyword">
 												<span>Lokasi atau Lapang</span>
 											</label>
 											<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>

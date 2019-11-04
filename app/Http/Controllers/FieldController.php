@@ -47,6 +47,29 @@ class FieldController extends Controller
         return view('classimax.category')->with('fields', $field_data)->with('links', $paginate_links)->with('requests', $request->all())->with('categories', $category_data);
     }
 
+    public function recommendation(Request $request){
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+
+        $request->category = $request->category ? $request->category : 0;
+        $request['category_name'] = $request->category ? $category_data[$request->category-1]->name : null;
+        $field_data;
+        try {
+            $res = $client->request('POST', config('app.api_url')."/spots/filter/recommendation", [
+                'form_params' => [
+                    'text' => $request->keyword,
+                ]
+            ]);
+            if($res->getStatusCode() == 200){ // 200 = Success
+                $body = $res->getBody();
+                return $body;
+            }
+        } catch (RequestException $e) {
+            return $e;
+        }
+        return "recommendation";
+    }
+
     public function favorit(Request $request){
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);

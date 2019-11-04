@@ -61,12 +61,12 @@
           </a>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <input type="text" class="form-control m-1" id="searchInput" placeholder="Cari Lapang Atau Lokasi" id="voucher" style="background-color: white; height: 45px;">
+            <input type="text" class="form-control m-1" id="searchInput" placeholder="Cari Lapang Atau Lokasi" id="voucher" style="background-color: white; height: 45px;" autofocus tabindex="-1">
           </div>
         </div>
       </nav>
       <!-- Modal body -->
-      <div class="modal-body bg-light" style="overflow-y: auto;">
+      <div class="modal-body container bg-light" style="overflow-y: auto;">
         <p class="text-muted" style="font-size: 1rem">Lapang Rekomendasi</p>
         <div class="row">
             <div class="widget personal-info" style="width: 100%" id="spots_list">
@@ -210,11 +210,14 @@
 </div>
 
 <script type="text/javascript">
-  console.log("search loaded")
   // $(document).ready(function () {
     //setup before functions
+    $('.modal').on('shown.bs.modal', function() {
+      $(this).find('[autofocus]').focus();
+    });
+
     var typingTimer;                //timer identifier
-    var doneTypingInterval = 500;  //time in ms, 5 second for example
+    var doneTypingInterval = 250;  //time in ms, 5 second for example
 
     //on keyup, start the countdown
     $('#searchInput').on('keyup', function () {
@@ -272,23 +275,39 @@
       },
     ]
 
-    // Fill spots list
-    var spots_html = "";
-    for (var i = 0; i < spots_result.length-1; i++) {
-      spots_html += create_widget( spots_result[i].name, spots_result[i].address, spots_result[i].category )
-    }
-    i = spots_result.length-1;
-    spots_html += create_list( spots_result[i].name, spots_result[i].address, spots_result[i].category );
-    $("#spots_list").html(spots_html);
+    $.get("{{route('search-recommendation')}}",
+    {
+      _token: "{{ csrf_token() }}",
+      keyword: $("#searchInput").val()
+    },
+    function(data, status){
+      var json = JSON.parse(data);
+      spots_result = json.spots;
+      locations_result = json.cities;  
+      // Fill spots list
+      var spots_html = "<p class='lead'>There is no result for <b>" + $("#searchInput").val() + "</b></p>";
+      if( spots_result.length > 0 ){
+        spots_html = "";
+        for (var i = 0; i < spots_result.length-1; i++) {
+          spots_html += create_widget( spots_result[i].name, spots_result[i].address, spots_result[i].category )
+        }
+        i = spots_result.length-1;
+        spots_html += create_list( spots_result[i].name, spots_result[i].address, spots_result[i].category );
+      };
+      $("#spots_list").html(spots_html);
 
-    // Fill city list
-    var location_html = "";
-    for (var i = 0; i < locations_result.length-1; i++) {
-      location_html += create_widget( locations_result[i].name, locations_result[i].address, locations_result[i].category )
-    }
-    i = locations_result.length-1;
-    location_html += create_list( locations_result[i].name, locations_result[i].address, locations_result[i].category );
-    $("#location_list").html(location_html);
+      // Fill city list
+      var location_html = "<p class='lead'>There is no result for <b>" + $("#searchInput").val() + "</b></p>";
+      if( spots_result.length > 0 ){
+        location_html = "";
+        for (var i = 0; i < locations_result.length-1; i++) {
+          location_html += create_widget( locations_result[i], null, null )
+        }
+        i = locations_result.length-1;
+        location_html += create_list( locations_result[i], null, null );
+      };
+      $("#location_list").html(location_html);
+    });
   }
 
   function create_widget(title, address, icon="badminton", link="#"){
@@ -299,7 +318,7 @@
   }
 
   function create_list(title, address, icon="badminton", link="#"){
-    var html = "<a href='" + link + "'>";
+    var html = "<a href='#' data-dismiss='modal' onclick='list_clicked(\"" + title + "\")'>";
     html += "<div class='d-flex'>";
     html +=   "<div class='d-flex align-items-center'>";
     html +=     "<span><img class='icon' src='{{ asset('images/sports') }}/" + icon + ".svg' height='30px' width='30px'></img></span>";
@@ -310,5 +329,9 @@
     html +=   "</div>";
     html += "</div></a>";
     return html
+  }
+
+  function list_clicked(value){
+    $("#keyword").val(value);
   }
 </script>
