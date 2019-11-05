@@ -136,30 +136,16 @@ class FieldController extends Controller
             //set status to not available
             $detail->courts[$i]->status=0;
 
-            $input_start=(int) $request->input('input-time');
-            $input_end=(int) $request->input('input-time')+$request->input('input-duration');
 
-            $arr_input = Array();
+            $arr_input = json_decode($request->input('input-time'));
             $arr_time = Array();
-            
-            //set array input data for comparison
-            for ($j=0; $j < $request->input('input-duration') ; $j++) { 
-                $arr_input[] = (string)$input_start+$j . "-" . ($input_start+1+$j);
-            }
-            //set array time available data for comparison
-            for ($j=0; $j < count($detail->courts[$i]->timeslots); $j++) { 
-                $start_time = (int) date('H', strtotime($detail->courts[$i]->timeslots[$j]->start_at));
-                $end_time = (int) date('H', strtotime($detail->courts[$i]->timeslots[$j]->end_at));
 
-                $arr_time[] = (string)$start_time . "-" . $end_time;
+            //set array time available data for comparison
+            foreach ($detail->courts[$i]->timeslots as $ts) {
+                if($ts->active==1){
+                    $arr_time[] = $ts->time_slot;
+                }
             }
-            
-            // echo "Input<BR>";
-            // print_r($arr_input);
-            // echo "<BR>Available Time<BR>";
-            // print_r($arr_time);
-            // echo "<BR>Difference<BR>";
-            // print_r(array_diff($arr_input, $arr_time));
 
             //if request time given is acceptable from timeslots, then set status to available.
             if(count(array_diff($arr_input, $arr_time)) == 0){
