@@ -39,13 +39,11 @@
   }
   
   .modal-footer {
-    border-radius: 0;
-    width:100%;
-  }
-  
-  .fixed {
-    bottom:0px;
-    position:fixed;
+       position:fixed;
+       top:auto;
+       right:0;
+       left:0;
+       bottom:0;    
   }
 </style>
 @endsection
@@ -55,7 +53,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0">
+    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0 container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -73,7 +71,7 @@
     <!-- Modal body -->
     <form method="POST" action="{{ route('update-phone') }}">
       @csrf
-      <div class="modal-body">
+      <div class="modal-body container">
         <div class="form-row pt-3">
           <div class="form-group col-md-12">
             <label class="has-float-label">
@@ -94,7 +92,7 @@
         </div>
       </div>
       <!-- Modal footer -->
-      <div class="modal-footer fixed">
+      <div class="modal-footer container">
         <button type="submit" class="btn btn-block button-saraga">Simpan</button>
       </div>
     </form>
@@ -106,7 +104,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0">
+    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0 container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -124,7 +122,7 @@
     <!-- Modal body -->
     <form method="POST" action="{{ route('update-email') }}">
       @csrf
-      <div class="modal-body">
+      <div class="modal-body container">
         <div class="form-row pt-3">
           <div class="form-group col-md-12">
             <label class="has-float-label">
@@ -145,7 +143,7 @@
         </div>
       </div>
       <!-- Modal footer -->
-      <div class="modal-footer fixed">
+      <div class="modal-footer fixed container">
         <button type="submit" class="btn btn-block button-saraga">Simpan</button>
       </div>
     </form>
@@ -157,7 +155,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0">
+    <nav class="navbar navbar-expand shadow-sm pb-0 pt-0 container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -173,9 +171,9 @@
       </div>
     </nav>
     <!-- Modal body -->
-    <form method="POST" action="{{ route('change-password') }}" style="overflow-y: auto;">
+    <form method="POST" action="{{ route('change-password') }}">
       @csrf
-      <div class="modal-body">
+      <div class="modal-body container">
         <div class="form-row pt-4">
           <div class="form-group col-md-12">
             <label class="has-float-label">
@@ -208,7 +206,7 @@
         <div style="height: 700px;"></div>
       </div>
       <!-- Modal footer -->
-      <div class="modal-footer fixed">
+      <div class="modal-footer container">
         <button type="submit" class="btn btn-block button-saraga">Simpan</button>
       </div>
     </form>
@@ -220,7 +218,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-      <nav class="navbar navbar-expand shadow-sm">
+      <nav class="navbar navbar-expand shadow-sm container">
         <a class="navbar-brand" href="#" data-dismiss="modal">
           <i class="fa fa-close fa-lg text-saraga"></i>
         </a>
@@ -235,7 +233,7 @@
           </ul>
         </div>
       </nav>
-      <div class="modal-body" style="overflow-y: auto;">
+      <div class="modal-body container" style="overflow-y: auto;">
         <div class="text-center">
           <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded" alt="No Image" style=" max-width: 40%; and height: auto;">
           <p>Version 0.0.1</p>
@@ -263,7 +261,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm">
+    <nav class="navbar navbar-expand shadow-sm container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -277,7 +275,7 @@
         </ul>
       </div>
     </nav>
-      <div class="modal-body" style="overflow-y: auto;">
+      <div class="modal-body container" style="overflow-y: auto;">
         <div class="text-center">
           <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded" alt="No Image" style=" max-width: 40%; and height: auto;">
         </div>
@@ -299,7 +297,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- Modal Header -->
-    <nav class="navbar navbar-expand shadow-sm">
+    <nav class="navbar navbar-expand shadow-sm container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
         <i class="fa fa-close fa-lg text-saraga"></i>
       </a>
@@ -314,7 +312,7 @@
         </ul>
       </div>
     </nav>
-      <div class="modal-body" style="overflow-y: auto;">
+      <div class="modal-body container" style="overflow-y: auto;">
         <div class="text-center">
           <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded" alt="No Image" style=" max-width: 40%; and height: auto;">
         </div>
