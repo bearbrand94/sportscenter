@@ -218,7 +218,8 @@
       $(document).ready(function () {
         $(function () {
           $('[data-toggle="tooltip"]').tooltip()
-        })
+        });
+
         $('.fav-button').click(function () {  
           @if(session()->has('auth_data'))
             $.ajax({

@@ -77,7 +77,7 @@
 												<span>Olahraga Terpilih</span>
 											</label>
 											<label class="has-float-label">
-												<input type="date" class="form-control datepicker" name="search_date">
+												<input type="text" class="form-control flatpickr" name="search_date">
 												<span>Tanggal</span>
 											</label>
 											<label class="has-float-label">
@@ -212,12 +212,12 @@
 
 @section('script')
 	<script type="text/javascript">
-		$(".datepicker").flatpickr({
-		    altInput: true,
-		    altFormat: "j F Y",
-		    dateFormat: "Y-m-d",
-		    minDate: "today"
-		});
+	  var flatpickr = $(".flatpickr").flatpickr({
+        	altFormat: "j F Y",
+        	dateFormat: "j F Y",
+	      	minDate: "today",
+	      	disableMobile: "true"
+	  });
 	</script>
 @endsection
 
