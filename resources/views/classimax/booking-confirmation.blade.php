@@ -65,13 +65,20 @@
         		<p class="mb-0">Jam</p>
         		<div class="form-inline">
 	        		<p class="bigger-text">
+	        			@foreach($time as $index => $t)
+	        			@if($index == 0)
 		      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-	        			{{$input['input_time']}}:00
+		      			@else
+		      			<i class="fa fa-clock-o fa-lg mr-1" aria-hidden="true" style="color: white;"></i>
+		      			@endif
+	        			{{$t}}
+	        			<br>
+	        			@endforeach
 	        		</p>
 	        	</div>
         	</div>
         	<div class="col-6">
-        		<p class="mb-0">Durasi</p>
+        		<p class="mb-0">Total Durasi</p>
         		<div class="form-inline">
 	        		<p class="bigger-text">
 		      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
@@ -108,8 +115,8 @@
     	<hr class="my-4">
 		<div class="row">
 	      <div class="col-12 clearfix">
-	        <p class="float-left" style="color: black;">Harga / Jam</p>
-	        <p class="float-right" style="color: black;">Rp {{number_format($court->price,0)}}</p>
+	        <p class="float-left text-muted"   style="font-weight: normal; font-size: 0.8rem;">Harga / Jam</p>
+	        <p class="float-right text-muted"  style="font-weight: normal; font-size: 0.8rem;">Rp {{number_format($court->price,0)}}</p>
 	      </div>
 		</div>
 		<div class="row">
@@ -124,10 +131,17 @@
 	        <p class="float-right" style="color: black;" id="discount-html"></p>
 	      </div>
 		</div>
-		<div class="row mt-4">
+		<div class="row mt-3">
+	      <div class="col-12 clearfix">
+	        <div class="float-right" id="before-grand-total-div" style="display: none;">
+		        <p class="text-muted" style="font-weight: normal; font-size: 0.8rem; margin-bottom: 0" id="before-grand-total-html"><del>Rp {{number_format($court->price*$input['duration'],0)}}</del></p>
+		    </div>
+	      </div>
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
-	        <p class="float-right" style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($court->price*$input['duration'],0)}}</p>
+	        <div class="float-right">
+	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($court->price*$input['duration'],0)}}</p>
+		    </div>
 	      </div>
 		</div>
 		<button type="button" class="btn btn-block button-saraga mb-4" onclick="select_payment()">Pilih Metode Pembayaran</button>
@@ -147,12 +161,14 @@
 			code: $("#voucher").val()
 		},
 		function(data, status){
+			// console.log(data);
 			if(data.status=="true"){
 			  	$("#promo-success").css("display", "block");
 			  	$("#promo-error").css("display", "none");
-			  	console.log(data.data.discount);
+			  	// console.log(data.data.discount);
 			  	$("#discount").css("display", "block");
 			  	$("#discount-html").html("Rp " + number_format(data.data.discount));
+			  	$("#before-grand-total-div").css("display", "block");
 			  	$("#grand-total-html").html("Rp " + number_format(data.data.grand_total));
 			}
 			else{

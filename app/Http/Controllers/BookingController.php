@@ -30,32 +30,54 @@ class BookingController extends Controller
 		    return $value->id==$request->court_id;
 		});
 
+        $input_time = json_decode($request->input_time);
+        $input_time_ids = [];
+
+        // Get selected timeslot ids from selected court for API requirements.
+        foreach ($court->timeslots as $key => $ts) {
+            foreach ($input_time as $key => $input) {
+                if($ts->time_slot == $input){
+                    $input_time_ids[] = $ts->id;
+                }
+            }
+        };
+
+        // Create order details object for API request.
+        $order_detail = new \stdClass();
+        $order_detail->court_id = $court->id;
+        $order_detail->court_timeslot_ids = $input_time_ids;
+
         session([
             'booking_data'=>json_encode([
                 'spot'        => $spot,
                 'court'       => $court,
                 'input'       => $request->all(),
+                'order_detail' => $order_detail
             ])
         ]);
 
-        return view('classimax.booking-confirmation')->with('spot', $spot)->with('court', $court)->with('input', $request->all());  
+        return view('classimax.booking-confirmation')->with('spot', $spot)->with('court', $court)->with('input', $request->all())->with('time', $input_time);  
     }
 
     public function apply_coupon(Request $request){
         $booking_data = json_decode(session('booking_data'));
+
+
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
+
         try {
             $res = $client->request('POST', config('app.api_url')."/order/apply", [
                 'form_params' => [
-                    'court_id'      => $booking_data->court->id,
-                    'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
-                    'duration'      => $booking_data->input->duration,
-                    'code'          => $request->code,
+                    'id'      => $booking_data->court->id,
+                    'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
+                    'order_details' => json_encode([$booking_data->order_detail]),
+                    'code'          => $request->code ? $request->code : null,
                 ]
             ]);
             $res_data = json_decode($res->getBody())->data;
-            if(json_decode($res->getBody())->status_code=="200"){
+
+            if(json_decode($res->getBody())->status_code=="200" && $request->code != ""){
                 return response()->json([
                         'status' => 'true',
                         'data'  => $res_data
@@ -83,11 +105,10 @@ class BookingController extends Controller
         $client = new Client(['cookies' => $jar]);
         $res = $client->request('POST', config('app.api_url')."/order/apply", [
             'form_params' => [
-                'id'            => $order_id,
-                'court_id'      => $booking_data->court->id,
-                'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
-                'duration'      => $booking_data->input->duration,
-                'code'          => $request->code ? $request->code : null,
+                    'id'      => $booking_data->court->id,
+                    'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
+                    'order_details' => json_encode([$booking_data->order_detail]),
+                    'code'          => $request->code ? $request->code : null,
             ]
         ]);
         $res_data = json_decode($res->getBody())->data;

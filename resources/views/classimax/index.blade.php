@@ -41,6 +41,12 @@
 	  background-repeat: no-repeat;
 	  color: white;
 	}
+
+	.content{
+		background: #fff;
+	    padding: 25px 15px 25px 15px;
+		box-shadow: -1px 3px 6px rgba(0, 0, 0, 0.12)
+	}
 </style>
 @endsection
 
@@ -49,7 +55,7 @@
 =            Hero Area            =
 ================================-->
 
-<section class="hero-area bg-1 text-center overly">
+<section class="hero-area bg-1 text-center overly bg-light">
 	<!-- Container Start -->
 	<div class="container">
 		<div class="row">
@@ -102,20 +108,25 @@
 @endcomponent
 
 <!--==========================================
-=            	 Promo Section               =
+=            	 BODY Section               =
 ===========================================-->
 
-<section class="section">
-	<!-- Container Start -->
+<section class="section bg-light">
+	<!--==========================================
+	=            	 Promo Section               =
+	===========================================-->
 	<div class="container" style="margin-top: 10px;">
+		<div class="content">
 		<div class="row" style="margin-bottom: -30px;">
 			<div class="col-12">
 				<div class="section-title">
-					<p class="pull-left"><b>Promo</b></p> <a href="{{route('promo-list')}}" class="pull-right">Lihat Semua</a>
+					<div class="col-12">
+						<p class="pull-left"><b>Promo</b></p>
+						<a href="{{route('promo-list')}}" class="pull-right">Lihat Semua</a>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 				  @foreach($promos as $promo)
@@ -125,18 +136,24 @@
 			</div>
 		</div>
 	</div>
-	<!-- Container End -->
 
+
+	<!--==========================================
+	=         RECOMMENDATION Section             =
+	===========================================-->
 	<!-- Container Start -->
 	<div class="container" style="margin-top: 40px;">
-		<div class="row">
-			<div class="col-12">
-				<div class="section-title">
-					<p class="pull-left" style="text-align: left;"><b>Rekomendasi Saraga</b><br>Lapang dengan fasilitas terbaik</p> <a href="{{route('field-search')}}" class="pull-right">Lihat Semua</a>
+		<div class="content">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<div class="col-12">
+							<p class="pull-left" style="text-align: left;"><b>Rekomendasi Saraga</b><br>Lapang dengan fasilitas terbaik</p>
+							<a href="{{route('field-search')}}" class="pull-right">Lihat Semua</a>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper" >
 					@foreach($categories as $category)
@@ -154,11 +171,7 @@
 					@endforeach
 				</div>
 			</div>
-		</div>
-
-
-		<div class="row" style="padding-top: 30px;">
-			<div class="col-12">
+			<div class="col-12" style="padding-top: 30px;">
 				<div class="scrolling-wrapper">
 					@foreach($spots as $spot)
 						@component('card', [
@@ -181,29 +194,31 @@
 
 	<!-- Container Start -->
 	<div class="container" style="margin-top: 40px;">
-		<div class="row">
-			<div class="col-12">
-				<div class="section-title">
-					<p class="pull-left" style="text-align: left;"><b>Event</b><br>Informasi Turnamen yang bisa kamu ikuti</p> <a href="#" class="pull-right">Lihat Semua</a>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<div class="scrolling-wrapper ">
-				  @foreach($banners as $banner)
-					<a href="#">
-						<div class="card" style="width: 18rem;">
-						  <img class="card-img-top d-flex" src="{{ $banner->path }}" alt="Card image cap" style="height: 10rem">
-						  <div class="card-body">
-						    <h5 class="card-title">{{ $banner->name }}</h5>
-						    <p class="card-text">{{ $banner->description }}</p>
-						  </div>
+		<div class="content">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-title">
+						<div class="col-12">
+						<p class="pull-left" style="text-align: left;"><b>Event</b><br>Informasi Turnamen yang bisa kamu ikuti</p> <a href="#" class="pull-right">Lihat Semua</a>
 						</div>
-					</a>
-				  @endforeach
+					</div>
 				</div>
 			</div>
+				<div class="col-12">
+					<div class="scrolling-wrapper ">
+					  @foreach($banners as $banner)
+						<a href="#">
+							<div class="card" style="width: 18rem;">
+							  <img class="card-img-top d-flex" src="{{ $banner->path }}" alt="Card image cap" style="height: 10rem">
+							  <div class="card-body">
+							    <h5 class="card-title">{{ $banner->name }}</h5>
+							    <p class="card-text">{{ $banner->description }}</p>
+							  </div>
+							</div>
+						</a>
+					  @endforeach
+					</div>
+				</div>
 		</div>
 	</div>
 	<!-- Container End -->

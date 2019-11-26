@@ -200,7 +200,7 @@
         @foreach($detail->timeslots as $ts)
           <?php $i++ ?>
           <div class="text-center col-3 pt-2 pb-2">
-            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$ts->start_at}}" ts="{{$ts->time_slot}}" style="border-radius: 0.4rem;">
+            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$ts->start_at}}" ts="{{$ts->time_slot}}" tsid="{{$ts->start_at}}" style="border-radius: 0.4rem;">
               <p style="font-size: 0.7rem; font-weight: bold;">{{$ts->time_slot}}</p>
             </div>
           </div>
@@ -244,10 +244,22 @@
         $("#input-date").val(dateStr);
       },
       onClose: function(selectedDates, dateStr, instance){
+        console.log(selectedDates);
         if(typeof dateStr == 'undefined'){
           $('#button-date-booking').removeClass('active');
         }
+        else{
+          $("#input-date").val(dateStr);
+        }
         date_flag=false;
+        if(dateStr == "{{date('Y-m-d')}}"){
+          $('.time-button').each(function(i, obj) {
+            if("{{date('H:i:s')}}" >= $(obj).attr('time')){
+              $(obj).removeClass('active')
+              $(obj).addClass('disabled');
+            }
+          });
+        }
       }
   });
   var selectedTime = [];
@@ -357,13 +369,11 @@
     });
     $("#input-time").val(JSON.stringify(selectedTime));
     // console.log($("#input-time").val());
-    // return false;
-
     if($("#input-date").val() == ""){
       $("#input-date-error").removeAttr( "hidden" );
       return false;
     }
-    if($("#input-time").val() == ""){
+    if(selectedTime.length == 0){
       $("#input-time-error").removeAttr( "hidden" );
       return false;
     }

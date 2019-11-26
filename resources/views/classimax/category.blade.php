@@ -91,7 +91,7 @@
 							<span>Olahraga Terpilih</span>
 						</label>
 						<label class="has-float-label">
-							<input type="text" class="form-control flatpickr" style="background-color: white">
+							<input type="text" class="form-control flatpickr" style="background-color: white" name="search_date" id="search_date">
 							<span>Tanggal</span>
 						</label>
 						<label class="has-float-label">
@@ -205,6 +205,12 @@
 	 	});
 		@if (isset($requests['category']))
 			$("#select-category").val("{{$requests['category']}}");
+		@endif
+		@if (isset($requests['search_date']))
+			$("#search_date").val("{{$requests['search_date']}}");
+		@endif
+		@if (isset($requests['keyword']))
+			$("#keyword").val("{{$requests['keyword']}}");
 		@endif
 
 	    $('#pagination-demo').twbsPagination({

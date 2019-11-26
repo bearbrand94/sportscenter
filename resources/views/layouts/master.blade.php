@@ -189,6 +189,15 @@
 
 
     <script type="text/javascript">
+      function create_UUID(){
+          var dt = new Date().getTime();
+          var uuid = 'xxxxxxxx'.replace(/[xy]/g, function(c) {
+              var r = (dt + Math.random()*16)%16 | 0;
+              dt = Math.floor(dt/16);
+              return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+          });
+          return uuid;
+      }
       function link_copy(){
           var input = document.createElement('input');
           input.setAttribute('value', window.location.href);
