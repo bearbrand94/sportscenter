@@ -100,22 +100,34 @@ class BookingController extends Controller
     public function get_snap_url(Request $request){
         $order_id = "BASIC-".str_random(8);
         $booking_data = json_decode(session('booking_data'));
+        // return response()->json($booking_data->input->input_time[0]);
+        // return response()->json($booking_data);
         // return print_r($booking_data);
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
-        $res = $client->request('POST', config('app.api_url')."/order/apply", [
-            'form_params' => [
-                    'id'      => $booking_data->court->id,
-                    'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
-                    'order_details' => json_encode([$booking_data->order_detail]),
-                    'code'          => $request->code ? $request->code : null,
-            ]
-        ]);
-        $res_data = json_decode($res->getBody())->data;
+        $discount = 0;
+        try{
+            $res = $client->request('POST', config('app.api_url')."/order/apply", [
+                'form_params' => [
+                        'id'      => $booking_data->court->id,
+                        'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
+                        'order_details' => json_encode([$booking_data->order_detail]),
+                        'code'          => $request->code ? $request->code : null,
+                ]
+            ]);
+            $res_data = json_decode($res->getBody())->data;
+            $discount = $res_data->discount;
+        } catch (RequestException $e) {
+            $discount = 0;
+        }    
+        $gross_amount = $booking_data->court->price * $booking_data->input->duration - $discount;
+        // return response()->json($gross_amount);
+        $input_time = json_decode($request->input_time);
+
 
         $transaction = new class{};
         $transaction->order_id = $order_id;
-        $transaction->gross_amount = $res_data->grand_total;
+        $transaction->gross_amount = $gross_amount;
 
         $customer        = new class{};
         $auth_user       = session('auth_data');
@@ -125,10 +137,11 @@ class BookingController extends Controller
 
         $expiry             = new class{};
         $expiry->start_time = date("Y-m-d H:i:s O");
-        $end_time           = date("Y-m-d H:i:s O", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00"));
-        $duration           = strtotime ( $end_time ) - strtotime ( $expiry->start_time );
-        $expiry->duration   = $duration;
-        $expiry->unit       = "second";
+        $expiry->start_time = date("Y-m-d H:i:s O");
+        // $end_time           = date("Y-m-d H:i:s O", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00"));
+        // $duration           = strtotime ( $end_time ) - strtotime ( $expiry->start_time );
+        $expiry->duration   = 2;
+        $expiry->unit       = "hours";
 
         // $gopay = new class{};
         // $gopay->enable_callback = true;
@@ -169,11 +182,9 @@ class BookingController extends Controller
         try {
             $res = $client->request('POST', config('app.api_url')."/order/create", [
                 'form_params' => [
-                    'id'            => $request->order_id,
-                    'court_id'      => $booking_data->court->id,
-                    'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00")),
-                    'status'        => $status ? $status : "PAYMENT",
-                    'duration'      => $booking_data->input->duration,
+                    'id'            => $order_id,
+                    'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
+                    'order_details' => json_encode([$booking_data->order_detail]),
                     'token'         => $snap_token,
                     // 'pdf_url'       => $request->data['pdf_url']
                 ]
