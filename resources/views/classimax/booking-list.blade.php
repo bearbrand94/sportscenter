@@ -25,9 +25,18 @@
 	}
 	.card-footer>p{
 		color: white;
-		padding: 0;
-		margin: 0;
-		font-size: 0.85rem;
+		font-size: 0.8rem;
+	}
+	.time-info{
+		background-color: white;
+		color: red;
+		width: 25px;
+		padding: 3px 1px 3px 1px;
+		margin: 1px;
+		font-size: 0.8rem;
+		text-align: center;
+		border-radius: 0.2rem;
+		font-weight: bold;
 	}
 </style>
 @endsection
@@ -65,8 +74,8 @@
 							<div class="scrolling-wrapper">
 								@if(isset($booking_list->active))
 								@foreach($booking_list->active as $booking)
-								<div class="row p-3" onclick="window.location.href='http://localhost/sportscenter/booking/detail'">
-									<div class="card" style="width: 100%">
+								<div class="row p-3">
+									<div class="card" style="width: 100%; cursor:pointer;"onclick="window.location.href='http://localhost/sportscenter/booking/detail'">
 										@if(isset($booking->token))
 									  	<a href="{{config('app.snap_url').'/v1/transactions/'.$booking->token.'/pdf'}}"></a>
 									  	@else
@@ -107,9 +116,24 @@
 										    </p>
 										</div>
 										@if($booking->status=="pending")
-										<div class="card-footer p">
-										  	<p class="d-inline-block">Konfirmasi Pembayaran Sebelum</p>
-										  	<p class="d-inline-block pull-right payment-time" time="{{ date('d-M-Y H:i:s', strtotime($booking->order_date)) }}">Waiting..</p>
+										<div class="card-footer">
+										  	<p class="d-inline-block mb-0 mt-1">Konfirmasi Pembayaran Sebelum</p>
+										  	<div class="d-inline float-right" style="color: white;">
+										  		<div class="d-inline-block time-info">
+										  			40
+										  		</div>
+										  		:
+										  		<div class="d-inline-block  time-info">
+										  			40
+										  		</div>
+										  		:
+										  		<div class="d-inline-block  time-info">
+										  			40
+										  		</div>
+<!-- 										  	<p class="d-inline-block float-right payment-time" time="{{ date('d-M-Y H:i:s', strtotime($booking->order_date)) }}" style="color: white;">
+										  		
+										  	Loading..</p> -->
+											</div>
 									  	</div>
 										@elseif($booking->status=="SUCCESS")
 										<div class="card-footer p" style="background-color: green;">
@@ -229,7 +253,7 @@
 		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
 		  // Display the result in the element with id="demo"
-		  $(this).html((hours+days*24) + "h " + minutes + "m " + seconds + "s ");
+		  // $(this).html((hours+days*24) + "h " + minutes + "m " + seconds + "s ");
 
 		  // If the count down is finished, write some text 
 		  if (distance < 0) {
