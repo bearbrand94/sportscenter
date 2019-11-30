@@ -62,7 +62,6 @@ class BookingController extends Controller
     public function apply_coupon(Request $request){
         $booking_data = json_decode(session('booking_data'));
 
-
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
 
@@ -78,18 +77,21 @@ class BookingController extends Controller
             $res_data = json_decode($res->getBody())->data;
 
             if(json_decode($res->getBody())->status_code=="200" && $request->code != ""){
+                $request->session()->put('promo_code', json_encode($request->code));
                 return response()->json([
                         'status' => 'true',
                         'data'  => $res_data
                     ]);
             }
             else{
+                $request->session()->put('promo_code', null);
                 return response()->json([
                         'status' => 'false',
                         'errors'  => 'Promo Invalid',
                     ]);
             }
         } catch (RequestException $e) {
+            $request->session()->put('promo_code', null);
             return response()->json([
                     'status' => 'false',
                     'errors'  => 'Promo Invalid',
@@ -112,7 +114,7 @@ class BookingController extends Controller
                         'id'      => $booking_data->court->id,
                         'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
                         'order_details' => json_encode([$booking_data->order_detail]),
-                        'code'          => $request->code ? $request->code : null,
+                        'code'          => session('promo_code') ? session('promo_code') : null
                 ]
             ]);
             $res_data = json_decode($res->getBody())->data;
@@ -170,7 +172,9 @@ class BookingController extends Controller
     public function create(Request $request){
         $booking_data = json_decode(session('booking_data'));
         $snap_token = session('snap_token');
-        $order_id = session('order_id');
+        $order_id = json_decode(session('order_id'));
+        $promo_code = json_decode(session('promo_code'));
+        
         // return dd($booking_data);
         // return $snap_token;
         $status = "PAYMENT";
@@ -186,12 +190,14 @@ class BookingController extends Controller
                     'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
                     'order_details' => json_encode([$booking_data->order_detail]),
                     'token'         => $snap_token,
+                    'code'          => $promo_code
                     // 'pdf_url'       => $request->data['pdf_url']
                 ]
             ]);
             return redirect(route('booking-list'));
             return $res->getBody();
         } catch (RequestException $e) {
+
             return $e;
         }
     }
