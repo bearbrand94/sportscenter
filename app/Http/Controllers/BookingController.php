@@ -215,7 +215,6 @@ class BookingController extends Controller
         $res_booking = json_decode($res->getBody())->data;
         $booking_list = new Class{};
 
-
         foreach ($res_booking as $booking) {
             $duration = strtotime ( $booking->order_date ) - strtotime ('now');
             if($duration < 0){
@@ -228,7 +227,22 @@ class BookingController extends Controller
         return view('classimax.booking-list')->with('booking_list', $booking_list);
     }
 
-    public function detail(){
-        return view('classimax.booking-detail');
+    public function detail(Request $request){
+        $jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        try {
+            $res = $client->request('POST', config('app.api_url')."/order", [
+                'form_params' => [
+                    'id'            => $request->id
+                ]
+            ]);
+        } catch (RequestException $e) {
+            return $e;
+            // return view('classimax.booking-list')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
+        }
+
+        $res_booking = json_decode($res->getBody())->data;
+        // return $res_booking;
+        return view('classimax.booking-detail')->with('data', $res_booking[0]);
     }
 }

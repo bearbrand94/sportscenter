@@ -69,7 +69,7 @@ Route::group(['middleware' => ['initial_data']], function() {
 	Route::post('/booking/create','BookingController@create')->name('booking-create');
 	Route::get('/booking', 'BookingController@show')->name('booking-list');
 	Route::post('/booking', 'BookingController@show')->name('booking-list');
-	Route::get('/booking/detail', 'BookingController@detail')->name('booking-detail');
+	Route::get('/booking/{id}', 'BookingController@detail')->name('booking-detail');
 
 });
 //End Group
