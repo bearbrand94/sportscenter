@@ -26,9 +26,9 @@
 		font-size: 1rem;
 		font-weight: bold;
 	}
-	.container-fluid{
-		padding-left: 0px;
-		padding-right: 0px;
+
+	strong{
+		color: #333;
 	}
 </style>
 @endsection
@@ -54,7 +54,7 @@
 </nav>
 
 <section class="border-top-1 bg-light h-100">
-	<div class="container-fluid">
+	<div class="container" style="padding-right: 0px; padding-left: 0px;">
 	@component('payment-time', [
 		'id'	=> "$data->id",
 		'date'	=> date('d-M-Y H:i:s', strtotime($data->order_date)),
@@ -66,8 +66,9 @@
 		<p class="d-inline-block" style="color: #666">No. ID {{$data->id}}</p>
 	</div>
 
+	@if($data->status == "pending")
 	<div class="container pt-3 pb-3" style="background-color: white;">
-		<button type="submit" class="btn btn-block button-saraga">Lihat Cara Pembayaran</button>
+		<a class="btn btn-block button-saraga" href="{{config('app.snap_url').'/v1/transactions/'.$data->token.'/pdf'}}" target="_blank">Lihat Cara Pembayaran</a>
 	</div>
 
 	<div class="container pt-3 pb-3 mt-2 mb-2" style="background-color: white;">
@@ -76,6 +77,7 @@
 	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($data->grand_total,0)}}</p>
 	      </div>
 	</div>
+	@endif
 
     <div class="container pt-3 pb-3" style="background-color: white;">
 	  	<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -104,7 +106,7 @@
 	        		<div class="form-inline">
 		        		<p class="bigger-text">
 			      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
-		        			{{date("D, j M Y", strtotime($data->order_date))}}
+		        			<strong>{{date("D, j M Y", strtotime($data->order_date))}}</strong>
 		        		</p>
 		        	</div>
 	        	</div>
@@ -115,17 +117,17 @@
 			      			
 			      			@foreach($data->detail as $det)
 			      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-		        			{{$det->time_slot}}<br>
+		        			<strong>{{$det->time_slot}}</strong><br>
 		        			@endforeach
 		        		</p>
 		        	</div>
 	        	</div>
 	        	<div class="col-6">
-	        		<p class="mb-0">Durasi</p>
+	        		<p class="mb-0">Total Durasi</p>
 	        		<div class="form-inline">
 		        		<p class="bigger-text">
 			      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-		        			3 Jam
+		        			<strong>3 Jam</strong>
 		        		</p>
 		        	</div>
 	        	</div>

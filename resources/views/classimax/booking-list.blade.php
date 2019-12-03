@@ -69,9 +69,9 @@
 										'date'	  => $booking->order_date,
 										'duration'	=> $booking->duration,
 										'status'	=> $booking->status,
+										'time'		=> $booking->detail
 									])
 									@endcomponent
-
 								</div>
 								@endforeach
 								@else
@@ -106,6 +106,7 @@
 							'date'	  => $booking->order_date,
 							'duration'	=> $booking->duration,
 							'status'	=> $booking->status,
+							'time'		=> $booking->detail
 						])
 						@endcomponent
 					</div>

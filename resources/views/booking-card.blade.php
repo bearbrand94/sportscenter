@@ -15,29 +15,31 @@
 	    <h5 class="card-title text-truncate pt-3" style="margin-top:-50px;">{{$title}}</h5>
 	    <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$span}}</span>
 	    
-	    <p class="card-text">
-	    	<div class="d-inline-block mr-4 mb-2">
+	    <div class="card-text" style="font-size: 0.9rem">
+	    	<div class="d-inline-block mr-4 mb-2 mt-4" style="vertical-align: top; font-size: 0.8rem;">
 	    		<div class="text-muted mb-2">Hari dan Tanggal</div>
 	    		<div style="font-weight: bold">
 	      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
         			{{ date("D, j M Y", strtotime($date)) }}
         		</div>
 	    	</div>
-	    	<div class="d-inline-block mr-4 mb-2">
+	    	<div class="d-inline-block mr-4 mb-2 mt-4" style="vertical-align: top;">
 	    		<div class="text-muted mb-2">Jam</div>
 	    		<div style="font-weight: bold">
+	    			@foreach($time as $t)
 	      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-        			{{ date("H:i", strtotime($date)) }}
+        			{{$t->time_slot}}<br>
+        			@endforeach
         		</div>
 	    	</div>
-	    	<div class="d-inline-block">
+<!-- 	    	<div class="d-inline-block mt-4" style="vertical-align: top;">
 	    		<div class="text-muted mb-2">Durasi</div>
 	    		<div style="font-weight: bold">
 	      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
         			{{ $duration }} Jam
         		</div>
-	    	</div>
-	    </p>
+	    	</div> -->
+	    </div>
 	</div>
 	@component('payment-time', [
 		'id'	=> $id,
