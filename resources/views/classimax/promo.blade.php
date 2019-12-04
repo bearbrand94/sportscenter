@@ -46,21 +46,6 @@
 @endif
 	@if(isset($promos))
     <div class="container">
-		<div class="row pt-3">
-			<div class="col-12">
-				<div class="scrolling-wrapper">
-					@foreach($categories as $category)
-					<a href="#">
-						<div class="card text-center mr-2" style="width: 8rem; border-style: none; display: inline-block;">
-						  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
-						    {{$category->name}}
-						  </div>
-						</div>
-					</a>
-					@endforeach
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
@@ -68,7 +53,7 @@
 					<div class="pb-3 pt-3">
 						<div class="card">
 						  <a href="{{route('promo-detail', $promo->id)}}">
-						    <img class="card-img-top" src="{{$promo->image}}" alt="Card image cap" style="max-height: 35rem">
+						    <img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="max-height: 35rem">
 						  </a>
 						    <a>
 						      <div class="card-body">
@@ -83,11 +68,11 @@
 								    	<div class="col-4 d-inline-block">
 								    		<div class="text-muted mb-1">Kode Promo</div>
 								    		<div style="font-weight: bold">
-							        			{{ $promo->code }}
+							        			{{ $promo->promo->code }}
 							        		</div>
 								    	</div>
 								    	<div class="col-3 d-inline-block align-self-center">
-										    <button class="button bg-button p-2 pull-right" style="background-color: white; border: 1px solid orange; color: rgb(235, 130, 0);" onclick="code_copy('{{$promo->code}}')">Salin Kode</button>
+										    <button class="button bg-button p-2 pull-right" style="background-color: white; border: 1px solid orange; color: rgb(235, 130, 0);" onclick="code_copy('{{$promo->promo->code}}')">Salin Kode</button>
 								    	</div>
 								    </div>
 							    </p>
