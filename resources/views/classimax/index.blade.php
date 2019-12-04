@@ -209,9 +209,9 @@
 					  @foreach($banners as $banner)
 						<a href="#">
 							<div class="card" style="width: 18rem;">
-							  <img class="card-img-top d-flex" src="{{ $banner->path }}" alt="Card image cap" style="height: 10rem">
+							  <img class="card-img-top d-flex" src="{{ $banner->image->path }}" alt="Card image cap" style="height: 10rem">
 							  <div class="card-body">
-							    <h5 class="card-title">{{ $banner->name }}</h5>
+							    <h5 class="card-title">{{ $banner->title }}</h5>
 							    <p class="card-text">{{ $banner->description }}</p>
 							  </div>
 							</div>

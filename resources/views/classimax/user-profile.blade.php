@@ -27,7 +27,7 @@
 		<div class="pb-5">
 			<div class="d-flex">
 				<div class="pl-4">
-					<img src="{{session('auth_data')->profile_image}}" class="img-responsive rounded-circle" alt="No Image" width=100 height=100>
+					<img src="{{session('auth_data')->profile_image ? session('auth_data')->profile_image : 'https://via.placeholder.com/150'}}" class="img-responsive rounded-circle" alt="No Image" width=100 height=100>
 				</div>
 				<div class="text-left pl-4">
 					<p style="font-weight: bold; font-size: 1.3rem;">{{session('auth_data')->name}}</p>
