@@ -646,7 +646,7 @@ ul.pagination .active a {
 }
 
 .bg-1 {
-  background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(255,255,255,1) 100%), url("../images/home/hero.png");
+  background: linear-gradient(to bottom, rgba(248,249,250,0) 50%, rgba(248,249,250,1) 100%), url("../images/home/hero.png");
   background-size: cover;
   background-repeat: no-repeat;
 }

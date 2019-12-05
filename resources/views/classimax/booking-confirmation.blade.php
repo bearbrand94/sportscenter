@@ -65,13 +65,20 @@
         		<p class="mb-0">Jam</p>
         		<div class="form-inline">
 	        		<p class="bigger-text">
+	        			@foreach($time as $index => $t)
+	        			@if($index == 0)
 		      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-	        			{{$input['input_time']}}:00
+		      			@else
+		      			<i class="fa fa-clock-o fa-lg mr-1" aria-hidden="true" style="color: white;"></i>
+		      			@endif
+	        			{{$t}}
+	        			<br>
+	        			@endforeach
 	        		</p>
 	        	</div>
         	</div>
         	<div class="col-6">
-        		<p class="mb-0">Durasi</p>
+        		<p class="mb-0">Total Durasi</p>
         		<div class="form-inline">
 	        		<p class="bigger-text">
 		      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
@@ -93,14 +100,14 @@
 
 		<p class="mb-2 mt-4" style="font-weight: bold; color: black; font-size: 1.1rem;">Voucher</p>
 		<div class="form-inline">
-			<input type="text" class="form-control col-9" name="voucher" placeholder="Punya kode voucher atau promo" id="voucher">
-			<button class="btn btn-primary col-3" id="apply">Apply</button>
+			<input type="text" class="form-control col-8 col-sm-9" name="voucher" placeholder="Punya kode voucher atau promo" id="voucher">
+			<button class="btn btn-primary col-4 col-sm-3" id="apply">Apply</button>
 		</div>
         <div class="alert alert-danger" id="promo-error" style="display: none;">
-            <strong>Promo Invalid</strong>
+            <strong id="promo-error-text">Promo Invalid</strong>
         </div>
         <div class="alert alert-success" id="promo-success" style="display: none;">
-            <strong>Yay! You can use this promo code!</strong>
+            <strong id="promo-success-text">Yay! You can use this promo code!</strong>
         </div>
 
         <hr class="my-4">
@@ -108,8 +115,8 @@
     	<hr class="my-4">
 		<div class="row">
 	      <div class="col-12 clearfix">
-	        <p class="float-left" style="color: black;">Harga / Jam</p>
-	        <p class="float-right" style="color: black;">Rp {{number_format($court->price,0)}}</p>
+	        <p class="float-left text-muted"   style="font-weight: normal; font-size: 0.8rem;">Harga / Jam</p>
+	        <p class="float-right text-muted"  style="font-weight: normal; font-size: 0.8rem;">Rp {{number_format($court->price,0)}}</p>
 	      </div>
 		</div>
 		<div class="row">
@@ -124,10 +131,17 @@
 	        <p class="float-right" style="color: black;" id="discount-html"></p>
 	      </div>
 		</div>
-		<div class="row mt-4">
+		<div class="row mt-3">
+	      <div class="col-12 clearfix">
+	        <div class="float-right" id="before-grand-total-div" style="display: none;">
+		        <p class="text-muted" style="font-weight: normal; font-size: 0.8rem; margin-bottom: 0" id="before-grand-total-html"><del>Rp {{number_format($court->price*$input['duration'],0)}}</del></p>
+		    </div>
+	      </div>
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
-	        <p class="float-right" style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($court->price*$input['duration'],0)}}</p>
+	        <div class="float-right">
+	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($court->price*$input['duration'],0)}}</p>
+		    </div>
 	      </div>
 		</div>
 		<button type="button" class="btn btn-block button-saraga mb-4" onclick="select_payment()">Pilih Metode Pembayaran</button>
@@ -147,12 +161,16 @@
 			code: $("#voucher").val()
 		},
 		function(data, status){
+			// console.log(data);
 			if(data.status=="true"){
 			  	$("#promo-success").css("display", "block");
 			  	$("#promo-error").css("display", "none");
-			  	console.log(data.data.discount);
+			  	var strSuccess = "Yay! You got Rp. " + number_format(data.data.discount) + " off from using this promo code!";
+			  	$("#promo-success-text").html(strSuccess);
+			  	// console.log(data.data.discount);
 			  	$("#discount").css("display", "block");
 			  	$("#discount-html").html("Rp " + number_format(data.data.discount));
+			  	$("#before-grand-total-div").css("display", "block");
 			  	$("#grand-total-html").html("Rp " + number_format(data.data.grand_total));
 			}
 			else{
@@ -186,8 +204,20 @@
 		if(status=="success"){
 			// console.log(data);
 			var d = JSON.parse(data);
+			snap.pay(d.token, {
+			  onSuccess: function(result){
+			  	window.location.href = "{{route('payment-finish')}}";
+			  },
+			  onPending: function(result){
+			  	window.location.href = "{{route('payment-pending')}}";
+			  },
+			  onError: function(result){
+			  	console.log('error');console.log(result);
+			  },
+			  onClose: function(){console.log('customer closed the popup without finishing the payment');}
+			})
 			// console.log(d);
-			window.location.href = d.redirect_url;
+			// window.location.href = d.redirect_url;
 		}
 	});
   }

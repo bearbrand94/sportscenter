@@ -107,7 +107,7 @@
           <hr class="my-4">
             <ul class="list-inline">
               <li class="list-inline-item"><h5 style="color: green; font-weight: bold;">Buka</h5></li>
-              <li class="list-inline-item"><h5>06:00 - 24:00</h5></li>
+              <li class="list-inline-item"><h5>{{$detail->spot->open_at}}- {{$detail->spot->close_at}}</h5></li>
             </ul>
           <hr class="my-4">
             <h5 style="font-weight: bold;">Deskripsi</h5>
@@ -189,20 +189,22 @@
           </div>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12" id="input-time-div">
         <!-- {{session('input-date')}} -->
         <div class="alert alert-warning" id="input-time-error" hidden>
             <strong>Pilih waktu yang tersedia.</strong>
         </div>
 
         <div class="row">
-        @for($i=0; $i<16; $i++)
+        <?php $i=0 ?>
+        @foreach($detail->timeslots as $ts)
+          <?php $i++ ?>
           <div class="text-center col-3 pt-2 pb-2">
-            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$i+8}}" style="border-radius: 0.4rem;">
-              <p style="font-size: 0.7rem; font-weight: bold;">{{$i+8}}:00 - {{$i+9}}:00</p>
+            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$ts->start_at}}" ts="{{$ts->time_slot}}" tsid="{{$ts->start_at}}" style="border-radius: 0.4rem;">
+              <p style="font-size: 0.7rem; font-weight: bold;">{{$ts->time_slot}}</p>
             </div>
           </div>
-        @endfor
+        @endforeach
         </div>
       </div>
     </div>
@@ -232,6 +234,7 @@
 
 @section('script')
 <script type="text/javascript">
+  var date_flag=false;
   var flatpickr = $(".flatpickr").flatpickr({
       altFormat: "Y-m-d",
       dateFormat: "Y-m-d",
@@ -239,21 +242,37 @@
       disableMobile: "true",
       onChange : function(selectedDates, dateStr, instance) {
         $("#input-date").val(dateStr);
+      },
+      onClose: function(selectedDates, dateStr, instance){
+        console.log(selectedDates);
+        if(typeof dateStr == 'undefined'){
+          $('#button-date-booking').removeClass('active');
+        }
+        else{
+          $("#input-date").val(dateStr);
+        }
+        date_flag=false;
+        if(dateStr == "{{date('Y-m-d')}}"){
+          $('.time-button').each(function(i, obj) {
+            if("{{date('H:i:s')}}" >= $(obj).attr('time')){
+              $(obj).removeClass('active')
+              $(obj).addClass('disabled');
+            }
+          });
+        }
       }
   });
-  var start_index =-1;
-  var end_index =-1;
+  var selectedTime = [];
 
   $('.date-button').click(function () {
     $('.date-button').removeClass('active');
-    $('.time-button').removeClass('active');
     $(this).addClass('active');
     $("#input-date").val($(this).attr('value'));
 
     if($(this).attr('value') == "{{date('Y-m-d')}}"){
       $('.time-button').each(function(i, obj) {
-        if({{date("H")}} >= $(obj).attr('time')){
-          console.log(obj);
+        if("{{date('H:i:s')}}" >= $(obj).attr('time')){
+          $(obj).removeClass('active')
           $(obj).addClass('disabled');
         }
       });
@@ -261,37 +280,53 @@
     else{
       $('.time-button').removeClass('disabled');
     }
+    fill_duration();
   });
 
   $('.time-button').click(function () {
     if(!$(this).hasClass("disabled")){
-      $('.time-button').removeClass('active');
-      if(start_index == -1){
-        start_index = parseInt($(this).attr('index'));
-        $(this).addClass('active');
-        $("#input-time").val($(this).attr('time'));
+      if ($(this).hasClass("active")) {
+        $(this).removeClass("active");
       }
       else{
-        end_index = parseInt($(this).attr('index'));
-        if(end_index > start_index){
-          for (var i = start_index; i <= end_index; i++) {
-            var id_name = "#time-button-" + i;
-            $(id_name).addClass('active');
-          }
-          $("#duration").html((end_index-start_index) + " Jam");
-          $("#input-duration").val((end_index-start_index));
-          start_index = -1;
-        }
-        else{
-          start_index = parseInt($(this).attr('index'));
-        }
-        $(this).addClass('active');
+        $(this).addClass("active");
       }
+      fill_duration();
+      // $('.time-button').removeClass('active');
+      // if(start_index == -1){
+      //   start_index = parseInt($(this).attr('index'));
+      //   $(this).addClass('active');
+      //   $("#input-time").val($(this).attr('time'));
+      // }
+      // else{
+      //   end_index = parseInt($(this).attr('index'));
+      //   if(end_index > start_index){
+      //     for (var i = start_index; i <= end_index; i++) {
+      //       var id_name = "#time-button-" + i;
+      //       $(id_name).addClass('active');
+      //     }
+      //     $("#duration").html((end_index-start_index) + " Jam");
+      //     $("#input-duration").val((end_index-start_index));
+      //     start_index = -1;
+      //   }
+      //   else{
+      //     start_index = parseInt($(this).attr('index'));
+      //   }
+      //   $(this).addClass('active');
+      // }
     }
   });
 
+
   $('#button-date-booking').click(function () {
-    flatpickr.open();
+    if(date_flag==false){
+      flatpickr.open();
+      date_flag=true;
+    }
+    else{
+      flatpickr.close();
+      date_flag=false;
+    }
   });
 
   $(document).ready(function () {
@@ -305,8 +340,16 @@
     });
   }
 
-  function select_field(field_id){
-    // alert(field_id);
+  function fill_duration(){
+      var duration = 0;
+      $('.time-button').each(function(i, obj) {
+        if ($(obj).hasClass("active")) {
+          duration++;
+        }
+      });
+
+      $("#duration").html(duration + " Jam");
+      $("#input-duration").val((duration));
   }
 
   function autofill(){
@@ -318,11 +361,19 @@
   }
 
   function checkform(){
+    selectedTime = [];
+    $('.time-button').each(function(i, obj) {
+      if($(obj).hasClass('active')){
+        selectedTime.push($(obj).attr('ts'));
+      }
+    });
+    $("#input-time").val(JSON.stringify(selectedTime));
+    // console.log($("#input-time").val());
     if($("#input-date").val() == ""){
       $("#input-date-error").removeAttr( "hidden" );
       return false;
     }
-    if($("#input-time").val() == ""){
+    if(selectedTime.length == 0){
       $("#input-time-error").removeAttr( "hidden" );
       return false;
     }

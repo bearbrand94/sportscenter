@@ -69,18 +69,22 @@ Route::group(['middleware' => ['initial_data']], function() {
 	Route::post('/booking/create','BookingController@create')->name('booking-create');
 	Route::get('/booking', 'BookingController@show')->name('booking-list');
 	Route::post('/booking', 'BookingController@show')->name('booking-list');
-	Route::get('/booking/detail', 'BookingController@detail')->name('booking-detail');
+	Route::get('/booking/{id}', 'BookingController@detail')->name('booking-detail');
 
 });
 //End Group
 Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
 Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
 
-Route::get('/payment/finish', 'BookingController@create')->name('snap-finish');
+Route::get('/payment/finish', 'BookingController@create')->name('payment-finish');
+Route::get('/payment/pending', 'BookingController@create')->name('payment-pending');
+
 Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
 
 Route::get('/','HomeController@index');
 Route::get('/home','HomeController@index')->name('home');
+Route::get('/filter/recommendation','FieldController@recommendation')->name('search-recommendation');
+
 Route::get('/field/search','FieldController@search')->name('field-search');
 
 Route::get('/field', function () {

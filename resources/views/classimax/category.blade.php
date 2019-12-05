@@ -78,7 +78,7 @@
 		</nav>
 		<!-- Modal body -->
 		<form method="GET" action="{{ route('field-search') }}">
-			<div class="modal-body">
+			<div class="modal-body container">
 				<div class="form-row pt-3">
 					<div class="form-group col-md-12">
 						<label class="has-float-label"> 
@@ -91,18 +91,18 @@
 							<span>Olahraga Terpilih</span>
 						</label>
 						<label class="has-float-label">
-							<input type="date" class="form-control datepicker" name="search_date">
+							<input type="text" class="form-control flatpickr" style="background-color: white" name="search_date" id="search_date">
 							<span>Tanggal</span>
 						</label>
 						<label class="has-float-label">
-							<input type="text" class="form-control" name="keyword" data-toggle="modal" data-target="#searchModal">
+							<input type="text" class="form-control" id="keyword" name="keyword" data-toggle="modal" data-target="#searchModal">
 							<span>Lokasi atau Lapang</span>
 						</label>
 					</div>
 				</div>
 			</div>
 			<!-- Modal footer -->
-			<div class="modal-footer">
+			<div class="modal-footer container">
 				<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
 			</div>
 		</form>
@@ -197,26 +197,38 @@
 @section('script')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
 	<script type="text/javascript">
+	  	var flatpickr = $(".flatpickr").flatpickr({
+        	altFormat: "j F Y",
+        	dateFormat: "j F Y",
+	      	minDate: "today",
+	      	disableMobile: "true"
+	 	});
 		@if (isset($requests['category']))
 			$("#select-category").val("{{$requests['category']}}");
 		@endif
+		@if (isset($requests['search_date']))
+			$("#search_date").val("{{$requests['search_date']}}");
+		@endif
+		@if (isset($requests['keyword']))
+			$("#keyword").val("{{$requests['keyword']}}");
+		@endif
 
-    $('#pagination-demo').twbsPagination({
-        totalPages: {{$links->last_page}},
-        visiblePages: 5,
-        startPage: {{$links->current_page}},
-        prev: '<span aria-hidden="true">&lsaquo;</span>',
-        next: '<span aria-hidden="true">&rsaquo;</span>',
-        last: '',
-        first: '',
-        initiateStartPageClick: false,
-        onPageClick: function (event, page) {
-        	var category = "category=" + "{{ Request()->category }}";
-        	var search_date = "&search_date=" + "{{ Request()->search_date }}";
-        	var keyword = "&keyword=" + "{{ Request()->keyword }}";
-        	var page = "&page=" + page;
-        	window.location.replace("{{ url()->current() }}?" + category+search_date+keyword+page);
-        }
-    });
+	    $('#pagination-demo').twbsPagination({
+	        totalPages: {{$links->last_page}},
+	        visiblePages: 5,
+	        startPage: {{$links->current_page}},
+	        prev: '<span aria-hidden="true">&lsaquo;</span>',
+	        next: '<span aria-hidden="true">&rsaquo;</span>',
+	        last: '',
+	        first: '',
+	        initiateStartPageClick: false,
+	        onPageClick: function (event, page) {
+	        	var category = "category=" + "{{ Request()->category }}";
+	        	var search_date = "&search_date=" + "{{ Request()->search_date }}";
+	        	var keyword = "&keyword=" + "{{ Request()->keyword }}";
+	        	var page = "&page=" + page;
+	        	window.location.replace("{{ url()->current() }}?" + category+search_date+keyword+page);
+	        }
+	    });
 	</script>
 @endsection

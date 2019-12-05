@@ -21,19 +21,14 @@
 		color: var(--saraga-color) !important;
 		font-weight: bold;
 	}
-	.card-footer{
-		background-color: rgb(255,130,0);
-	}
-	.card-footer>p{
-		color: white;
-		padding: 0;
-		margin: 0;
-		font-size: 0.85rem;
-	}
 
 	h4{
 		font-size: 1rem;
 		font-weight: bold;
+	}
+
+	strong{
+		color: #333;
 	}
 </style>
 @endsection
@@ -59,24 +54,30 @@
 </nav>
 
 <section class="border-top-1 bg-light h-100">
-	<div class="container card-footer">
-		<p class="d-inline-block">Konfirmasi Pembayaran Sebelum</p>
-	  	<p class="d-inline-block pull-right payment-time" time="{{ date('d-M-Y H:i:s', strtotime('+1 day')) }}">Waiting..</p>
+	<div class="container" style="padding-right: 0px; padding-left: 0px;">
+	@component('payment-time', [
+		'id'	=> "$data->id",
+		'date'	=> date('d-M-Y H:i:s', strtotime($data->order_date)),
+		'status'=> "$data->status"
+	])
+	@endcomponent
 	</div>
 	<div class="container card-footer bg-light">
-		<p class="d-inline-block" style="color: #666">No. ID 19412394812390</p>
+		<p class="d-inline-block" style="color: #666">No. ID {{$data->id}}</p>
 	</div>
 
+	@if($data->status == "pending")
 	<div class="container pt-3 pb-3" style="background-color: white;">
-		<button type="submit" class="btn btn-block button-saraga">Upload Bukti Pembayaran</button>
+		<a class="btn btn-block button-saraga" href="{{config('app.snap_url').'/v1/transactions/'.$data->token.'/pdf'}}" target="_blank">Lihat Cara Pembayaran</a>
 	</div>
 
 	<div class="container pt-3 pb-3 mt-2 mb-2" style="background-color: white;">
 	      <div class="col-12">
 	        <p style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
-	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format(500000,0)}}</p>
+	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($data->grand_total,0)}}</p>
 	      </div>
 	</div>
+	@endif
 
     <div class="container pt-3 pb-3" style="background-color: white;">
 	  	<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -92,8 +93,8 @@
 	        <div class="form-inline">
 				<img src="" class="img-responsive inline-block" height="100px" width="100px" />
 				<div class="ml-3">
-					<p class="bigger-text mb-2">Spot</p>
-					<p class="bigger-text mb-2">Court</p>
+					<p class="bigger-text mb-2">{{$data->detail[0]->spot->name}}</p>
+					<p class="bigger-text mb-2">{{$data->detail[0]->court->name}}</p>
 	                <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
 				</div>
 	        </div>
@@ -105,7 +106,7 @@
 	        		<div class="form-inline">
 		        		<p class="bigger-text">
 			      			<i class="fa fa-calendar fa-lg text-saraga mr-1" aria-hidden="true"></i>
-		        			{{date("D, j M Y", strtotime(now()))}}
+		        			<strong>{{date("D, j M Y", strtotime($data->order_date))}}</strong>
 		        		</p>
 		        	</div>
 	        	</div>
@@ -113,17 +114,20 @@
 	        		<p class="mb-0">Jam</p>
 	        		<div class="form-inline">
 		        		<p class="bigger-text">
+			      			
+			      			@foreach($data->detail as $det)
 			      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-		        			15:00
+		        			<strong>{{$det->time_slot}}</strong><br>
+		        			@endforeach
 		        		</p>
 		        	</div>
 	        	</div>
 	        	<div class="col-6">
-	        		<p class="mb-0">Durasi</p>
+	        		<p class="mb-0">Total Durasi</p>
 	        		<div class="form-inline">
 		        		<p class="bigger-text">
 			      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-		        			3 Jam
+		        			<strong>3 Jam</strong>
 		        		</p>
 		        	</div>
 	        	</div>
@@ -134,7 +138,7 @@
               <div class="card-body text-left">
                 <div class="row">
                 <div class="mr-auto pl-3">
-                  <p class=""><i class="fa fa-map-marker" aria-hidden="true"></i>Alamat</p>
+                  <p class=""><i class="fa fa-map-marker" aria-hidden="true"></i>{{$data->detail[0]->spot->address}}</p>
                   <a href="#" target="_blank">Get Directions</a>
                 </div>
                 </div>
@@ -163,7 +167,7 @@
 			<div class="row">
 		      <div class="col-12 clearfix">
 		        <p class="float-left" style="color: black; font-size: 1rem;"><b>Total</b></p>
-		        <p class="float-right" style="color: black; font-size: 1rem; font-weight: bold;" id="grand-total-html"><b>Rp {{number_format(300000*3,0)}}</b></p>
+		        <p class="float-right" style="color: black; font-size: 1rem; font-weight: bold;" id="grand-total-html"><b>Rp {{number_format($data->grand_total,0)}}</b></p>
 		      </div>
 			</div>
 		</div>
@@ -207,38 +211,5 @@
 		$("#collapse-btn-payment").addClass("fa-angle-down");
 		console.log(this);
 	})
-
-	// Update the count down every 1 second
-	var x = setInterval(function() {
-		$('.payment-time').each(function() {
-		  // Set the date we're counting down to
-		  var countDownDate = new Date($(this).attr('time')).getTime();
-
-		  // Get today's date and time
-		  var now = new Date().getTime();
-
-		  // Find the distance between now and the count down date
-		  var distance = countDownDate - now;
-
-		  // Time calculations for hours, minutes and seconds
-	      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-		  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-		  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-		  // Display the result in the element with id="demo"
-		  $(this).html((hours+days*24) + "h " + minutes + "m " + seconds + "s ");
-
-		  // If the count down is finished, write some text 
-		  if (distance < 0) {
-		    // clearInterval(x);
-		    $(this).html("EXPIRED");
-		    $(this).parent( ".card-footer" ).css( "background-color", "red" );
-		  }
-		});
-	}, 1000);
-	$(document).ready(function(){
-	   $('#active-tab').trigger("click"); 
-	});
 </script>
 @endsection

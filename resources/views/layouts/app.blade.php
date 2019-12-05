@@ -87,8 +87,9 @@
     =            Content            =
     =============================-->
     @yield('content')
+    </body>
 @endsection
-</body>
+
 
 @section('master_script')
   @yield('script')

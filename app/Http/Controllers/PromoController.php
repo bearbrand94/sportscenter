@@ -17,6 +17,7 @@ class PromoController extends Controller
         ]);
         $promo_data = $client->request('GET', config('app.api_url')."/promos", [
         ]);
+        // print_r(json_decode($promo_data->getBody())->data);
         return view('classimax.promo')->with('promos', json_decode($promo_data->getBody())->data)->with('categories', json_decode($category_data->getBody())->data);
     }
 
