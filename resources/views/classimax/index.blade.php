@@ -47,6 +47,16 @@
 	    padding: 25px 15px 25px 15px;
 		box-shadow: -1px 3px 6px rgba(0, 0, 0, 0.12)
 	}
+
+	.promo-info-element{
+	  position:relative;
+	  left:0;
+	  top: -250px;
+	  width: 100px;
+	  padding: 0.4em;
+	  background-color: rgba(255,255,255, 0.65);
+	  text-align: center;
+	}	
 </style>
 @endsection
 
@@ -130,7 +140,23 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 				  @foreach($promos as $promo)
-				  <a href="{{route('promo-detail',$promo->id)}}"><img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;"></a>
+				  	<div class="card mr-2" style="width: 400px; height: 250px;"> 
+				  	@if($promo->type=="INFOR")
+					  <a target="_blank" href="{{$promo->custom_url}}">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;">
+					    <div class="shadow promo-info-element">
+					      <span>Information</span>
+					    </div>
+					  </a>
+					@else
+					  <a href="{{route('promo-detail',$promo->id)}}">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;">
+					    <div class="shadow promo-info-element">
+					      <span>Promo</span>
+					    </div>
+					  </a>
+					@endif
+					</div>
 				  @endforeach
 				</div>
 			</div>
@@ -208,7 +234,7 @@
 					<div class="scrolling-wrapper ">
 					  @foreach($banners as $banner)
 						<a href="#">
-							<div class="card" style="width: 18rem;">
+							<div class="card" style="width: 18rem; min-height: 18rem;">
 							  <img class="card-img-top d-flex" src="{{ $banner->image->path }}" alt="Card image cap" style="height: 10rem">
 							  <div class="card-body">
 							    <h5 class="card-title">{{ $banner->title }}</h5>

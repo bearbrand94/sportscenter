@@ -50,6 +50,7 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 					@foreach($promos as $promo)
+					@if($promo->promo)
 					<div class="pb-3 pt-3">
 						<div class="card">
 						  <a href="{{route('promo-detail', $promo->id)}}">
@@ -80,6 +81,7 @@
 						    </a>
 						</div>
 					</div>
+					@endif
 					@endforeach
 					<div class="pb-5 pt-4"></div>
 				</div>
