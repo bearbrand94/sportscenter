@@ -47,16 +47,6 @@
 	    padding: 25px 15px 25px 15px;
 		box-shadow: -1px 3px 6px rgba(0, 0, 0, 0.12)
 	}
-
-	.promo-info-element{
-	  position:relative;
-	  left:0;
-	  top: -250px;
-	  width: 100px;
-	  padding: 0.4em;
-	  background-color: rgba(255,255,255, 0.65);
-	  text-align: center;
-	}	
 </style>
 @endsection
 
@@ -140,20 +130,20 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 				  @foreach($promos as $promo)
-				  	<div class="card mr-2" style="width: 400px; height: 250px;"> 
+				  	<div class="card mr-2" style="width: 400px;"> 
 				  	@if($promo->type=="INFOR")
 					  <a target="_blank" href="{{$promo->custom_url}}">
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;">
-					    <div class="shadow promo-info-element">
+					    <div class="banner-element banner-element-info">
 					      <span>Information</span>
 					    </div>
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 250px;">
 					  </a>
 					@else
 					  <a href="{{route('promo-detail',$promo->id)}}">
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;">
-					    <div class="shadow promo-info-element">
+					    <div class="banner-element banner-element-promo">
 					      <span>Promo</span>
 					    </div>
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;">
 					  </a>
 					@endif
 					</div>
@@ -232,13 +222,13 @@
 			</div>
 				<div class="col-12">
 					<div class="scrolling-wrapper ">
-					  @foreach($banners as $banner)
-						<a href="#">
+					  @foreach($events as $event)
+						<a href="{{ $event->custom_url }}" target="_blank">
 							<div class="card" style="width: 18rem; min-height: 18rem;">
-							  <img class="card-img-top d-flex" src="{{ $banner->image->path }}" alt="Card image cap" style="height: 10rem">
+							  <img class="card-img-top d-flex" src="{{ $event->image->path }}" alt="Card image cap" style="height: 15rem">
 							  <div class="card-body">
-							    <h5 class="card-title">{{ $banner->title }}</h5>
-							    <p class="card-text">{{ $banner->description }}</p>
+							    <h5 class="card-title">{{ $event->title }}</h5>
+							    <p class="card-text">{{ $event->description }}</p>
 							  </div>
 							</div>
 						</a>

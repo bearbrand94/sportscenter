@@ -67,16 +67,25 @@
 	</div>
 
 	@if($data->status == "pending")
-	<div class="container pt-3 pb-3" style="background-color: white;">
-		<a class="btn btn-block button-saraga" href="{{config('app.snap_url').'/v1/transactions/'.$data->token.'/pdf'}}" target="_blank">Lihat Cara Pembayaran</a>
-	</div>
+		<div class="container pt-3 pb-3" style="background-color: white;">
 
-	<div class="container pt-3 pb-3 mt-2 mb-2" style="background-color: white;">
-	      <div class="col-12">
-	        <p style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
-	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($data->grand_total,0)}}</p>
-	      </div>
-	</div>
+		@if($midtrans->payment_type == "bca_klikbca")
+			<a class="btn btn-block button-saraga" href="https://www.klikbca.com/" target="_blank">Silahkan Ke KlikBCA Untuk Menyelesaikan Pembayaran</a>
+		@elseif($midtrans->payment_type == "bca_klikpay")
+			<a class="btn btn-block button-saraga" href="https://api.sandbox.veritrans.co.id/v3/bca/klikpay/redirect/{{$midtrans->transaction_id}}" target="_blank">Lanjutkan Pembayaran</a>
+		@elseif($midtrans->payment_type == "gopay")
+			<a class="btn btn-block button-saraga" href="{{config('app.midtrans_api_url')}}/v2/gopay/{{$midtrans->transaction_id}}/qr-code" target="_blank">Lihat QR-Code</a>
+		@else
+			<a class="btn btn-block button-saraga" href="{{config('app.snap_url').'/v1/transactions/'.$data->token.'/pdf'}}" target="_blank">Lihat Cara Pembayaran</a>
+		@endif
+		</div>
+
+		<div class="container pt-3 pb-3 mt-2 mb-2" style="background-color: white;">
+		      <div class="col-12">
+		        <p style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
+		        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($data->grand_total,0)}}</p>
+		      </div>
+		</div>
 	@endif
 
     <div class="container pt-3 pb-3" style="background-color: white;">

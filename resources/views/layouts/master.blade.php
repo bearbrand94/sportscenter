@@ -34,7 +34,29 @@
             --saraga-color: rgb(9, 58, 102);
             --alpha: 0.5;
           }
-          
+
+          .banner-element{
+            position:relative;
+            left:0;
+            top: 0;
+            width: 100%;
+            padding: 0.4em;
+            background-color: rgba(255,255,255, 0.65);
+            text-align: center;
+            text-transform: uppercase;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+          }   
+
+          .banner-element-info{
+            background-color: #42c5f5;
+            color: white;
+          }
+
+          .banner-element-promo{
+            background-color: #fc4103;
+            color: white;
+          }
+
           .col-xs-5ths {
             width: 20%;
             float: left;
@@ -116,7 +138,7 @@
           }
 
           .container{
-            max-width: 768px;
+            max-width: 655px;
           }
         </style>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

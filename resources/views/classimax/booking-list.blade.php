@@ -72,6 +72,7 @@
 										'time'		=> $booking->detail
 									])
 									@endcomponent
+									<!-- {{print_r($booking)}} -->
 								</div>
 								@endforeach
 								@else
