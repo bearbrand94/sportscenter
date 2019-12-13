@@ -41,7 +41,7 @@
         <a class="nav-link" style="color: white" href="javascript:history.back()">  
             <i class="fa fa-arrow-left fa-2x" style="color: white; font-size: 20px;"></i>
         	<b class="ml-3" style="font-size: 20px;">
-			    Detail Promo
+			    Detail Event
         	</b>
   		</a>
       </li>
@@ -52,46 +52,75 @@
 <section class="border-top-1 bg-light">
     <div class="container" style="background-color: white;">
 	    <div class="row">
-        	<img class="card-img-top img-fluid" src="{{$detail->image->path}}" alt="Card image cap" style="max-height: 25rem; padding-right: 0px; padding-left: 0px;">
+        	<img class="card-img-top img-fluid" src="{{$event->image->path}}" alt="Card image cap" style="max-height: 25rem; padding-right: 0px; padding-left: 0px;">
           	<div id="innerelements" class="shadow">
-            	<a style="cursor: hand">
+            	<div style="cursor: pointer">
               		<i class="fa fa-share-alt fa-2x text-saraga share-btn" value="true" aria-hidden="true" style="font-size: 1.75rem;"></i>
-            	</a>
+            	</div>
           	</div>
         </div>
-    	<div class="row col-12 pb-4">
-	    	{{$detail->description}}
-	    </div>
-    </div>
-    <div class="container mt-4" style="background-color: white;">
-    	<div class="row p-2">
-	    	<div class="col-5 d-inline-block">
-	    		<div class="text-muted mb-1">Periode Promo</div>
-	    		<div style="font-weight: bold">
-        			{{ date("j M Y", strtotime($detail->created_at)) }}
-        		</div>
-	    	</div>
-	    	<div class="col-4 d-inline-block">
-	    		<div class="text-muted mb-1">Kode Promo</div>
-	    		<div style="font-weight: bold">
-        			{{ $detail->promo->code }}
-        		</div>
-	    	</div>
-	    	<div class="col-3 d-inline-block align-self-center">
-			    <button class="button bg-button p-2 pull-right" style="background-color: white; border: 1px solid orange; color: rgb(235, 130, 0);" onclick="code_copy('{{$detail->promo->code}}')">Salin Kode</button>
-	    	</div>
+    	<div class="row col-12 pb-4" style="font-size: 1.1rem;">
+	    	{{$event->description}}
 	    </div>
     </div>
 
+    <div class="container mt-4" style="background-color: white;">
+    	<div class="row p-2">
+	    	<div class="col-6 d-inline-block">
+	    		<div class="text-muted mb-1">Tanggal Pelaksanaan</div>
+	    		<div>
+        			{{ date("j M Y", strtotime($event->start_at)) }} - {{ date("j M Y", strtotime($event->end_at)) }}
+        		</div>
+	    	</div>
+	    	@if(isset($event->event->due_date) && $event->event->due_date != "")
+	    	<div class="col-6 d-inline-block">
+	    		<div class="text-muted mb-1">Batas Pendaftaran</div>
+	    		<div style="color: red;">
+        			{{ date("j M Y", strtotime($event->event->due_date)) }}
+        		</div>
+	    	</div>
+	    	@endif
+	    </div>
+    </div>
+
+    @if($event->event->contact_info != "")
     <div class="container mt-4 pb-4" style="background-color: white;">
     	<div class="row p-2">
-    		<div class="col-12 pb-4">
-	    		<h4 class="pt-2 pb-1">Syarat Dan Ketentuan</h4>
-	    		<hr>
-	            <p>{{$detail->promo->tnc}}</p>
+    		<div class="col-12">
+	    		<div class="text-muted mb-1">More Info</div>
+	    		<div>
+        			{{ $event->event->contact_info }}
+        		</div>
 	    	</div>
 	    </div>
     </div>
+    @endif
+
+    @if($event->event->contact_info != "")
+    <div class="container mt-4 pb-4" style="background-color: white;">
+    	<div class="row p-2">
+    		<div class="col-12">
+	    		<div class="text-muted mb-1">Tempat Pendaftaran</div>
+	    		<div>
+        			{{ $event->event->due_location }}
+        		</div>
+	    	</div>
+	    </div>
+    </div>
+    @endif
+
+    @if(isset($event->event->requirement) && $event->event->requirement != "")
+    <div class="container mt-4 pb-4 mb-4" style="background-color: white;">
+    	<div class="row p-2">
+    		<div class="col-12 pb-4">
+	    		<h4 class="pt-2 pb-1">Persyaratan</h4>
+	    		<hr>
+	            <p>{{$event->event->requirement}}</p>
+	    	</div>
+	    </div>
+    </div>
+    @endif
+
 </section>
 @endsection
 

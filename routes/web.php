@@ -100,3 +100,5 @@ Route::get('/field/list', function () {
 
 Route::get('/promo','PromoController@list')->name('promo-list');
 Route::get('/promo/{id}','PromoController@detail')->name('promo-detail');
+Route::get('/events','EventController@list')->name('event-list');
+Route::get('/event/{id}','EventController@detail')->name('event-detail');

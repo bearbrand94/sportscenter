@@ -53,15 +53,18 @@
 					@foreach($promos as $promo)
 					<div class="pb-3 pt-3">
 						<div class="card">
+							@if($promo->type=="PROMO")
 							<a href="{{route('promo-detail', $promo->id)}}">
-								
-								@if($promo->type=="INFOR")
-							    <div class="banner-element banner-element-info">
-							      <span>Information</span>
-							    </div>
-							    @else
+							@else
+							<a href="{{$promo->custom_url}}" target="_blank">
+							@endif
+								@if($promo->type=="PROMO")
 							    <div class="banner-element banner-element-promo">
 							      <span>Promo</span>
+							    </div>
+							    @else
+							    <div class="banner-element banner-element-info">
+							      <span>Information</span>
 							    </div>
 							    @endif
 							    <img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="max-height: 30rem">

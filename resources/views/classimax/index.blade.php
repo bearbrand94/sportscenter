@@ -115,6 +115,7 @@
 	<!--==========================================
 	=            	 Promo Section               =
 	===========================================-->
+	@if(count($promos) > 0)
 	<div class="container" style="margin-top: 10px;">
 		<div class="content">
 		<div class="row" style="margin-bottom: -30px;">
@@ -152,6 +153,7 @@
 			</div>
 		</div>
 	</div>
+	@endif
 
 
 	<!--==========================================
@@ -209,13 +211,14 @@
 	<!-- Container End -->
 
 	<!-- Container Start -->
+	@if(count($events) > 0)
 	<div class="container" style="margin-top: 40px;">
 		<div class="content">
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
 						<div class="col-12">
-						<p class="pull-left" style="text-align: left;"><b>Event</b><br>Informasi Turnamen yang bisa kamu ikuti</p> <a href="#" class="pull-right">Lihat Semua</a>
+						<p class="pull-left" style="text-align: left;"><b>Event</b><br>Informasi Turnamen yang bisa kamu ikuti</p> <a href="{{route('event-list')}}" class="pull-right">Lihat Semua</a>
 						</div>
 					</div>
 				</div>
@@ -223,7 +226,7 @@
 				<div class="col-12">
 					<div class="scrolling-wrapper ">
 					  @foreach($events as $event)
-						<a href="{{ $event->custom_url }}" target="_blank">
+						<a href="{{ route('event-detail', $event->id)}}">
 							<div class="card" style="width: 18rem; min-height: 18rem;">
 							  <img class="card-img-top d-flex" src="{{ $event->image->path }}" alt="Card image cap" style="height: 15rem">
 							  <div class="card-body">
@@ -237,6 +240,7 @@
 				</div>
 		</div>
 	</div>
+	@endif
 	<!-- Container End -->
 </section>
 @endsection
