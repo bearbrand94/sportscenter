@@ -1,6 +1,6 @@
 <html lang="en">
     <head>
-        <title>App Name - @yield('title')</title>
+        <title>Saraga</title>
         <!-- SITE TITTLE -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,6 +33,9 @@
           :root {
             --saraga-color: rgb(9, 58, 102);
             --alpha: 0.5;
+          }
+          .navigation{
+            padding: 8px 0;
           }
 
           .banner-element{
@@ -84,9 +87,13 @@
           }
 
           .has-float-label span{
-            font-size: 15px;
+            font-size: 0.8rem;
             font-weight: bold;
             color: var(--saraga-color);
+          }
+
+          .has-float-label .form-control{
+            font-size: 0.9rem;
           }
 
           .text-saraga{

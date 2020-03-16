@@ -2,20 +2,21 @@
 	.card-footer{
 		background-color: rgb(255,130,0);
 		width: 100%;
+		padding: .75rem 0.9rem;
 	}
 	.card-footer>p{
 		color: white;
 		padding: 0;
 		margin: 0;
-		font-size: 0.85rem;
+		font-size: 0.8rem;
 	}	
 	.time-info{
 		background-color: white;
 		color: red;
-		width: 25px;
-		padding: 3px 1px 3px 1px;
-		margin: 1px;
-		font-size: 0.8rem;
+		width: 20px;
+		padding: 2px 1px 2px 1px;
+		margin: 0;
+		font-size: 0.7rem;
 		text-align: center;
 		border-radius: 0.2rem;
 		font-weight: bold;

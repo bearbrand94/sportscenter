@@ -16,7 +16,7 @@
 
 	.card {
 	 display: inline-flex;
-	 width: 20rem;
+	 width: 14rem;
 
 	}
 
@@ -28,6 +28,7 @@
 	a{
 		color:rgb(42,119,189);
 		vertical-align: middle;
+		font-size: 0.8rem;
 	}
 
 	.form-control[readonly]{
@@ -36,16 +37,63 @@
 	}
 
 	.bg-button {
-	  border-radius: 0.5rem; 
+	  border-radius: 0.2rem; 
 	  background-size: cover;
 	  background-repeat: no-repeat;
 	  color: white;
+	  padding: 0.9rem;
 	}
 
 	.content{
 		background: #fff;
-	    padding: 25px 15px 25px 15px;
+	    padding: 20px 5px 20px 5px;
 		box-shadow: -1px 3px 6px rgba(0, 0, 0, 0.12)
+	}
+
+	.card-img-top{
+		max-height: 10rem;
+	}
+	.section-title{
+		margin-bottom: 3.5rem;
+	}
+	.section-title p{
+		font-size: 0.9rem;
+		line-height: 1.2rem;
+		margin-bottom: 0;
+	}
+	.section-title a{
+		font-size: 0.75rem;
+	}
+	.sub-p{
+		font-size: 0.65rem;
+	}
+
+	form{
+		margin-bottom: 0;
+	}
+	#innerelements{
+		padding: 0.5em !important;
+		left: 75% !important;
+		font-size: 1em !important;
+	}
+	h5{
+		font-size: 1rem;
+		font-weight: 800;
+	}
+	.card-body .card-text{
+		font-size: 0.8rem;
+		margin-bottom: 10px;
+		margin-top: -7px;
+	}
+
+	.address{
+		font-size: 0.7rem !important;
+		font-weight: 400 !important;
+	}
+
+	.container-full{
+		padding-right: 0px;
+		padding-left: 0px;
 	}
 </style>
 @endsection
@@ -62,8 +110,7 @@
 			<div class="col-md-12">
 				<!-- Header Contetnt -->
 				<div class="content-block" style="padding-bottom: 10px;">
-					<h1>SARAGA</h1>
-					<h2 style="color:white;">Mau main apa hari ini?</h2>
+			        <img class="card-img-top pb-5" src="{{ asset('images/saraga.svg') }}" alt="Card image cap" style="width: 150px;">
 				</div>
 				<!-- Advance Search -->
 				<div class="advance-search">
@@ -80,7 +127,7 @@
 														<option value="{{$category->id}}">{{$category->name}}</option>
 													@endforeach
 												</select>
-												<span>Olahraga Terpilih</span>
+												<span>Olahraga</span>
 											</label>
 											<label class="has-float-label">
 												<input type="text" class="form-control flatpickr" name="search_date">
@@ -94,6 +141,8 @@
 										</div>
 									</div>
 								</form>
+@component('search')
+@endcomponent
 							</div>
 						</div>
 					</div>
@@ -104,9 +153,6 @@
 	<!-- Container End -->
 </section>
 
-@component('search')
-@endcomponent
-
 <!--==========================================
 =            	 BODY Section               =
 ===========================================-->
@@ -116,35 +162,35 @@
 	=            	 Promo Section               =
 	===========================================-->
 	@if(count($promos) > 0)
-	<div class="container" style="margin-top: 10px;">
+	<div class="container container-full" style="margin-top: 10px;">
 		<div class="content">
-		<div class="row" style="margin-bottom: -30px;">
-			<div class="col-12">
-				<div class="section-title">
-					<div class="col-12">
-						<p class="pull-left"><b>Promo</b></p>
-						<a href="{{route('promo-list')}}" class="pull-right">Lihat Semua</a>
+			<div class="row" style="margin-bottom: -30px;">
+				<div class="col-12">
+					<div class="section-title">
+						<div class="col-12">
+							<p class="pull-left"><b>Promo</b></p>
+							<a href="{{route('promo-list')}}" class="pull-right">Lihat Semua</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 			<div class="col-12">
 				<div class="scrolling-wrapper">
 				  @foreach($promos as $promo)
-				  	<div class="card mr-2" style="width: 400px;"> 
+				  	<div class="card mr-1"> 
 				  	@if($promo->type=="INFOR")
 					  <a target="_blank" href="{{$promo->custom_url}}">
 					    <div class="banner-element banner-element-info">
 					      <span>Information</span>
 					    </div>
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 250px;">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 125px;">
 					  </a>
 					@else
 					  <a href="{{route('promo-detail',$promo->id)}}">
 					    <div class="banner-element banner-element-promo">
 					      <span>Promo</span>
 					    </div>
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 400px; height: 250px;">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 125px;">
 					  </a>
 					@endif
 					</div>
@@ -155,18 +201,17 @@
 	</div>
 	@endif
 
-
 	<!--==========================================
 	=         RECOMMENDATION Section             =
 	===========================================-->
 	<!-- Container Start -->
-	<div class="container" style="margin-top: 40px;">
+	<div class="container container-full" style="margin-top: 20px;">
 		<div class="content">
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
 						<div class="col-12">
-							<p class="pull-left" style="text-align: left;"><b>Rekomendasi Saraga</b><br>Lapang dengan fasilitas terbaik</p>
+							<p class="pull-left" style="text-align: left;"><b>Rekomendasi Saraga</b><br><subp class="sub-p">Lapang dengan fasilitas terbaik</subp></p>
 							<a href="{{route('field-search')}}" class="pull-right">Lihat Semua</a>
 						</div>
 					</div>
@@ -179,7 +224,7 @@
 						@csrf
 						<input type="hidden" name="category" value="{{$category->id}}">
 						<a href="#" onclick='this.parentNode.submit(); return false;'>
-							<div class="card text-center mr-2" style="width: 8rem; border-style: none;">
+							<div class="card text-center mr-2" style="width: 7rem; border-style: none;">
 							  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
 							    {{$category->name}}
 							  </div>
@@ -210,15 +255,18 @@
 	</div>
 	<!-- Container End -->
 
+	<!--==========================================
+	=               EVENT Section                =
+	===========================================-->
 	<!-- Container Start -->
 	@if(count($events) > 0)
-	<div class="container" style="margin-top: 40px;">
+	<div class="container container-full" style="margin-top: 20px;">
 		<div class="content">
 			<div class="row">
 				<div class="col-12">
 					<div class="section-title">
 						<div class="col-12">
-						<p class="pull-left" style="text-align: left;"><b>Event</b><br>Informasi Turnamen yang bisa kamu ikuti</p> <a href="{{route('event-list')}}" class="pull-right">Lihat Semua</a>
+						<p class="pull-left" style="text-align: left;"><b>Event</b><br><subp class="sub-p">Informasi Turnamen yang bisa kamu ikuti</subp></p> <a href="{{route('event-list')}}" class="pull-right">Lihat Semua</a>
 						</div>
 					</div>
 				</div>
@@ -227,7 +275,7 @@
 					<div class="scrolling-wrapper ">
 					  @foreach($events as $event)
 						<a href="{{ route('event-detail', $event->id)}}">
-							<div class="card" style="width: 18rem; min-height: 18rem;">
+							<div class="card">
 							  <img class="card-img-top d-flex" src="{{ $event->image->path }}" alt="Card image cap" style="height: 15rem">
 							  <div class="card-body">
 							    <h5 class="card-title">{{ $event->title }}</h5>

@@ -18,7 +18,6 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $jar = session('jar');
-        $client = new Client(['cookies' => $jar]);
+
     }
 }

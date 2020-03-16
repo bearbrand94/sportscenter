@@ -66,7 +66,7 @@
         </div>
       </nav>
       <!-- Modal body -->
-      <div class="modal-body container bg-light" style="overflow-y: auto;">
+      <div class="modal-body container bg-light text-left" style="overflow-y: auto;">
         <p class="text-muted" style="font-size: 1rem">Lapang Rekomendasi</p>
         <div class="row">
             <div class="widget personal-info" style="width: 100%" id="spots_list">
