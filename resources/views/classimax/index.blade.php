@@ -52,6 +52,7 @@
 
 	.card-img-top{
 		max-height: 10rem;
+		border-radius: 0;
 	}
 	.section-title{
 		margin-bottom: 3.5rem;
@@ -92,8 +93,8 @@
 	}
 
 	.container-full{
-		padding-right: 0px;
-		padding-left: 0px;
+		padding-right: 10px;
+		padding-left: 10px;
 	}
 </style>
 @endsection
@@ -103,56 +104,57 @@
 =            Hero Area            =
 ================================-->
 
-<section class="hero-area bg-1 text-center overly bg-light">
-	<!-- Container Start -->
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<!-- Header Contetnt -->
-				<div class="content-block" style="padding-bottom: 10px;">
-			        <img class="card-img-top pb-5" src="{{ asset('images/saraga.svg') }}" alt="Card image cap" style="width: 150px;">
-				</div>
-				<!-- Advance Search -->
-				<div class="advance-search">
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-12 align-content-center">
-								<form method="GET" action="{{ route('field-search') }}">
-									<div class="form-row">
-										<div class="form-group col-md-12">
-											<label class="has-float-label"> 
-												<select class="w-100 form-control custom-select" name="category">
-													<option value="">Semua</option>
-													@foreach($categories as $category)
-														<option value="{{$category->id}}">{{$category->name}}</option>
-													@endforeach
-												</select>
-												<span>Olahraga</span>
-											</label>
-											<label class="has-float-label">
-												<input type="text" class="form-control flatpickr" name="search_date">
-												<span>Tanggal</span>
-											</label>
-											<label class="has-float-label">
-												<input type="text" class="form-control" name="keyword" data-toggle="modal" data-target="#searchModal" id="keyword">
-												<span>Lokasi atau Lapang</span>
-											</label>
-											<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
+<section class="section bg-light" style="padding-top: 0; padding-bottom: 0">
+	<div class="container hero-area bg-1 overly text-center">
+		<!-- Container Start -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Header Contetnt -->
+					<div class="content-block" style="padding-bottom: 10px;">
+				        <img class="card-img-top pb-5" src="{{ asset('images/saraga.svg') }}" alt="Card image cap" style="width: 150px;">
+					</div>
+					<!-- Advance Search -->
+					<div class="advance-search">
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-12 align-content-center">
+									<form method="GET" action="{{ route('field-search') }}">
+										<div class="form-row">
+											<div class="form-group col-md-12">
+												<label class="has-float-label"> 
+													<select class="w-100 form-control custom-select" name="category">
+														<option value="">Semua</option>
+														@foreach($categories as $category)
+															<option value="{{$category->id}}">{{$category->name}}</option>
+														@endforeach
+													</select>
+													<span>Olahraga</span>
+												</label>
+												<label class="has-float-label">
+													<input type="text" class="form-control flatpickr" name="search_date">
+													<span>Tanggal</span>
+												</label>
+												<label class="has-float-label">
+													<input type="text" class="form-control" readonly="readonly" name="keyword" data-toggle="modal" data-target="#searchModal" id="keyword">
+													<span>Lokasi atau Lapang</span>
+												</label>
+												<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
+											</div>
 										</div>
-									</div>
-								</form>
-@component('search')
-@endcomponent
+									</form>
+	@component('search')
+	@endcomponent
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- Container End -->
 	</div>
-	<!-- Container End -->
 </section>
-
 <!--==========================================
 =            	 BODY Section               =
 ===========================================-->
@@ -183,14 +185,14 @@
 					    <div class="banner-element banner-element-info">
 					      <span>Information</span>
 					    </div>
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 125px;">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 110px;">
 					  </a>
 					@else
 					  <a href="{{route('promo-detail',$promo->id)}}">
 					    <div class="banner-element banner-element-promo">
 					      <span>Promo</span>
 					    </div>
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 125px;">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 110px;">
 					  </a>
 					@endif
 					</div>

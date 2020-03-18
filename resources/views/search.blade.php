@@ -61,7 +61,7 @@
           </a>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <input type="text" class="form-control m-1" id="searchInput" placeholder="Cari Lapang Atau Lokasi" id="voucher" style="background-color: white; height: 45px;" autofocus tabindex="-1">
+            <input type="text" class="form-control m-1" id="searchInput" placeholder="Cari Lapang Atau Lokasi" id="voucher" style="background-color: white; height: 45px;" tabindex="-1">
           </div>
         </div>
       </nav>

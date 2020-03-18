@@ -6,6 +6,10 @@
     .active{
         color: var(--saraga-color);
     }
+    .body-wrapper{
+        background-color: #f8f9fa!important;
+        width: 100%;
+    }
   </style>
 @endsection
 
