@@ -41,13 +41,13 @@ class HomeController extends Controller
         $category_data = $client->request('GET', config('app.api_url')."/sports", [
         ]);
 
-        $event_data = $client->request('GET', config('app.api_url')."/banners", [
+        $event_data = $client->request('GET', config('app.api_url')."/events", [
         ]);
 
         $promo_data = $client->request('GET', config('app.api_url')."/promos", [
         ]);
         
 
-        return view('classimax.index')->with('spots', json_decode($res->getBody())->data)->with('categories', json_decode($category_data->getBody())->data)->with('banners', json_decode($event_data->getBody())->data)->with('promos', json_decode($promo_data->getBody())->data);
+        return view('classimax.index')->with('spots', json_decode($res->getBody())->data)->with('categories', json_decode($category_data->getBody())->data)->with('events', json_decode($event_data->getBody())->data)->with('promos', json_decode($promo_data->getBody())->data);
     }
 }

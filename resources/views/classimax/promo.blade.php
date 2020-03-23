@@ -2,12 +2,9 @@
 
 @section('css')
 <style type="text/css">
-
-
 	.scrolling-wrapper {
 	  overflow-x: scroll;
 	  overflow-y: hidden;
-	  white-space: nowrap;
 	}
 
 	.card p{
@@ -20,6 +17,10 @@
 	  background-size: cover;
 	  background-repeat: no-repeat;
 	  color: white;
+	}
+
+	.card-text{
+		font-size: 0.75rem;
 	}
 </style>
 @endsection
@@ -52,30 +53,60 @@
 					@foreach($promos as $promo)
 					<div class="pb-3 pt-3">
 						<div class="card">
-						  <a href="{{route('promo-detail', $promo->id)}}">
-						    <img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="max-height: 35rem">
-						  </a>
+							@if($promo->type=="PROMO")
+							<a href="{{route('promo-detail', $promo->id)}}">
+							@else
+							<a href="{{$promo->custom_url}}" target="_blank">
+							@endif
+								@if($promo->type=="PROMO")
+							    <div class="banner-element banner-element-promo">
+							      <span>Promo</span>
+							    </div>
+							    @else
+							    <div class="banner-element banner-element-info">
+							      <span>Information</span>
+							    </div>
+							    @endif
+							    <img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="max-height: 30rem">
+							</a>
 						    <a>
 						      <div class="card-body">
-							    <p class="card-text">
-							    	<div class="row">
-								    	<div class="col-5 d-inline-block">
+						      	@if($promo->type=="PROMO")
+							    <!-- <p class="card-text"> -->
+							    	<div class="row card-text">
+								    	<div class="col-5" style="padding-right: 0px;">
 								    		<div class="text-muted mb-1">Periode Promo</div>
 								    		<div style="font-weight: bold">
-							        			{{ date("j M Y", strtotime($promo->created_at)) }}
+							        			{{ date("j M Y", strtotime($promo->start_at)) }} - {{ date("j M Y", strtotime($promo->end_at)) }}
 							        		</div>
 								    	</div>
-								    	<div class="col-4 d-inline-block">
+								    	<div class="col-4" style="padding-right: 0px;">
 								    		<div class="text-muted mb-1">Kode Promo</div>
 								    		<div style="font-weight: bold">
 							        			{{ $promo->promo->code }}
 							        		</div>
 								    	</div>
-								    	<div class="col-3 d-inline-block align-self-center">
-										    <button class="button bg-button p-2 pull-right" style="background-color: white; border: 1px solid orange; color: rgb(235, 130, 0);" onclick="code_copy('{{$promo->promo->code}}')">Salin Kode</button>
+								    	<div class="col-3 align-self-center" style="padding-right: 5px; padding-left: 5px;">
+										    <button class="button bg-button p-2 pull-right card-text" style="background-color: white; border: 1px solid orange; color: rgb(235, 130, 0);" onclick="code_copy('{{$promo->promo->code}}')">Salin Kode</button>
 								    	</div>
 								    </div>
-							    </p>
+							    <!-- </p> -->
+							    @elseif($promo->type=="INFOR")
+							    	<div class="row card-text">
+								    	<div class="col-5 d-inline-block">
+								    		<div class="text-muted mb-1">Periode</div>
+								    		<div style="font-weight: bold">
+							        			{{ date("j M Y", strtotime($promo->start_at)) }} - {{ date("j M Y", strtotime($promo->end_at)) }}
+							        		</div>
+								    	</div>
+								    	<div class="col-7 d-inline-block">
+								    		<div class="text-muted mb-1">Judul Informasi</div>
+								    		<div style="font-weight: bold">
+							        			{{ $promo->title }}
+							        		</div>
+								    	</div>
+								    </div>
+							    @endif
 						      </div>
 						    </a>
 						</div>

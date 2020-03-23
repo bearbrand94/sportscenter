@@ -53,10 +53,9 @@
 			</ul>
 			<div class="tab-content container">
 				<div id="active" class="tab-pane fade in active">
+					@if(isset($booking_list->active))
 					<div class="row">
-						<div class="col-12">
 							<div class="scrolling-wrapper">
-								@if(isset($booking_list->active))
 								@foreach($booking_list->active as $booking)
 								<div class="row p-3">
 									@component('booking-card', [
@@ -72,25 +71,25 @@
 										'time'		=> $booking->detail
 									])
 									@endcomponent
+									<!-- {{print_r($booking)}} -->
 								</div>
 								@endforeach
-								@else
-							    <div class="container h-100">
-							    	<div class="row align-items-center" style="height:90%">
-							    		<div class="col-12">
-									      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking" style="max-height:30rem;">
-									      <form method="GET" action="{{route('field-search')}}">
-									      	@csrf
-									      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
-									      </form>
-									      <div class="p-4"></div>
-									  	</div>
-									</div>
-							    </div>
-								@endif
 							</div>
-						</div>
 					</div>
+					@else
+				    <div class="container h-100">
+				    	<div class="row align-items-center" style="height:90%">
+				    		<div class="col-12">
+						      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking" style="max-height:30rem;">
+						      <form method="GET" action="{{route('field-search')}}">
+						      	@csrf
+						      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
+						      </form>
+						      <div class="p-4"></div>
+						  	</div>
+						</div>
+				    </div>
+					@endif
 				</div>
 				<div id="selesai" class="tab-pane fade">
 					@if(isset($booking_list->past))

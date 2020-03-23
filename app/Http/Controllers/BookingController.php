@@ -205,6 +205,7 @@ class BookingController extends Controller
     public function show(){
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
+
         try {
             $res = $client->request('GET', config('app.api_url')."/order?sort=asc");
         } catch (RequestException $e) {
@@ -228,6 +229,16 @@ class BookingController extends Controller
     }
 
     public function detail(Request $request){
+
+        $client = new Client();
+        $midtrans_res = $client->request('GET', config('app.midtrans_api_url')."/v2/" . $request->id."/status", [
+            'headers' => [
+                'Content-Type'  => 'application/json',
+                'Accept'        => 'application/json',
+                'Authorization'   => 'Basic '.base64_encode(config('app.server_key'))
+            ]
+        ]);
+
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         try {
@@ -243,6 +254,6 @@ class BookingController extends Controller
 
         $res_booking = json_decode($res->getBody())->data;
         // return $res_booking;
-        return view('classimax.booking-detail')->with('data', $res_booking[0]);
+        return view('classimax.booking-detail')->with('data', $res_booking[0])->with('midtrans', json_decode($midtrans_res->getBody()));
     }
 }

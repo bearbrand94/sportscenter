@@ -79,7 +79,7 @@
   <div class="container" style="background-color: white;">
     <div class="row">
       <div class="card border-0 rounded-0">
-        <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem">
+        <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 20rem">
         <div id="innerelements" class="shadow">
           <a style="cursor: hand">
             @if (isset($detail->spot->is_favorite))

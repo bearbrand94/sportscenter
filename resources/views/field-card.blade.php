@@ -11,7 +11,7 @@
 }	
 </style>
 <div class="card">
-  <img class="card-img-top" src="{{$image_url}}" alt="Card image cap" style="max-height: 35rem">
+  <img class="card-img-top" src="{{$image_url}}" alt="Card image cap" style="max-height: 20rem">
   <div class="card-body">
     <h5 class="card-title text-truncate">{{$title}}</h5>
     <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$type}}</span>

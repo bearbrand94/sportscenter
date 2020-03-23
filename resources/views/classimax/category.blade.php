@@ -146,7 +146,7 @@
 	      </li>
 	  	</ul>
 	  	<a href="#" data-toggle="modal" data-target="#myModal">
-	      <li class="nav-item form-inline my-2" style="font-size: 20px; color: white;">
+	      <li class="nav-item form-inline my-2" style="font-size: 1.1rem; color: white;">
 	      	Ubah
 	      </li>
 	    </a>

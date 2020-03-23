@@ -31,5 +31,11 @@ class AppServiceProvider extends ServiceProvider
         $jar = new \GuzzleHttp\Cookie\CookieJar;
         session(['jar'=>$jar]);
         Schema::defaultStringLength(191);
+
+        $client = new Client(['cookies' => $jar]);
+        $req_category = $client->request('GET', config('app.api_url')."/sports");
+        $category_data = json_decode($req_category->getBody())->data;
+
+        view()->share('categories', $category_data);
     }
 }

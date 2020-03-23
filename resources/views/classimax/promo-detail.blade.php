@@ -55,7 +55,7 @@
         	<img class="card-img-top img-fluid" src="{{$detail->image->path}}" alt="Card image cap" style="max-height: 25rem; padding-right: 0px; padding-left: 0px;">
           	<div id="innerelements" class="shadow">
             	<a style="cursor: hand">
-              		<i class="fav-button fa fa-share-alt fa-2x text-saraga share-btn" value="true" aria-hidden="true" style="font-size: 1.75rem;"></i>
+              		<i class="fa fa-share-alt fa-2x text-saraga share-btn" value="true" aria-hidden="true" style="font-size: 1.75rem;"></i>
             	</a>
           	</div>
         </div>

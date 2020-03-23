@@ -5,7 +5,7 @@
   	@else
   	<a href="">
   	@endif
-    	<img class="card-img-top" src="{{$image_url ? $image_url : 'https://via.placeholder.com/150'}}" alt="Card image cap" style="max-height: 35rem">
+    	<img class="card-img-top" src="{{$image_url ? $image_url : 'https://via.placeholder.com/150'}}" alt="Card image cap" style="max-height: 20rem">
   	</a>
 	<div id="innerelements" class="shadow">
 		<i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i>

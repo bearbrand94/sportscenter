@@ -33,11 +33,5 @@ class PromoController extends Controller
             }
         }
         return view('classimax.404');
-        // try {
-        //     $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
-        // } catch (RequestException $e) {
-        
-        // }
-          
     }
 }
