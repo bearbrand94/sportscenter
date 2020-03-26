@@ -31,11 +31,6 @@
 		font-size: 0.8rem;
 	}
 
-	.form-control[readonly]{
-		border-color: rgb(9, 58, 102)!important;
-		background-color: white;
-	}
-
 	.bg-button {
 	  border-radius: 0.2rem; 
 	  background-size: cover;
@@ -121,30 +116,12 @@
 								<div class="col-12 align-content-center">
 									<form method="GET" action="{{ route('field-search') }}">
 										<div class="form-row">
-											<div class="form-group col-md-12">
-												<label class="has-float-label"> 
-													<select class="w-100 form-control custom-select" name="category">
-														<option value="">Semua</option>
-														@foreach($categories as $category)
-															<option value="{{$category->id}}">{{$category->name}}</option>
-														@endforeach
-													</select>
-													<span>Olahraga</span>
-												</label>
-												<label class="has-float-label">
-													<input type="text" class="form-control flatpickr" name="search_date">
-													<span>Tanggal</span>
-												</label>
-												<label class="has-float-label">
-													<input type="text" class="form-control" readonly="readonly" name="keyword" data-toggle="modal" data-target="#searchModal" id="keyword">
-													<span>Lokasi atau Lapang</span>
-												</label>
-												<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
-											</div>
+											@component('search-input-group')
+											<button type="submit" class="btn btn-block button-saraga">Cari Sarana Olahraga</button>
+											@endcomponent
+
 										</div>
 									</form>
-	@component('search')
-	@endcomponent
 								</div>
 							</div>
 						</div>
@@ -158,7 +135,6 @@
 <!--==========================================
 =            	 BODY Section               =
 ===========================================-->
-
 <section class="section bg-light">
 	<!--==========================================
 	=            	 Promo Section               =
@@ -294,18 +270,3 @@
 	<!-- Container End -->
 </section>
 @endsection
-
-@section('script')
-	<script type="text/javascript">
-	  var flatpickr = $(".flatpickr").flatpickr({
-        	altFormat: "j F Y",
-        	dateFormat: "j F Y",
-	      	minDate: "today",
-	      	disableMobile: "true"
-	  });
-	</script>
-@endsection
-
-
-
-

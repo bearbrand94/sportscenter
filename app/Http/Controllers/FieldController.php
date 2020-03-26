@@ -17,8 +17,8 @@ class FieldController extends Controller
     }
 
     public function search(Request $request){
-        $jar = session('jar');
-        $client = new Client(['cookies' => $jar]);
+        // $jar = session('jar');
+        $client = new Client();
 
         $req_category = $client->request('GET', config('app.api_url')."/sports");
         $category_data = json_decode($req_category->getBody())->data;
@@ -48,17 +48,21 @@ class FieldController extends Controller
     }
 
     public function recommendation(Request $request){
-        $jar = session('jar');
-        $client = new Client(['cookies' => $jar]);
+        // $jar = session('jar');
+        $client = new Client();
 
         $request->category = $request->category ? $request->category : 0;
         $request['category_name'] = $request->category ? $category_data[$request->category-1]->name : null;
-        $field_data;
+
+        $form_params = null;
+        // if($request->keyword != ""){
+        //     $form_params = ['text' => $request->keyword]
+        // }
+        
         try {
             $res = $client->request('POST', config('app.api_url')."/spots/filter/recommendation", [
-                'form_params' => [
-                    'text' => $request->keyword,
-                ]
+                // 'form_params' => $form_params
+                'form_params' => ['text' => $request->keyword]
             ]);
             if($res->getStatusCode() == 200){ // 200 = Success
                 $body = $res->getBody();

@@ -26,6 +26,44 @@
 @section('body')
 
 <body class="body-wrapper">
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+        <nav class="navbar navbar-expand shadow-sm">
+            <div class="container">
+              <a class="navbar-brand" href="#" data-dismiss="modal">
+                <i class="fa fa-close fa-lg text-saraga"></i>
+              </a>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto p-3">
+                  <li class="nav-item active">      
+                        <b class="text-saraga" style="font-size: 22px;">
+                            Ubah Pencarian
+                        </b>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+        <!-- Modal body -->
+        <form method="GET" action="{{ route('field-search') }}">
+            <div class="modal-body container">
+                <div class="form-row pt-3">
+                    @component('search-input-group')
+                    @endcomponent
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer container">
+                <button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
     <!--============================
     =            Navigation        =
     =============================-->
@@ -35,12 +73,6 @@
                 <div class="col-md-12">
                     <nav class="navbar fixed-bottom navbar-expand bg-light navigation">
                       <div class="container text-center">
-<!--                         <div class="col-xs-5ths navbot"><a href="{{ url('home') }}"><i class="fa fa-home fa-lg"></i><br>Home</a></div>
-                        <div class="col-xs-5ths navbot"><a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-search fa-lg"></i><br>Search</a></div>
-                        <div class="col-xs-5ths navbot"><a href="{{ route('booking-list') }}"><i class="fa fa-list fa-lg"></i><br>Booking</a></div>
-                        <div class="col-xs-5ths navbot"><a href="{{ url('favorit') }}"><i class="fa fa-heart fa-lg"></i><br>Favorit</a></div>
-                        <div class="col-xs-5ths navbot"><a href="{{ url('profile') }}"><i class="fa fa-user-circle fa-lg"></i><br>Akun</a></div> -->
-
                         <div class="col-xs-5ths navbot"><a class="ic_home" href="{{ url('home') }}">
                             <img class="off-icon" src="{{ asset('images/navbar/ic_home_off.svg') }}" alt="" width="20" height="20" title="Home" style="display: inline;">
                             <img class="on-icon" src="{{ asset('images/navbar/ic_home_on.svg') }}" alt="" width="20" height="20" title="Home" style="display: none;">
@@ -75,11 +107,13 @@
         </div>
     </section>
 
+
     <!--============================
     =            Content            =
     =============================-->
     @yield('content')
-
+@component('search')
+@endcomponent
     </body>
 @endsection
 
@@ -87,16 +121,8 @@
 @section('master_script')
   @yield('script')
   <script type="text/javascript">
-    $(function () {
-        var flatpickr = $(".flatpickr").flatpickr({
-            altFormat: "j F Y",
-            dateFormat: "j F Y",
-            minDate: "today",
-            disableMobile: "true"
-        });
-        setNavigation();
-    });
 
+    setNavigation();
     function setNavigation() {
         var path = window.location;
 

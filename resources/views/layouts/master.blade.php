@@ -24,6 +24,26 @@
         <!-- CUSTOM CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel="stylesheet" href="https://cdn.rawgit.com/tonystar/bootstrap-float-label/v4.0.2/bootstrap-float-label.min.css"/>
+        <!-- Custom float label style -->
+        <style type="text/css">
+          .has-float-label .form-control:placeholder-shown:not(:focus)+* {
+               font-size: 0.8rem; 
+               opacity: 1; 
+               top: -.5em;
+          }
+          ::-webkit-input-placeholder {
+              color: rgb(216,216,216); !important;
+              opacity: 1 !important;
+          }
+          :-moz-placeholder { /* Firefox 18- */
+              color: rgb(216,216,216); !important;
+              opacity: 1 !important;
+          }
+          ::-moz-placeholder {  /* Firefox 19+ */
+              color: rgb(216,216,216); !important;
+              opacity: 1 !important;
+          }
+        </style>
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 

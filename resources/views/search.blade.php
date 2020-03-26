@@ -85,7 +85,7 @@
 
 <script type="text/javascript">
   $( document ).ready(function() {
-      doneTyping();
+      // doneTyping();
   });
   //array of results
   var spots_result = [
@@ -136,7 +136,7 @@
     });
 
     var typingTimer;                //timer identifier
-    var doneTypingInterval = 250;  //time in ms, 5 second for example
+    var doneTypingInterval = 1000;  //time in ms, 5 second for example
 
     //on keyup, start the countdown
     $('#searchInput').on('keyup', function () {
@@ -152,6 +152,7 @@
 
   //user is "finished typing," do something
   function doneTyping () {
+    console.log("api call");
     $.get("{{route('search-recommendation')}}",
     {
       _token: "{{ csrf_token() }}",
@@ -226,6 +227,10 @@
     else{
       title = locations_result[index];
     }
-    $("#keyword").val(title);
+    // $("#keyword").val(title);
+    $('.keyword').each(function() {
+      console.log(this);
+        $(this).val(title);
+    });
   }
 </script>

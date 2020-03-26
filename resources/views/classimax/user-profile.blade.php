@@ -20,7 +20,8 @@
 </style>
 @endsection
 @section('content')
-<section class="hero-area bg-1 " style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.25) 0%, rgba(9,58,102,1) 75%), url({{ asset('images/home/hero.png') }}); height: 500px;">
+<section class="section bg-light" style="padding-top: 0; padding-bottom: 0">
+	<div class="container hero-area bg-1 overly text-center">
 	<div class="container">
 
 		<!-- Profile Header -->
@@ -31,10 +32,10 @@
 				</div>
 				<div class="text-left pl-4">
 					<p style="font-weight: bold; font-size: 1.3rem;">{{session('auth_data')->name}}</p>
-					<p>{{session('auth_data')->telephone}}</p>
-					<p>{{session('auth_data')->email}}</p>
+					<p style="font-size: 0.7rem;">{{session('auth_data')->telephone}}</p>
+					<p style="font-size: 0.7rem;">{{session('auth_data')->email}}</p>
 				</div>
-				<div class="ml-auto pr-1">
+				<div style="position: absolute; right: 10%">
 					<a href="{{ route('edit-profile' )}}"><span><i class="fa fa-pencil fa-lg p-2 span-bordered" aria-hidden="true"></i></span></a>
 				</div>
 			</div>
@@ -136,6 +137,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </section>
 

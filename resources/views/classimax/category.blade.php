@@ -5,7 +5,6 @@
 	.card{
 		width: 100%;
 	}
-
 	.modal {
 	  position: fixed;
 	  top: 0;
@@ -54,64 +53,8 @@
 
 @section('content')
 
-<!-- The Modal -->
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-		<nav class="navbar navbar-expand shadow-sm">
-			<div class="container">
-			  <a class="navbar-brand" href="#" data-dismiss="modal">
-			    <i class="fa fa-close fa-lg text-saraga"></i>
-			  </a>
 
-			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-			    <ul class="navbar-nav mr-auto p-3">
-			      <li class="nav-item active">		
-			        	<b class="text-saraga" style="font-size: 22px;">
-						    Ubah Pencarian
-			        	</b>
-			      </li>
-			  	</ul>
-			  </div>
-			</div>
-		</nav>
-		<!-- Modal body -->
-		<form method="GET" action="{{ route('field-search') }}">
-			<div class="modal-body container">
-				<div class="form-row pt-3">
-					<div class="form-group col-md-12">
-						<label class="has-float-label"> 
-							<select class="w-100 form-control custom-select" name="category" id="select-category">
-								<option value="">Semua</option>
-								@foreach($categories as $category)
-									<option value="{{$category->id}}">{{$category->name}}</option>
-								@endforeach
-							</select>
-							<span>Olahraga Terpilih</span>
-						</label>
-						<label class="has-float-label">
-							<input type="text" class="form-control flatpickr" style="background-color: white" name="search_date" id="search_date">
-							<span>Tanggal</span>
-						</label>
-						<label class="has-float-label">
-							<input type="text" class="form-control" id="keyword" name="keyword" data-toggle="modal" data-target="#searchModal">
-							<span>Lokasi atau Lapang</span>
-						</label>
-					</div>
-				</div>
-			</div>
-			<!-- Modal footer -->
-			<div class="modal-footer container">
-				<button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
-			</div>
-		</form>
-    </div>
-  </div>
-</div>
 
-@component('search')
-@endcomponent
 
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
 	<div class="container">
@@ -186,7 +129,7 @@
 
 		<div class="row mb-5">
 			<nav class="col-12">
-				<ul id="pagination-demo" class="pagination justify-content-center"></ul>
+				<ul id="pagination" class="pagination justify-content-center"></ul>
 			</nav>
 		</div>
 		<div class="row mb-5"></div>
@@ -197,23 +140,17 @@
 @section('script')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
 	<script type="text/javascript">
-	  	var flatpickr = $(".flatpickr").flatpickr({
-        	altFormat: "j F Y",
-        	dateFormat: "j F Y",
-	      	minDate: "today",
-	      	disableMobile: "true"
-	 	});
 		@if (isset($requests['category']))
 			$("#select-category").val("{{$requests['category']}}");
 		@endif
 		@if (isset($requests['search_date']))
-			$("#search_date").val("{{$requests['search_date']}}");
+			flatpickr.setDate(new Date("{{$requests['search_date']}}"));
 		@endif
 		@if (isset($requests['keyword']))
 			$("#keyword").val("{{$requests['keyword']}}");
 		@endif
 
-	    $('#pagination-demo').twbsPagination({
+	    $('#pagination').twbsPagination({
 	        totalPages: {{$links->last_page}},
 	        visiblePages: 5,
 	        startPage: {{$links->current_page}},
