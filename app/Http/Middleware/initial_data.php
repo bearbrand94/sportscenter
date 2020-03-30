@@ -28,7 +28,7 @@ class initial_data
                 session(['auth_data'=>$user_info->data]);
             }
         } catch (RequestException $e) {
-            return redirect()->guest('login');
+            return redirect()->guest('login')->withErrors(['warning'=>'Silahkan login terlebih dahulu untuk melanjutkan.']);
         }
         return $next($request);
     }

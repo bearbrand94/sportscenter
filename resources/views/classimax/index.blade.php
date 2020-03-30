@@ -46,19 +46,21 @@
 	}
 
 	.card-img-top{
-		max-height: 10rem;
+		height: 10rem;
 		border-radius: 0;
 	}
 	.section-title{
 		margin-bottom: 3.5rem;
 	}
 	.section-title p{
-		font-size: 0.9rem;
+		font-size: 0.95rem;
 		line-height: 1.2rem;
 		margin-bottom: 0;
+		color: rgb(85,85,85);
 	}
 	.section-title a{
-		font-size: 0.75rem;
+		font-size: 0.78rem;
+		font-weight: 600;
 	}
 	.sub-p{
 		font-size: 0.65rem;
@@ -91,6 +93,10 @@
 		padding-right: 10px;
 		padding-left: 10px;
 	}
+	.advance-search{
+		background-color: rgb(255,255,255, 0.83) !important;
+		border-radius: 11px !important;
+	}
 </style>
 @endsection
 
@@ -106,8 +112,8 @@
 			<div class="row">
 				<div class="col-md-12">
 					<!-- Header Contetnt -->
-					<div class="content-block" style="padding-bottom: 10px;">
-				        <img class="card-img-top pb-5" src="{{ asset('images/saraga.svg') }}" alt="Card image cap" style="width: 150px;">
+					<div class="content-block" style="padding-bottom: 0;">
+				        <img class="card-img-top" src="{{ asset('images/saraga.svg') }}" alt="Card image cap" style="width: 110px; height: 9rem;">
 					</div>
 					<!-- Advance Search -->
 					<div class="advance-search">
@@ -117,9 +123,8 @@
 									<form method="GET" action="{{ route('field-search') }}">
 										<div class="form-row">
 											@component('search-input-group')
-											<button type="submit" class="btn btn-block button-saraga">Cari Sarana Olahraga</button>
+											<button type="submit" class="btn btn-block button-saraga" style="font-size: 0.8rem;">Cari Sarana Olahraga</button>
 											@endcomponent
-
 										</div>
 									</form>
 								</div>
@@ -140,7 +145,7 @@
 	=            	 Promo Section               =
 	===========================================-->
 	@if(count($promos) > 0)
-	<div class="container container-full" style="margin-top: 10px;">
+	<div class="container container-full">
 		<div class="content">
 			<div class="row" style="margin-bottom: -30px;">
 				<div class="col-12">
@@ -254,7 +259,7 @@
 					  @foreach($events as $event)
 						<a href="{{ route('event-detail', $event->id)}}">
 							<div class="card">
-							  <img class="card-img-top d-flex" src="{{ $event->image->path }}" alt="Card image cap" style="height: 15rem">
+							  <img class="card-img-top d-flex" src="{{ $event->image->path }}" alt="Card image cap" style="height: 10rem">
 							  <div class="card-body">
 							    <h5 class="card-title">{{ $event->title }}</h5>
 							    <p class="card-text">{{ $event->description }}</p>

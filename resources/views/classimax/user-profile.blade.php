@@ -21,7 +21,7 @@
 @endsection
 @section('content')
 <section class="section bg-light" style="padding-top: 0; padding-bottom: 0">
-	<div class="container hero-area bg-1 overly text-center">
+	<div class="container hero-area bg-1 overly">
 	<div class="container">
 
 		<!-- Profile Header -->
@@ -30,8 +30,8 @@
 				<div class="pl-4">
 					<img src="{{session('auth_data')->profile_image ? session('auth_data')->profile_image : 'https://via.placeholder.com/150'}}" class="img-responsive rounded-circle" alt="No Image" width=100 height=100>
 				</div>
-				<div class="text-left pl-4">
-					<p style="font-weight: bold; font-size: 1.3rem;">{{session('auth_data')->name}}</p>
+				<div class="text-left pl-4 mt-2">
+					<p style="font-weight: bold; font-size: 1.2rem;">{{session('auth_data')->name}}</p>
 					<p style="font-size: 0.7rem;">{{session('auth_data')->telephone}}</p>
 					<p style="font-size: 0.7rem;">{{session('auth_data')->email}}</p>
 				</div>
@@ -50,11 +50,13 @@
 						  <div class="card-body text-left">
 						  	<div class="row">
 								<div class="mr-auto pl-3">
-								  	<p class="lead" style="color: black; font-size: 16px;">Kode Referral</p>
-								  	<p class="text-saraga" style="font-weight: bold; font-size: 22px;">{{session('auth_data')->referral_code}}</p>
+								  	<p class="lead" style="color: black;">Kode Referral</p>
+								  	<p class="text-saraga" style="font-weight: bold; font-size: 1.1rem;">{{session('auth_data')->referral_code}}</p>
 								</div>
 								<div class="pr-3 d-flex align-items-center">
-									<a onclick="referral_copy()"><span><i class="fa fa-share-alt fa-2x text-saraga text-center" aria-hidden="true"></i></span></a>
+									<a onclick="referral_copy()" href="#"><span>
+										<img src="{{ asset('images/share-icon-black.svg') }}" alt="" width="20" height="20" title="share">
+									</span></a>
 								</div>
 						    </div>
 						  </div>
@@ -62,7 +64,7 @@
 					</div>
 
 					<!-- Refund -->
-					<div class="row pt-4">
+<!-- 					<div class="row pt-4">
 						<div class="col-12">
 							<div class="widget personal-info">
 								<a href="#">
@@ -81,7 +83,7 @@
 								</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 					<!-- Panel Help & Setting -->
 					<div class="row pt-2">
@@ -90,7 +92,7 @@
 						  		<div class="widget-header">
 						  			<a href="#">
 										<div class="d-flex">
-										  <div class="d-flex align-items-center">
+										  <div class="d-flex align-items-center text-left">
 										  	<span><i class="fa fa-question-circle fa-2x" aria-hidden="true"></i></span>
 										  </div>
 										  <div class="pl-3">									  	

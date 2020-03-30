@@ -18,8 +18,13 @@
         <label class="has-float-label">
           <input class="form-control" type="password" name="password">
           @if ($errors->has('credentials'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger mt-3">
                 <strong>{{ $errors->first('credentials') }}</strong>
+            </div>
+          @endif
+          @if ($errors->has('warning'))
+            <div class="alert alert-warning mt-3">
+                <strong>{{ $errors->first('warning') }}</strong>
             </div>
           @endif
           <span>Password</span>
@@ -35,10 +40,10 @@
       </div>
       <div class="row mt-4">
         <div class="col-6">
-          <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold" onclick="google_signIn()">Google</button>
+          <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold" onclick="google_signIn()"><i class="mr-2 fa fa-google-plus" aria-hidden="true"></i>Google</button>
         </div>
         <div class="col-6">
-          <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold" onclick="facebook_signIn()">Facebook</button>
+          <button type="submit" class="btn btn-block btn-outline-primary font-weight-bold" onclick="facebook_signIn()"><i class="mr-2 fa fa-facebook" aria-hidden="true"></i>Facebook</button>
         </div>
       </div>
       <div class="text-center mt-4">

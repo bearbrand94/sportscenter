@@ -34,13 +34,13 @@
         <nav class="navbar navbar-expand shadow-sm">
             <div class="container">
               <a class="navbar-brand" href="#" data-dismiss="modal">
-                <i class="fa fa-close fa-lg text-saraga"></i>
+                <img src="{{ asset('images/close-icon.svg') }}" alt="" width="13" height="13" title="back">
               </a>
 
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto p-3">
+                <ul class="navbar-nav mr-auto p-2">
                   <li class="nav-item active">      
-                        <b class="text-saraga" style="font-size: 22px;">
+                        <b class="text-saraga">
                             Ubah Pencarian
                         </b>
                   </li>
@@ -73,14 +73,15 @@
                 <div class="col-md-12">
                     <nav class="navbar fixed-bottom navbar-expand bg-light navigation">
                       <div class="container text-center">
-                        <div class="col-xs-5ths navbot"><a class="ic_home" href="{{ url('home') }}">
+                        <div class="col-xs-5ths navbot"><a class="ic_home" href="{{ route('home') }}">
                             <img class="off-icon" src="{{ asset('images/navbar/ic_home_off.svg') }}" alt="" width="20" height="20" title="Home" style="display: inline;">
                             <img class="on-icon" src="{{ asset('images/navbar/ic_home_on.svg') }}" alt="" width="20" height="20" title="Home" style="display: none;">
                             <br>Home</a>
                         </div>
-                        <div class="col-xs-5ths navbot"><a href="#" data-toggle="modal" data-target="#myModal">
+                        <div class="col-xs-5ths navbot"><a href="{{route('field-search')}}" data-toggle="modal" data-target="#myModal">
                             <img class="off-icon" src="{{ asset('images/navbar/ic_search_off.svg') }}" alt="" width="20" height="20" title="Search" style="display: inline;">
-                            <img class="on-icon" src="{{ asset('images/navbar/ic_search_off.svg') }}" alt="" width="20" height="20" title="Search" style="display: none;">
+                            <!-- <img class="on-icon" src="{{ asset('images/navbar/ic_search_off.svg') }}" alt="" width="20" height="20" title="Search" style="display: none;"> -->
+                            <i class="fa fa-search fa-lg on-icon" style="display: none"></i>
                             <br>Search</a>
                         </div>
                         <div class="col-xs-5ths navbot"><a href="{{ route('booking-list') }}">
@@ -126,15 +127,24 @@
     function setNavigation() {
         var path = window.location;
 
-        $(".navbot a").each(function () {
-            var href = $(this).attr('href');
-            if (path == href) {
-                var a = $(this).closest('a');
-                a.addClass('active');
-                a.find('.off-icon').toggle();
-                a.find('.on-icon').toggle();
-            }
-        });
+        if(path.href == "{{url('/').'/'}}"){
+            var a = $(".ic_home");
+            a.addClass('active');
+            a.find('.off-icon').toggle();
+            a.find('.on-icon').toggle();
+        }
+        else{
+            $(".navbot a").each(function () {
+                var href = $(this).attr('href');
+                var pathname = path.origin + path.pathname;
+                if (pathname == href) {
+                    var a = $(this).closest('a');
+                    a.addClass('active');
+                    a.find('.off-icon').toggle();
+                    a.find('.on-icon').toggle();
+                }
+            });
+        }
     }
   </script>
 @endsection

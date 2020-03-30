@@ -45,6 +45,33 @@
        left:0;
        bottom:0;    
   }
+  .modal-body{
+     overflow-y: auto;
+  }
+  .col-12{
+    padding-left: 5;
+    padding-right: 5;
+  }
+
+  b{
+    font-size: 1rem;
+  }
+  .navbar-brand{
+
+  }
+  .back-icon{
+    margin-right: 5px;
+  }
+  .lead{
+    font-size: 1rem;
+  }
+  h4{
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+  .fa.fa-angle-right{
+    font-size: 1.5rem;
+  }
 </style>
 @endsection
 
@@ -55,13 +82,13 @@
       <!-- Modal Header -->
     <nav class="navbar navbar-expand shadow-sm pb-0 pt-0 container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
-        <i class="fa fa-close fa-lg text-saraga"></i>
+        <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
       </a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto p-3">
           <li class="nav-item active">    
-              <b class="text-saraga" style="font-size: 22px;">
+              <b class="text-saraga modal-title">
               No. Telepon
               </b>
           </li>
@@ -106,13 +133,13 @@
       <!-- Modal Header -->
     <nav class="navbar navbar-expand shadow-sm pb-0 pt-0 container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
-        <i class="fa fa-close fa-lg text-saraga"></i>
+        <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
       </a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto p-3">
           <li class="nav-item active">    
-              <b class="text-saraga" style="font-size: 22px;">
+              <b class="text-saraga modal-title">
               Email
               </b>
           </li>
@@ -157,13 +184,13 @@
       <!-- Modal Header -->
     <nav class="navbar navbar-expand shadow-sm pb-0 pt-0 container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
-        <i class="fa fa-close fa-lg text-saraga"></i>
+        <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
       </a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto p-3">
           <li class="nav-item active">    
-              <b class="text-saraga" style="font-size: 22px;">
+              <b class="text-saraga modal-title">
               Password
               </b>
           </li>
@@ -203,7 +230,6 @@
             @endif
           </div>
         </div>
-        <div style="height: 700px;"></div>
       </div>
       <!-- Modal footer -->
       <div class="modal-footer container">
@@ -220,22 +246,22 @@
       <!-- Modal Header -->
       <nav class="navbar navbar-expand shadow-sm container">
         <a class="navbar-brand" href="#" data-dismiss="modal">
-          <i class="fa fa-close fa-lg text-saraga"></i>
+          <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
         </a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto p-2">
             <li class="nav-item active">    
-                <b class="text-saraga" style="font-size: 22px;">
+                <b class="text-saraga modal-title">
                 Tentang Saraga
                 </b>
             </li>
           </ul>
         </div>
       </nav>
-      <div class="modal-body container" style="overflow-y: auto;">
+      <div class="modal-body container">
         <div class="text-center">
-          <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded" alt="No Image" style=" max-width: 40%; and height: auto;">
+          <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded" alt="No Image" style=" max-width: 40%; height: auto;">
           <p>Version 0.0.1</p>
         </div>
         <div class="about-content" class="mt-4 pt-4">
@@ -263,21 +289,21 @@
       <!-- Modal Header -->
     <nav class="navbar navbar-expand shadow-sm container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
-        <i class="fa fa-close fa-lg text-saraga"></i>
+        <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
       </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto p-2">
           <li class="nav-item active">    
-              <b class="text-saraga" style="font-size: 22px;">
+              <b class="text-saraga modal-title">
                 Syarat & Ketentuan
               </b>
           </li>
         </ul>
       </div>
     </nav>
-      <div class="modal-body container" style="overflow-y: auto;">
+      <div class="modal-body container">
         <div class="text-center">
-          <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded" alt="No Image" style=" max-width: 40%; and height: auto;">
+          <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded" alt="No Image" style=" max-width: 40%; height: auto;">
         </div>
           <div class="terms-condition-content mt-4">
             <h3 class="py-3">Saraga Terms & Condition</h3>
@@ -299,13 +325,13 @@
       <!-- Modal Header -->
     <nav class="navbar navbar-expand shadow-sm container">
       <a class="navbar-brand" href="#" data-dismiss="modal">
-        <i class="fa fa-close fa-lg text-saraga"></i>
+        <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
       </a>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto p-2">
           <li class="nav-item active">    
-              <b class="text-saraga" style="font-size: 22px;">
+              <b class="text-saraga modal-title">
               Kebijakan Privasi
               </b>
           </li>
@@ -327,10 +353,11 @@
   </div>
 </div>
 
-<nav class="navbar shadow-sm p-3 background-saraga">
+<nav class="navbar shadow-sm p-3 background-saraga sticky-top navbar-expand">
   <div class="container">
     <a class="navbar-brand" href="{{ route('profile')}}" style="color: white;">
-      <i class="fa fa-arrow-left fa-lg" style="padding-right: 30px;"></i>Edit Profile
+      <img class="back-icon" src="{{ asset('images/back-icon.svg') }}" alt="" title="back">
+      Edit Profile
     </a>
   </div>
 </nav>

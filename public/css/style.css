@@ -242,7 +242,7 @@ a:focus, a:hover {
 
 .form-control {
   border-radius: 2px;
-  height: 50px;
+  height: 45px;
   background-color: transparent;
   color: #666;
   box-shadow: none;
@@ -912,7 +912,7 @@ ul.pagination .active a {
 }
 
 .hero-area {
-  padding: 40px 0 0;
+  padding: 0px 0 0;
 }
 
 .hero-area .content-block {

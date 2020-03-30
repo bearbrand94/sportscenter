@@ -4,11 +4,25 @@
 <style type="text/css">
 	.normal-text{
 		color: black;
+		font-size: 0.8rem;
 	}
 	.bigger-text{
 		color: black;
-		font-size: 1.05rem;
+		font-size: 0.9rem;
 		font-weight: bold;
+	}
+	.lead-text{
+		font-size: 0.9rem;
+		font-weight: bold;
+	}
+	#voucher{
+		height: 43px;
+	}
+	#apply{
+		height: 43px;
+	}
+	#promo-error{
+		padding: 0.5rem 1rem;
 	}
 </style>
     <script type="text/javascript"
@@ -21,13 +35,13 @@
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
 	<div class="container">
 	  <a class="navbar-brand" href="javascript:history.back()">
-	    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+	    <img src="{{ asset('images/back-icon.svg') }}" alt="" width="20" height="20" title="back">
 	  </a>
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item active">
 	        <a class="nav-link" style="color: white">  		
-	        	<b style="font-size: 20px;">
+	        	<b class="lead-text">
 				    Konfirmasi Booking
 	        	</b>
 	  		</a>
@@ -42,7 +56,7 @@
     	<h5 class="bigger-text">Detail Booking</h5>
     	<hr class="my-4">
         <div class="form-inline">
-			<img src="{{$spot->cover_image}}" class="img-responsive inline-block" height="100px" width="100px" />
+			<img src="{{$spot->cover_image}}" class="img-responsive inline-block" height="70" width="70" />
 			<div class="ml-3">
 				<p class="bigger-text mb-2">{{$spot->name}}</p>
 				<p class="bigger-text mb-2">{{$court->name}}</p>
@@ -95,15 +109,15 @@
 	      </div>
 		</div>
 
-		<p class="mb-2 mt-4" style="font-weight: bold; color: black; font-size: 1.1rem;">Tipe Pembayaran</p>
-		<p style="color: black; font-size: 1rem;">Full Payment</p>
+		<h4 class="mb-2 mt-3 lead-text">Tipe Pembayaran</h4>
+		<p>Full Payment</p>
 
-		<p class="mb-2 mt-4" style="font-weight: bold; color: black; font-size: 1.1rem;">Voucher</p>
+		<p class="mb-2 mt-4" class="lead-text">Voucher</p>
 		<div class="form-inline">
 			<input type="text" class="form-control col-8 col-sm-9" name="voucher" placeholder="Punya kode voucher atau promo" id="voucher">
 			<button class="btn btn-primary col-4 col-sm-3" id="apply">Apply</button>
 		</div>
-        <div class="alert alert-danger" id="promo-error" style="display: none;">
+        <div class="alert alert-danger mt-2" id="promo-error" style="display: none;">
             <strong id="promo-error-text">Promo Invalid</strong>
         </div>
         <div class="alert alert-success" id="promo-success" style="display: none;">
@@ -111,7 +125,7 @@
         </div>
 
         <hr class="my-4">
-    	<h4>Rincian Pembayaran</h4>
+    	<h4 class="lead-text">Rincian Pembayaran</h4>
     	<hr class="my-4">
 		<div class="row">
 	      <div class="col-12 clearfix">

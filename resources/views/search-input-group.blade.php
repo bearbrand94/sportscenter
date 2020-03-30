@@ -1,10 +1,10 @@
 <style type="text/css">
 	.form-control[readonly]{
 		border-color: rgb(9, 58, 102)!important;
-		background-color: white;
+		background-color: transparent !important;
 	}	
 </style>
-<div class="form-group col-md-12">
+<div class="form-group col-md-12" style="margin-bottom: 0">
 	<label class="has-float-label"> 
 		<select class="w-100 form-control custom-select" name="category" id="select-category">
 			<option disabled selected value style="display: none">Pilih jenis olahraga</option>
@@ -19,7 +19,7 @@
 		<input type="text" class="form-control flatpickr" name="search_date" placeholder="Pilih tanggal" id="select-date">
 		<span>Tanggal</span>
 	</label>
-	<label class="has-float-label">
+	<label class="has-float-label" style="margin-bottom: 15">
 		<input type="text" class="form-control keyword" readonly="readonly" name="keyword" data-toggle="modal" data-target="#searchModal" id="keyword" placeholder="Pilih sarana olahraga">
 		<span>Nama Sarana Olahraga</span>
 	</label>

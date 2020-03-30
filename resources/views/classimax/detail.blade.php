@@ -17,10 +17,7 @@
     overflow-y: hidden;
     white-space: nowrap;
   }
-  .date-button{
-    border-color: var(--saraga-color) !important;
-    cursor:hand;
-  }
+
   .time-button{
     cursor:hand;
   }
@@ -29,6 +26,12 @@
     background-color: rgb(209,209,209);
   }
 
+  .date-button{
+    border-color: var(--saraga-color) !important;
+    cursor:hand;
+    height: 3.5rem;
+    padding-top: 10px;
+  }
   .date-button:hover, {
       outline: none !important;
       box-shadow: 0 0 10px #719ECE;   
@@ -54,13 +57,13 @@
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
   <div class="container">
     <a class="navbar-brand" href="javascript:history.back()">
-      <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+      <img src="{{ asset('images/back-icon.svg') }}" alt="" width="20" height="20" title="back">
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link" style="color: white">     
-            <b style="font-size: 20px;">
+            <b>
               Lokasi
             </b>
         </a>
@@ -69,7 +72,7 @@
     </div>
     <a href="#">
       <li class="nav-item form-inline my-2 mr-1">
-        <i class="fa fa-share-alt fa-2x" value="true" aria-hidden="true" style="color: white; font-size: 24px;" onclick="link_copy()"></i>
+        <img src="{{ asset('images/share-icon.svg') }}" alt="" width="20" height="20" title="back" onclick="link_copy()">
       </li>
     </a>
   </div>
@@ -127,8 +130,8 @@
             @if(isset($detail->facilities))
             @foreach($detail->facilities as $facility)
             <li class="list-inline-item">
-              <div class="card-body text-center">
-                <img class="icon pb-2" src="{{ asset('images/facilities/'.$facility->icon) }}" height="60px" width="60px">
+              <div class="card-body text-center" style="padding: 0; padding-top: 10px; padding-right: 18px;">
+                <img class="icon pb-2" src="{{ asset('images/facilities/'.$facility->icon) }}" height="40px" width="40px">
                 <p>{{$facility->name}}</p>
               </div>
             </li>
@@ -162,8 +165,8 @@
         <div class="row">
           @for($i=0; $i<3; $i++)
             <div class="text-center col-3 col-sm-2 p-2">
-              <div class="form-control pt-2 date-button" style="height: 4rem;" value='{{date("Y-m-d", time() + (86400*$i))}}'>
-                <p style="font-size: 0.8rem; font-weight: bold;">
+              <div class="form-control date-button" value='{{date("Y-m-d", time() + (86400*$i))}}'>
+                <p style="font-size: 0.65rem; font-weight: bold;">
                   {{date("D", time() + (86400*$i))}}
                   <br>
                   {{date("d M", time() + (86400*$i))}}
@@ -173,8 +176,8 @@
           @endfor
           @for($i=3; $i<5; $i++)
             <div class="text-center d-none d-sm-block col-sm-2 p-2">
-              <div class="form-control pt-2 date-button" style="height: 4rem;" value='{{date("Y-m-d", time() + (86400*$i))}}'>
-                <p style="font-size: 0.8rem; font-weight: bold;">
+              <div class="form-control date-button" value='{{date("Y-m-d", time() + (86400*$i))}}'>
+                <p style="font-size: 0.65rem; font-weight: bold;">
                   {{date("D", time() + (86400*$i))}}
                   <br>
                   {{date("d M", time() + (86400*$i))}}
@@ -183,8 +186,8 @@
             </div>
           @endfor
           <div class="text-center col-3 col-sm-2 p-2 flatpickr">
-            <div class="form-control pt-2 date-button" id="button-date-booking" style="height: 4rem;">
-              <i class="fa fa-calendar fa-3x" aria-hidden="true" style="font-size: 2.5rem;"></i>
+            <div class="form-control pt-2 date-button" id="button-date-booking">
+              <i class="fa fa-calendar fa-3x" aria-hidden="true" style="font-size: 1.75rem;"></i>
             </div>
           </div>
         </div>
@@ -201,7 +204,7 @@
           <?php $i++ ?>
           <div class="text-center col-3 pt-2 pb-2">
             <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$ts->start_at}}" ts="{{$ts->time_slot}}" tsid="{{$ts->start_at}}" style="border-radius: 0.4rem;">
-              <p style="font-size: 0.7rem; font-weight: bold;">{{$ts->time_slot}}</p>
+              <p style="font-size: 0.6rem; font-weight: bold;">{{$ts->time_slot}}</p>
             </div>
           </div>
         @endforeach

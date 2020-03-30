@@ -2,71 +2,174 @@
 
 @section('css')
 <style type="text/css">
-	.card{
-		width: 100%;
+	#filter-modal .modal-body{
+		min-height: 0 !important
 	}
-	.modal {
-	  position: fixed;
-	  top: 0;
-	  right: 0;
-	  bottom: 0;
-	  left: 0;
-	  overflow: hidden;
-	}
-
-	.modal-dialog {
-	  position: fixed;
-	  margin: 0;
-	  width: 100%;
-	  height: 100%;
-	  padding: 0;
-	}
-
-	.modal-content {
-	  position: fixed;
-	  top: 0;
-	  right: 0;
-	  bottom: 0;
-	  left: 0;
-	  border: 2px solid #3c7dcf;
-	  border-radius: 0;
-	  box-shadow: none;
-	}
-
-	.modal-header {
-	  background: white;
-	}
-
-	.modal-body {
-		min-height: 80%;
-	}
-
-	.modal-footer {
-	     position:fixed;
-	     top:auto;
-	     right:0;
-	     left:0;
-	     bottom:0;		
-	}
+  .rating-button{
+    cursor:hand;
+    text-align: center;
+    width: 18% !important;
+    padding: 5;
+    padding-top: 7;
+    margin-right: 2.5%;
+    height: 37px;
+    /*background-color: var(--saraga-color);*/
+  }
+  .rating-button img{
+	margin-bottom: 5;
+	width: 15;
+	height: 15;
+  }
 </style>
 @endsection
 
 @section('content')
+<!-- Filter Modal -->
+<div class="modal" id="filter-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+        <nav class="navbar navbar-expand shadow-sm sticky-top">
+            <div class="container">
+              <a class="navbar-brand" href="#" data-dismiss="modal">
+                <img src="{{ asset('images/close-icon.svg') }}" alt="" width="13" height="13" title="back">
+              </a>
 
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto p-2">
+                  <li class="nav-item active">      
+                        <b class="text-saraga">
+                            Urutkan & Filter
+                        </b>
+                  </li>
+                </ul>
+			      <a class="nav-item form-inline my-2" href="#" style="color: var(--blue)" data-dismiss="modal">
+			      	Reset
+			      </a>
+              </div>
+            </div>
+        </nav>
+        <!-- Modal body -->
+        <form method="GET" action="{{ route('field-search') }}" style="overflow-y: auto" class="bg-light">
+            <div class="modal-body container bg-white">
+            	<div class="col-12">
+            		<div class="row">
+                	<b>Sort</b>
+					<select class="w-100 form-control custom-select mt-2" name="category" id="select-category">
+						<option disabled selected value style="display: none">Sort by</option>
+						<option value="">Semua</option>
+					</select>
+					</div>
+            	</div>
+            </div>
+            <div class="modal-body container mt-2 bg-white">
+            	<div class="col-12">
+            		<div class="row">
+	                	<b>Rentang Harga</b>
+	                </div>
+                	<div class="form-inline row mt-2">
+							<input type="text" class="form-control mr-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Minimal">
+							<span class="mr-2 ml-2" style="font-size: 1.5rem; font-weight: 900; color: var(--saraga-color); margin-bottom: 5px;">-</span>
+							<input type="text" class="form-control ml-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Maximal">
+					</div>
+            	</div>
+            </div>
 
+            <div class="modal-body container mt-2 mb-5 bg-white">
+            	<!-- Rating -->
+            	<div class="col-12">
+            		<div class="row">
+	                	<b>Rating</b>
+	                </div>
+                	<div class="form-inline row mt-2">
+			            <div class="form-control border rating-button">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			              	1
+			            </div>
+			            <div class="form-control border rating-button">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			              	2
+			            </div>
+			            <div class="form-control border rating-button">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			              	3
+			            </div>
+			            <div class="form-control border rating-button">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			              	4
+			            </div>
+			            <div class="form-control border rating-button" style="margin-right: 0">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			              	5
+			            </div>
+					</div>
+            	</div>
+            	<hr>
+            	<div class="col-12">
+            		<div class="row">
+	                	<b>Tipe Lapang</b>
+	                </div>
+	                <div class="row mt-2">
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input" id="customCheck1">
+						  <label class="custom-control-label" for="customCheck1">Lapang Indoor</label>
+						</div>
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input" id="customCheck2">
+						  <label class="custom-control-label" for="customCheck2">Lapang Outdoor</label>
+						</div>
+					</div>
+                </div>
+                <hr>
+            	<div class="col-12">
+            		<div class="row">
+	                	<b>Jenis Lapang</b>
+	                </div>
+	                <div class="row mt-2">
+							<div class="custom-control custom-checkbox col-6">
+							  <input type="checkbox" class="custom-control-input" id="customCheck1">
+							  <label class="custom-control-label" for="customCheck1">Lapang </label>
+							</div>
+							<div class="custom-control custom-checkbox col-6">
+							  <input type="checkbox" class="custom-control-input" id="customCheck1">
+							  <label class="custom-control-label" for="customCheck1">Lapang </label>
+							</div>							<div class="custom-control custom-checkbox col-6">
+							  <input type="checkbox" class="custom-control-input" id="customCheck1">
+							  <label class="custom-control-label" for="customCheck1">Lapang </label>
+							</div>							<div class="custom-control custom-checkbox col-6">
+							  <input type="checkbox" class="custom-control-input" id="customCheck1">
+							  <label class="custom-control-label" for="customCheck1">Lapang </label>
+							</div>							<div class="custom-control custom-checkbox col-6">
+							  <input type="checkbox" class="custom-control-input" id="customCheck1">
+							  <label class="custom-control-label" for="customCheck1">Lapang </label>
+							</div>							<div class="custom-control custom-checkbox col-6">
+							  <input type="checkbox" class="custom-control-input" id="customCheck1">
+							  <label class="custom-control-label" for="customCheck1">Lapang </label>
+							</div>
+	                </div>
+                </div>
+            </div>
 
+            <!-- Modal footer -->
+            <div class="modal-footer container bg-white">
+                <button type="submit" class="btn btn-block button-saraga">Terapkan</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
 
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
 	<div class="container">
 	  <a class="navbar-brand" href="{{url('home')}}">
-	    <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+	    <img src="{{ asset('images/back-icon.svg') }}" alt="" width="20" height="20" title="back">
 	  </a>
 
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item active">
-	        <a class="nav-link" style="color: white">  		
-	        	<b style="font-size: 20px;">
+	        <a class="nav-link" style="color: white" data-toggle="modal" data-target="#myModal" href="#">  		
+	        	<b style="font-size: 1rem;">
 				    @if (empty($requests['category_name']))
 				      {{"Semua Kategori"}}
 				    @else
@@ -88,9 +191,9 @@
 	  		</a>
 	      </li>
 	  	</ul>
-	  	<a href="#" data-toggle="modal" data-target="#myModal">
-	      <li class="nav-item form-inline my-2" style="font-size: 1.1rem; color: white;">
-	      	Ubah
+	  	<a href="#" data-toggle="modal" data-target="#filter-modal">
+	      <li class="nav-item form-inline my-2" style="color: white;">
+	      	Filter
 	      </li>
 	    </a>
 	  </div>

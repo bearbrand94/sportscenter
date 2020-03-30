@@ -21,7 +21,7 @@
 </style>
 <div class="card">
   <a href="{{$a_url}}">
-    <img class="card-img-top" src="{{$image_url}}" alt="Card image cap" style="max-height: 20rem;">
+    <img class="card-img-top" src="{{$image_url}}" alt="Card image cap" style="max-height: 15rem;">
   </a>
     <div id="innerelements" class="shadow">
       <a style="cursor: hand">

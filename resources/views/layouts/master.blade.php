@@ -63,7 +63,8 @@
             left:0;
             top: 0;
             width: 100%;
-            padding: 0.4em;
+            padding: 0.15em;
+            font-size: 0.8rem;
             background-color: rgba(255,255,255, 0.65);
             text-align: center;
             text-transform: uppercase;
@@ -166,6 +167,35 @@
 
           .container{
             max-width: 550px;
+          }
+
+          .card-img-top{
+            border-top-left-radius: 0;
+            border-top-right-radius: 0; 
+          }
+          h5{
+              font-size: 1rem;
+          }
+          .card-title{
+              font-weight: bold;
+              font-size: 1.1rem;
+          }
+          .navbar-brand{
+              margin-right: 0.5rem;
+          }
+          .nav-item b{
+              font-size: 1.1rem;
+          }
+          .nav-link b{
+              font-size: 1.1rem;
+          }
+          .close-icon{
+            width: 14;
+            height: 14;
+          }
+          .back-icon{
+            width: 20;
+            height: 20;
           }
         </style>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

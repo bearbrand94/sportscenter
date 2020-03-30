@@ -68,12 +68,12 @@
   <nav class="navbar navbar-expand shadow-sm sticky-top" style="background-color: white;">
     <div class="container collapse navbar-collapse" id="navbarSupportedContent">
     <a class="navbar-brand" href="javascript:history.back()">
-      <i class="fa fa-arrow-left fa-lg text-saraga"></i>
+      <img src="{{ asset('images/back-icon-black.svg') }}" alt="" width="20" height="20" title="back">
     </a>
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <a class="nav-link text-saraga">     
-            <b class="text-saraga" style="font-size: 20px;">
+            <b class="text-saraga">
             Pilih Lapangan
             </b>
           <br>
@@ -100,13 +100,13 @@
               </ol>
               <div class="carousel-inner">
                 <div class="carousel-item active">
-                  <img class="d-block w-100" src="{{$detail->spot->cover_image}}" alt="First slide" style="max-height: 25rem">
+                  <img class="d-block w-100" src="{{$detail->spot->cover_image}}" alt="First slide" style="max-height: 15rem">
                 </div>
                 <div class="carousel-item">
-                  <img class="d-block w-100" src="https://picsum.photos/id/1/1920/1080" alt="Second slide" style="max-height: 25rem">
+                  <img class="d-block w-100" src="https://picsum.photos/id/1/1920/1080" alt="Second slide" style="max-height: 15rem">
                 </div>
                 <div class="carousel-item">
-                  <img class="d-block w-100" src="https://picsum.photos/id/2/1920/1080" alt="Third slide" style="max-height: 25rem">
+                  <img class="d-block w-100" src="https://picsum.photos/id/2/1920/1080" alt="Third slide" style="max-height: 15rem">
                 </div>
               </div>
               <a class="carousel-control-prev" href="#carouselExampleIndicators{{$field->id}}" role="button" data-slide="prev">
