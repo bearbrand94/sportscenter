@@ -78,7 +78,8 @@
                             <img class="on-icon" src="{{ asset('images/navbar/ic_home_on.svg') }}" alt="" width="20" height="20" title="Home" style="display: none;">
                             <br>Home</a>
                         </div>
-                        <div class="col-xs-5ths navbot"><a href="{{route('field-search')}}" data-toggle="modal" data-target="#myModal">
+                        <div class="col-xs-5ths navbot"><a href="{{route('field-search')}}">
+                            <!--  data-toggle="modal" data-target="#myModal" -->
                             <img class="off-icon" src="{{ asset('images/navbar/ic_search_off.svg') }}" alt="" width="20" height="20" title="Search" style="display: inline;">
                             <!-- <img class="on-icon" src="{{ asset('images/navbar/ic_search_off.svg') }}" alt="" width="20" height="20" title="Search" style="display: none;"> -->
                             <i class="fa fa-search fa-lg on-icon" style="display: none"></i>

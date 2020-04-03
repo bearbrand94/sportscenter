@@ -37,7 +37,7 @@
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
 	<div class="container">
 	  <a class="navbar-brand" href="javascript:history.back()">
-	    <img src="{{ asset('images/back-icon.svg') }}" alt="" width="20" height="20" title="back">
+	    <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
 	  </a>
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">

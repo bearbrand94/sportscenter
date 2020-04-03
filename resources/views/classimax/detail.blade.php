@@ -2,6 +2,9 @@
 
 @section('css')
 <style type="text/css">
+  a{
+    font-size: 0.8rem;
+  }
   #innerelements{
     padding: 0.75em;
     position:relative;
@@ -20,6 +23,7 @@
 
   .time-button{
     cursor:hand;
+    border-radius: 0.2rem;
   }
   .time-button.disabled{
     border-color: rgb(209,209,209);
@@ -31,6 +35,7 @@
     cursor:hand;
     height: 3.5rem;
     padding-top: 10px;
+    border-radius: 0.2rem;
   }
   .date-button:hover, {
       outline: none !important;
@@ -43,6 +48,10 @@
   }
   .date-button.active>p, .time-button.active>p{
       color: white;
+  }
+  .col-3{
+    padding-right: 8;
+    padding-left: 8;
   }
 
   @media (max-width: 992px) {
@@ -57,7 +66,7 @@
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
   <div class="container">
     <a class="navbar-brand" href="javascript:history.back()">
-      <img src="{{ asset('images/back-icon.svg') }}" alt="" width="20" height="20" title="back">
+      <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -82,7 +91,7 @@
   <div class="container" style="background-color: white;">
     <div class="row">
       <div class="card border-0 rounded-0">
-        <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 20rem">
+        <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 12rem">
         <div id="innerelements" class="shadow">
           <a style="cursor: hand">
             @if (isset($detail->spot->is_favorite))
@@ -202,8 +211,8 @@
         <?php $i=0 ?>
         @foreach($detail->timeslots as $ts)
           <?php $i++ ?>
-          <div class="text-center col-3 pt-2 pb-2">
-            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$ts->start_at}}" ts="{{$ts->time_slot}}" tsid="{{$ts->start_at}}" style="border-radius: 0.4rem;">
+          <div class="text-center col-3 pt-1 pb-2">
+            <div class="border pt-3 time-button" id="time-button-{{$i}}" index={{$i}} time="{{$ts->start_at}}" ts="{{$ts->time_slot}}" tsid="{{$ts->start_at}}">
               <p style="font-size: 0.6rem; font-weight: bold;">{{$ts->time_slot}}</p>
             </div>
           </div>

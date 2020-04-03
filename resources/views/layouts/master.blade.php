@@ -194,8 +194,15 @@
             height: 14;
           }
           .back-icon{
-            width: 20;
-            height: 20;
+            width: 25;
+            height: 25;
+            border: 1px solid white; 
+            padding: 3;
+            border-radius: 0.3rem;
+          }
+
+          .back-icon-black{
+            border: 1px solid black;
           }
         </style>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

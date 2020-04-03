@@ -32,7 +32,7 @@
         <nav class="navbar navbar-expand shadow-sm sticky-top">
             <div class="container">
               <a class="navbar-brand" href="#" data-dismiss="modal">
-                <img src="{{ asset('images/close-icon.svg') }}" alt="" width="13" height="13" title="back">
+                <img src="{{ asset('images/close-icon.svg') }}" alt="" class="close-icon" title="back">
               </a>
 
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -162,7 +162,7 @@
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
 	<div class="container">
 	  <a class="navbar-brand" href="{{url('home')}}">
-	    <img src="{{ asset('images/back-icon.svg') }}" alt="" width="20" height="20" title="back">
+	    <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
 	  </a>
 
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">

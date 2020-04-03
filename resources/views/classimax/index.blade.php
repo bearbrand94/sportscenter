@@ -97,6 +97,28 @@
 		background-color: rgb(255,255,255, 0.83) !important;
 		border-radius: 11px !important;
 	}
+	.footer{
+		padding: 0;
+		padding-top: 15px;
+		padding-bottom: 80px;
+
+		background-color: rgb(24, 35, 41);
+	}
+	.footer .container{
+		padding-right: 35px;
+		padding-left: 35px;
+	}
+	.footer a{
+		color: white;
+		line-height: 2;
+	}
+	.footer .button-saraga{
+		font-size: 0.8rem;
+		border-radius: 0.5rem;
+		line-height: 1.25;
+		width: 120px;
+		padding: 7.5px 20px;
+	}
 </style>
 @endsection
 
@@ -140,7 +162,7 @@
 <!--==========================================
 =            	 BODY Section               =
 ===========================================-->
-<section class="section bg-light">
+<section class="section bg-light" style="padding-bottom: 30">
 	<!--==========================================
 	=            	 Promo Section               =
 	===========================================-->
@@ -273,5 +295,25 @@
 	</div>
 	@endif
 	<!-- Container End -->
+</section>
+
+<!--==========================================
+=              FOOTER Section                =
+===========================================-->
+<section class="section footer">
+	<div class="container">
+		<div class="row">
+			<div class="col-6">
+				<a href="#">About Us</a><br>
+				<a href="#">FAQ</a><br>
+				<a href="#">Terms Of Use</a><br>
+				<a href="#">Blog</a>
+			</div>
+			<div class="col-6 text-center">
+				<a href="#" class="btn button-saraga" style="margin-top: 10px;">Contact Us</a><br>
+				<a href="#" class="btn button-saraga" style="margin-top: 15px;">For Facility Owner</a>
+			</div>
+		</div>
+	</div>
 </section>
 @endsection

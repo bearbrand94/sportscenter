@@ -17,6 +17,19 @@
 		background-color: rgba(150,150,150,0.8);
 		border-radius: 0.25rem
 	}
+	.hero-area{
+		padding-top: 30px;
+	}
+	.text-muted{
+		font-size: 0.8rem;
+	}
+	.widget{
+		margin-bottom: 5px;
+		padding: 15px 20px 15px;
+	}
+	.card{
+		border: 0;
+	}
 </style>
 @endsection
 @section('content')
@@ -25,7 +38,7 @@
 	<div class="container">
 
 		<!-- Profile Header -->
-		<div class="pb-5">
+		<div class="pb-3">
 			<div class="d-flex">
 				<div class="pl-4">
 					<img src="{{session('auth_data')->profile_image ? session('auth_data')->profile_image : 'https://via.placeholder.com/150'}}" class="img-responsive rounded-circle" alt="No Image" width=100 height=100>
@@ -86,7 +99,7 @@
 					</div> -->
 
 					<!-- Panel Help & Setting -->
-					<div class="row pt-2">
+					<div class="row pt-4">
 						<div class="col-12">
 							<div class="widget personal-info">
 						  		<div class="widget-header">

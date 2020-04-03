@@ -1,24 +1,24 @@
 @extends('layouts.master')
 
 @section('body')
-<nav class="navbar shadow-sm p-3 background-saraga">
+<nav class="navbar navbar-expand shadow-sm background-saraga">
   <div class="container">
     <a class="navbar-brand" href="{{ route('profile')}}" style="color: white;">
-      <i class="fa fa-arrow-left fa-lg" style="padding-right: 30px;"></i>Edit Profile
+      <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back" style="margin-right: 5px;"> Edit Profile
     </a>
   </div>
 </nav>
-<section class="login py-5 border-top-1">
+<section class="login py-4 border-top-1">
     <div class="container">
         <form id="fimage" method="POST"  enctype="multipart/form-data" action="{{ route('upload-image') }}">
             @csrf
-            <div class="pb-5 text-center">
+            <div class="pb-3 text-center">
               <div>
                 <img src="{{session('auth_data')->profile_image}}" class="img-responsive rounded-circle" alt="No Image" width=100 height=100>
               </div>
               <div class="mt-2">
                 <input id="upload" name="profile_image" type="file" style="display: none" />
-                <a href="" id="upload_profile" style="font-size: 1.15rem; color: rgb(7, 108, 200);">Ganti Foto Profil</a>
+                <a href="" id="upload_profile" style="font-size: 0.9rem; color: rgb(7, 108, 200);">Ganti Foto Profil</a>
                 @if ($errors->has('profile_image'))
                     <div class="alert alert-danger">
                         <strong>{{ $errors->first('profile_image') }}</strong>
@@ -72,7 +72,7 @@
                     <strong>{{ $errors->first('address') }}</strong>
                 </div>
             @endif
-            <button type="submit" class="btn btn-block py-3 px-5 mt-4 font-weight-bold background-saraga">Simpan</button>
+            <button type="submit" class="btn btn-block font-weight-bold background-saraga">Simpan</button>
         </form>
     </div>
 </section>

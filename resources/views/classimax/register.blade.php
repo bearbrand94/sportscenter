@@ -4,7 +4,8 @@
 <nav class="navbar navbar-light shadow-sm p-3">
   <div class="container">
     <a class="navbar-brand" href="{{ route('login') }}">
-      <i class="fa fa-arrow-left fa-lg" style="padding-right: 30px;"></i>Daftar
+      <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
+      Daftar
     </a>
   </div>
 </nav>

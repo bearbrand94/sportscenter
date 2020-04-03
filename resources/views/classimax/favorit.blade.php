@@ -30,7 +30,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" style="color: white">  		
-        	<b style="font-size: 20px;">
+        	<b>
 			    Favorit
         	</b>
   		</a>

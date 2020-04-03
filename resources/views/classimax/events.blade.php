@@ -31,7 +31,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" style="color: white" href="javascript:history.back()">  
-            <i class="fa fa-arrow-left fa-2x" style="color: white; font-size: 20px;"></i>
+            <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
         	<b class="ml-3" style="font-size: 20px;">
 			    Event
         	</b>
