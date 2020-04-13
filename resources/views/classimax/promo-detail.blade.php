@@ -6,7 +6,7 @@
     padding: 0.75em;
     position:relative;
     left:80%;
-    top: -30px;
+    top: -20px;
     background-color: white;
     margin-right: auto;
     margin-bottom: auto;
@@ -35,18 +35,22 @@
 
 @section('content')
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
-  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: white" href="javascript:history.back()">  
+	<div class="container">
+		<a class="navbar-brand" href="javascript:history.back()">			
             <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
-        	<b class="ml-3" style="font-size: 20px;">
-			    Detail Promo
-        	</b>
-  		</a>
-      </li>
-  	</ul>
-  </div>
+		</a>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" style="color: white">  
+						<b>
+						    Detail Promo
+						</b>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 </nav>
 
 <section class="border-top-1 bg-light">
@@ -55,11 +59,11 @@
         	<img class="card-img-top img-fluid" src="{{$detail->image->path}}" alt="Card image cap" style="max-height: 25rem; padding-right: 0px; padding-left: 0px;">
           	<div id="innerelements" class="shadow">
             	<a style="cursor: hand">
-              		<i class="fa fa-share-alt fa-2x text-saraga share-btn" value="true" aria-hidden="true" style="font-size: 1.75rem;"></i>
+              		<img src="{{ asset('images/share-icon-black.svg') }}" alt="" title="back" class="share-btn share-icon share-icon-black" onclick="link_copy()">
             	</a>
           	</div>
         </div>
-    	<div class="row col-12 pb-4">
+    	<div class="row col-12 pb-4" style="font-size: 1.1rem;">
 	    	{{$detail->description}}
 	    </div>
     </div>

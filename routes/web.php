@@ -29,6 +29,18 @@ Route::get('/register', function () {
 Route::post('/register','LoginController@register')->name('register');
 //End Login
 
+Route::get('/help', function (){
+	return view('classimax.help-center');
+})->name('help-center');
+
+Route::get('/about-us', function (){
+	return view('classimax.about');
+})->name('about-us');
+
+Route::get('/terms', function (){
+	return view('classimax.terms');
+})->name('terms');
+
 Route::group(['middleware' => ['api']], function() {
 	//Midtrans
 	Route::post('/midtrans/notification/handling', 'MidtransController@notification');
@@ -68,6 +80,7 @@ Route::group(['middleware' => ['initial_data']], function() {
 	
 	Route::post('/booking/create','BookingController@create')->name('booking-create');
 	Route::get('/booking', 'BookingController@show')->name('booking-list');
+	// Post mode is for midtrans redirect after completing booking payment.
 	Route::post('/booking', 'BookingController@show')->name('booking-list');
 	Route::get('/booking/{id}', 'BookingController@detail')->name('booking-detail');
 
@@ -81,11 +94,12 @@ Route::get('/payment/pending', 'BookingController@create')->name('payment-pendin
 
 Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
 
-Route::get('/','HomeController@index');
-Route::get('/home','HomeController@index')->name('home');
+Route::get('/home','HomeController@index');
+Route::get('/','HomeController@index')->name('home');
 Route::get('/filter/recommendation','FieldController@recommendation')->name('search-recommendation');
 
-Route::get('/field/search','FieldController@search')->name('field-search');
+Route::get('/search/result','FieldController@search')->name('field-search');
+Route::get('/search', 'FieldController@navbarFormSearch')->name('navbar-form-search');
 
 Route::get('/field', function () {
     return view('classimax.category');

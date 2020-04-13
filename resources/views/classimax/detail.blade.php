@@ -75,7 +75,7 @@
             <b>
               Lokasi
             </b>
-        </a>
+          </a>
         </li>
       </ul>
     </div>
@@ -154,7 +154,7 @@
               <div class="card-body text-left">
                 <div class="row">
                 <div class="mr-auto pl-3">
-                  <p class=""><i class="fa fa-map-marker" aria-hidden="true"></i>{{$detail->spot->address}}</p>
+                  <p class=""><i class="fa fa-map-marker" aria-hidden="true"></i> {{$detail->spot->address}}</p>
                   <a href="{{$detail->spot->gmaps_url}}" target="_blank">Get Directions</a>
                 </div>
                 </div>

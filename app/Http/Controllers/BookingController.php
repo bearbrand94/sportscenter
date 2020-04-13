@@ -14,9 +14,7 @@ use Illuminate\Support\Arr;
 
 class BookingController extends Controller
 {
-    public function index(Request $request){
-        return view('classimax.booking-list');
-    }
+
 
     public function confirmation(Request $request){
     	// return $request->all();
@@ -102,9 +100,7 @@ class BookingController extends Controller
     public function get_snap_url(Request $request){
         $order_id = "BASIC-".str_random(8);
         $booking_data = json_decode(session('booking_data'));
-        // return response()->json($booking_data->input->input_time[0]);
-        // return response()->json($booking_data);
-        // return print_r($booking_data);
+
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         $discount = 0;
@@ -139,11 +135,18 @@ class BookingController extends Controller
 
         $expiry             = new class{};
         $expiry->start_time = date("Y-m-d H:i:s O");
-        $expiry->start_time = date("Y-m-d H:i:s O");
-        // $end_time           = date("Y-m-d H:i:s O", strtotime($booking_data->input->input_date." ".$booking_data->input->input_time.":00:00"));
-        // $duration           = strtotime ( $end_time ) - strtotime ( $expiry->start_time );
-        $expiry->duration   = 2;
-        $expiry->unit       = "hours";
+
+        $input_time = json_decode($booking_data->input->input_time);
+        $input_time = explode(" - ", $input_time[0])[0];
+        $end_time           = date("Y-m-d H:i:s O", strtotime($booking_data->input->input_date." ".$input_time.":00"));
+        $duration           = strtotime ( $end_time ) - strtotime ( $expiry->start_time );
+        // return $input_time;
+        // return $booking_data->input->input_date." ".$input_time.":00";
+
+        $expiry->duration = $duration;
+        $expiry->unit = "second";
+        // $expiry->duration   = 2;
+        // $expiry->unit       = "hours";
 
         // $gopay = new class{};
         // $gopay->enable_callback = true;
@@ -195,22 +198,52 @@ class BookingController extends Controller
                 ]
             ]);
             return redirect(route('booking-list'));
-            return $res->getBody();
+            // return $res->getBody();
         } catch (RequestException $e) {
-
             return $e;
         }
     }
 
-    public function show(){
+    public function show(Request $request){
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
 
+        // $dateFilter = [$request->get('custom-range')];
+        switch ($request->get('date-filter')) {
+            case 'lastMonth':
+                $time = mktime(0, 0, 0, date("m")-1, 1,   date("Y"));
+                $dateFilter = [date("Y-m-d",$time), date("Y-m-t",$time)];
+                break;
+            case 'thisMonth':
+                $time = mktime(0, 0, 0, date("m"), 1,   date("Y"));
+                $dateFilter = [date("Y-m-d",$time), date("Y-m-t",$time)];
+                break;
+            default:
+                $dateFilter = explode(",",$request->get('custom-range'));
+                break;
+        }
+
+        $filters = [];
+        if($request->get('type-filter')){
+            $filters['status'] = $request->get('type-filter');
+        }
+        if($request->get('date-filter')){
+            $filters['order_date'] = $dateFilter;
+        }
+        if($request->get('cat-filter')){
+            $filters['sport_id'] = $request->get('cat-filter');
+        }
+        // print_r(request()->all());
+        // return;
         try {
-            $res = $client->request('GET', config('app.api_url')."/order?sort=asc");
+            $res = $client->request('GET', config('app.api_url')."/order",[
+                'json' => [
+                    'filters' => $filters
+                ],
+                // 'debug' => true
+            ]);
         } catch (RequestException $e) {
             return $e;
-            // return view('classimax.booking-list')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
         }
 
         $res_booking = json_decode($res->getBody())->data;
@@ -218,14 +251,19 @@ class BookingController extends Controller
 
         foreach ($res_booking as $booking) {
             $duration = strtotime ( $booking->order_date ) - strtotime ('now');
-            if($duration < 0){
+            if($duration < 0 || $booking->status == "expire"){
                 $booking_list->past[] = $booking;
             }
             else{
                 $booking_list->active[] = $booking;
             }
         }
-        return view('classimax.booking-list')->with('booking_list', $booking_list);
+
+        $req_category = $client->request('GET', config('app.api_url')."/sports");
+        $category_data = json_decode($req_category->getBody())->data;
+
+        view()->share('categories', $category_data);
+        return view('classimax.booking-list')->with('booking_list', $booking_list)->with('requests', $request->all());
     }
 
     public function detail(Request $request){

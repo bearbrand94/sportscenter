@@ -228,7 +228,12 @@
 			  onError: function(result){
 			  	console.log('error');console.log(result);
 			  },
-			  onClose: function(){console.log('customer closed the popup without finishing the payment');}
+			  onClose: function(){
+			  	console.log('customer closed the popup without finishing the payment');
+			  	console.log("going back");
+			  	window.history.go(-3);
+			  	// location.reload();
+			  }
 			})
 			// console.log(d);
 			// window.location.href = d.redirect_url;

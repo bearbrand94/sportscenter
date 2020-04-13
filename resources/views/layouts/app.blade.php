@@ -26,44 +26,7 @@
 @section('body')
 
 <body class="body-wrapper">
-<!-- The Modal -->
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- Modal Header -->
-        <nav class="navbar navbar-expand shadow-sm">
-            <div class="container">
-              <a class="navbar-brand" href="#" data-dismiss="modal">
-                <img src="{{ asset('images/close-icon.svg') }}" alt="" width="13" height="13" title="back">
-              </a>
 
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto p-2">
-                  <li class="nav-item active">      
-                        <b class="text-saraga">
-                            Ubah Pencarian
-                        </b>
-                  </li>
-                </ul>
-              </div>
-            </div>
-        </nav>
-        <!-- Modal body -->
-        <form method="GET" action="{{ route('field-search') }}">
-            <div class="modal-body container">
-                <div class="form-row pt-3">
-                    @component('search-input-group')
-                    @endcomponent
-                </div>
-            </div>
-            <!-- Modal footer -->
-            <div class="modal-footer container">
-                <button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
-            </div>
-        </form>
-    </div>
-  </div>
-</div>
     <!--============================
     =            Navigation        =
     =============================-->
@@ -78,7 +41,7 @@
                             <img class="on-icon" src="{{ asset('images/navbar/ic_home_on.svg') }}" alt="" width="20" height="20" title="Home" style="display: none;">
                             <br>Home</a>
                         </div>
-                        <div class="col-xs-5ths navbot"><a href="{{route('field-search')}}">
+                        <div class="col-xs-5ths navbot"><a class="ic_search" href="{{route('navbar-form-search')}}">
                             <!--  data-toggle="modal" data-target="#myModal" -->
                             <img class="off-icon" src="{{ asset('images/navbar/ic_search_off.svg') }}" alt="" width="20" height="20" title="Search" style="display: inline;">
                             <!-- <img class="on-icon" src="{{ asset('images/navbar/ic_search_off.svg') }}" alt="" width="20" height="20" title="Search" style="display: none;"> -->
@@ -114,9 +77,8 @@
     =            Content            =
     =============================-->
     @yield('content')
-@component('search')
-@endcomponent
-    </body>
+
+</body>
 @endsection
 
 
@@ -127,6 +89,7 @@
     setNavigation();
     function setNavigation() {
         var path = window.location;
+        var pathname = path.origin + path.pathname;
 
         if(path.href == "{{url('/').'/'}}"){
             var a = $(".ic_home");
@@ -134,10 +97,16 @@
             a.find('.off-icon').toggle();
             a.find('.on-icon').toggle();
         }
+        else if(pathname == "{{route('field-search')}}"){
+            var a = $(".ic_search");
+            a.addClass('active');
+            a.find('.off-icon').toggle();
+            a.find('.on-icon').toggle();
+        }
         else{
             $(".navbot a").each(function () {
                 var href = $(this).attr('href');
-                var pathname = path.origin + path.pathname;
+                
                 if (pathname == href) {
                     var a = $(this).closest('a');
                     a.addClass('active');

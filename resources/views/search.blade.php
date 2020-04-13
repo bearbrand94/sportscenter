@@ -46,7 +46,16 @@
   .lead{
     font-size: 1rem;
   }
-
+  .widget{
+    margin-bottom: 5px;
+    padding: 15px 20px 15px;
+  }
+  .widget-header{
+    padding-bottom: 0 !important;
+  }
+  .icon{
+    padding-bottom: 5px;
+  }
 </style>
 
 <!-- Modal -->
@@ -57,7 +66,7 @@
       <nav class="navbar navbar-expand shadow-sm  background-saraga sticky-top">
         <div class="container">
           <a class="navbar-brand" href="#" data-dismiss="modal">
-            <i class="fa fa-arrow-left fa-lg" style="color: white;"></i>
+            <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
           </a>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -209,14 +218,21 @@
     var html = "<a href='#' data-dismiss='modal' onclick='list_clicked(" + index + ", \"" + array + "\")'>";
     html += "<div class='d-flex'>";
     html +=   "<div class='d-flex align-items-center'>";
-    html +=     "<span><img class='icon' src='{{ asset('images/sports') }}/" + "badminton" + ".svg' height='30px' width='30px'></img></span>";
+    if(array === "spots"){
+      html += "<span><img class='icon' src='{{ asset('images/sports') }}/" + "badminton" + ".svg'></img></span>";
+    }
+    else{
+      html += "<span><img class='icon' src='{{ asset('images/city.svg') }}'></img></span>";
+    }
     html +=   "</div>";
     html +=   "<div class='pl-3'>";
     html +=     "<p class='lead' style='color: black; font-weight: bold; margin-bottom: 0px; font-size: 1rem;'>" + title + "</p>";
-    html +=     "<p class='text-muted'>" + address + "</p>";;
+    if(array === "spots"){
+      html +=     "<p class='text-muted'>" + address + "</p>";
+    }
     html +=   "</div>";
     html += "</div></a>";
-    return html
+    return html;
   }
 
   function list_clicked(index, array){

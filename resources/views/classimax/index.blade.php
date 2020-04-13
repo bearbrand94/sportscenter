@@ -56,14 +56,15 @@
 		font-size: 0.95rem;
 		line-height: 1.2rem;
 		margin-bottom: 0;
-		color: rgb(85,85,85);
 	}
 	.section-title a{
-		font-size: 0.78rem;
-		font-weight: 600;
+		font-size: 0.8rem;
+	}
+	.section-title b{
+		color: #333333;
 	}
 	.sub-p{
-		font-size: 0.65rem;
+		font-size: 0.8rem;
 	}
 
 	form{
@@ -102,7 +103,7 @@
 		padding-top: 15px;
 		padding-bottom: 80px;
 
-		background-color: rgb(24, 35, 41);
+		background-color: rgba(24, 35, 41, 0.9);
 	}
 	.footer .container{
 		padding-right: 35px;
@@ -119,6 +120,9 @@
 		width: 120px;
 		padding: 7.5px 20px;
 	}
+  .modal-body{
+     overflow-y: auto;
+  }
 </style>
 @endsection
 
@@ -145,7 +149,7 @@
 									<form method="GET" action="{{ route('field-search') }}">
 										<div class="form-row">
 											@component('search-input-group')
-											<button type="submit" class="btn btn-block button-saraga" style="font-size: 0.8rem;">Cari Sarana Olahraga</button>
+											<button type="submit" class="btn btn-block button-saraga">Cari Sarana Olahraga</button>
 											@endcomponent
 										</div>
 									</form>
@@ -301,19 +305,24 @@
 =              FOOTER Section                =
 ===========================================-->
 <section class="section footer">
+
 	<div class="container">
 		<div class="row">
 			<div class="col-6">
-				<a href="#">About Us</a><br>
-				<a href="#">FAQ</a><br>
-				<a href="#">Terms Of Use</a><br>
+				<a href="{{route('about-us')}}">About Us</a><br>
+				<a href="{{route('help-center')}}">FAQ</a><br>
+				<a href="{{route('terms')}}">Terms Of Use</a><br>
 				<a href="#">Blog</a>
 			</div>
-			<div class="col-6 text-center">
-				<a href="#" class="btn button-saraga" style="margin-top: 10px;">Contact Us</a><br>
+			<div class="col-6 text-right">
+				<a href="{{route('help-center')}}" class="btn button-saraga" style="margin-top: 5px;">Contact Us</a><br>
 				<a href="#" class="btn button-saraga" style="margin-top: 15px;">For Facility Owner</a>
 			</div>
 		</div>
 	</div>
 </section>
+
+@component('search')
+@endcomponent
+
 @endsection

@@ -11,9 +11,17 @@ use Validator;
 
 class FieldController extends Controller
 {
-    public function index()
-    {
+    public function navbarFormSearch(Request $request){
+        $client = new Client();
 
+        $req_category = $client->request('GET', config('app.api_url')."/sports");
+        $category_data = json_decode($req_category->getBody())->data;
+
+        $request->category = $request->category ? $request->category : 0;
+        $request['category_name'] = $request->category ? $category_data[$request->category-1]->name : null;
+
+        view()->share('categories', $category_data);
+        return view('classimax.navbar-form-search')->with('categories', $category_data);
     }
 
     public function search(Request $request){
@@ -25,7 +33,7 @@ class FieldController extends Controller
 
         $request->category = $request->category ? $request->category : 0;
         $request['category_name'] = $request->category ? $category_data[$request->category-1]->name : null;
-        $field_data;
+        $field_data = null;
         try {
 	        $res = $client->request('POST', config('app.api_url')."/spots/filter/available", [
 	            'form_params' => [
@@ -43,7 +51,7 @@ class FieldController extends Controller
 		} catch (RequestException $e) {
 		    return $e;
 		}
-
+        view()->share('categories', $category_data);
         return view('classimax.category')->with('fields', $field_data)->with('links', $paginate_links)->with('requests', $request->all())->with('categories', $category_data);
     }
 
@@ -129,7 +137,7 @@ class FieldController extends Controller
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         try {
-            $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug);
+            $res = $client->request('GET', config('app.api_url')."/spots/".$request->slug."/".$request->input('input-date'));
         } catch (RequestException $e) {
             return view('classimax.404');
         }
@@ -146,7 +154,7 @@ class FieldController extends Controller
 
             //set array time available data for comparison
             foreach ($detail->courts[$i]->timeslots as $ts) {
-                if($ts->active==1){
+                if($ts->available==1){
                     $arr_time[] = $ts->time_slot;
                 }
             }

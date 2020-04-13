@@ -2,19 +2,20 @@
 @import url("https://fonts.googleapis.com/css?family=Muli:300,400,600,700,800,900");
 body {
   line-height: 1.5;
-  font-family: "Muli", sans-serif;
+  font-family: "Roboto";
+  font-size: 0.8rem;
 }
 
 p, li, input, select, button {
-  font-family: "Muli", sans-serif;
+  font-family: "Roboto";
   color: #666;
   font-size: 14px;
   font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Muli", sans-serif;
-  font-weight: 600;
+  font-family: "Roboto";
+  /*font-weight: 600;*/
   color: #333;
 }
 
@@ -428,8 +429,8 @@ button {
  *
  */
 .btn {
-  font-size: 15px;
-  letter-spacing: 1px;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
   display: inline-block;
   padding: 10px 20px;
   border-radius: 4px;

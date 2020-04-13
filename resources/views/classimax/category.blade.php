@@ -43,19 +43,19 @@
                         </b>
                   </li>
                 </ul>
-			      <a class="nav-item form-inline my-2" href="#" style="color: var(--blue)" data-dismiss="modal">
+			      <a class="nav-item form-inline my-2" href="{{route('field-search')}}" style="color: var(--blue)">
 			      	Reset
 			      </a>
               </div>
             </div>
         </nav>
         <!-- Modal body -->
-        <form method="GET" action="{{ route('field-search') }}" style="overflow-y: auto" class="bg-light">
+        <form method="GET" action="{{ route('field-search') }}" style="overflow-y: auto;" class="bg-light">
             <div class="modal-body container bg-white">
             	<div class="col-12">
             		<div class="row">
                 	<b>Sort</b>
-					<select class="w-100 form-control custom-select mt-2" name="category" id="select-category">
+					<select class="w-100 form-control custom-select mt-2" name="category" id="filter-sortby">
 						<option disabled selected value style="display: none">Sort by</option>
 						<option value="">Semua</option>
 					</select>
@@ -70,12 +70,12 @@
                 	<div class="form-inline row mt-2">
 							<input type="text" class="form-control mr-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Minimal">
 							<span class="mr-2 ml-2" style="font-size: 1.5rem; font-weight: 900; color: var(--saraga-color); margin-bottom: 5px;">-</span>
-							<input type="text" class="form-control ml-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Maximal">
+							<input type="text" class="form-control ml-auto" name="maxPrice" id="input-max-price" style="width: 45%" placeholder="Maximal">
 					</div>
             	</div>
             </div>
 
-            <div class="modal-body container mt-2 mb-5 bg-white">
+            <div class="modal-body container mt-2 bg-white">
             	<!-- Rating -->
             	<div class="col-12">
             		<div class="row">
@@ -120,8 +120,8 @@
 						</div>
 					</div>
                 </div>
-                <hr>
-            	<div class="col-12">
+                <!-- <hr> -->
+<!--             	<div class="col-12">
             		<div class="row">
 	                	<b>Jenis Lapang</b>
 	                </div>
@@ -147,7 +147,7 @@
 							  <label class="custom-control-label" for="customCheck1">Lapang </label>
 							</div>
 	                </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Modal footer -->
@@ -159,17 +159,60 @@
   </div>
 </div>
 
+<!-- The Modal -->
+<div class="modal" id="search-input-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+        <nav class="navbar navbar-expand shadow-sm">
+            <div class="container">
+              <a class="navbar-brand" href="#" data-dismiss="modal">
+                <img src="{{ asset('images/close-icon.svg') }}" alt="" class="close-icon" title="close">
+              </a>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto p-2">
+                  <li class="nav-item active">      
+                        <b class="text-saraga">
+                            Ubah Pencarian
+                        </b>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+        <!-- Modal body -->
+        <form method="GET" action="{{ route('field-search') }}">
+            <div class="modal-body container">
+                <div class="form-row pt-3">
+                    @component('search-input-group', [
+                    	'requests' => $requests
+                    ])
+                    @endcomponent
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer container">
+                <button type="submit" class="btn btn-block button-saraga">Cari Lapang</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+@component('search')
+@endcomponent
 <nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
 	<div class="container">
-	  <a class="navbar-brand" href="{{url('home')}}">
+	  <a class="navbar-brand" href="{{route('home')}}">
 	    <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
 	  </a>
 
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <ul class="navbar-nav mr-auto">
 	      <li class="nav-item active">
-	        <a class="nav-link" style="color: white" data-toggle="modal" data-target="#myModal" href="#">  		
-	        	<b style="font-size: 1rem;">
+	        <a class="nav-link" style="color: white" data-toggle="modal" data-target="#search-input-modal" href="#">  		
+<!-- 	        	<b style="font-size: 1rem;">
 				    @if (empty($requests['category_name']))
 				      {{"Semua Kategori"}}
 				    @else
@@ -187,13 +230,16 @@
 			      {{"Semua waktu"}}
 			    @else
 			      {{date("d F Y", strtotime($requests['search_date']))}}
-		        @endif
+		        @endif -->
+		        <b>
+			        Hasil Pencarian
+			    </b>
 	  		</a>
 	      </li>
 	  	</ul>
-	  	<a href="#" data-toggle="modal" data-target="#filter-modal">
+	  	<a href="#" data-toggle="modal" data-target="#search-input-modal">
 	      <li class="nav-item form-inline my-2" style="color: white;">
-	      	Filter
+	      	<i class="fa fa-search fa-lg"></i>
 	      </li>
 	    </a>
 	  </div>
@@ -205,21 +251,31 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="scrolling-wrapper">
-					@foreach($fields as $spot)
-						<div class="pb-3 pt-3"> 
-						@component('card', [
-							'review_star' => $spot->rating,
-							'price'		  => $spot->price,
-							'image_url'	  => $spot->cover_image,
-							'title'		  => $spot->name,
-							'address'	  => $spot->address,
-							'a_url'		  => route('field-detail', $spot->slug),
-							'spot_id'	  => $spot->id,
-							'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
-						])
-						@endcomponent
-						</div>
-					@endforeach
+					@if(count($fields) > 0)
+						@foreach($fields as $spot)
+							<div class="pb-3 pt-3"> 
+							@component('card', [
+								'review_star' => $spot->rating,
+								'price'		  => $spot->price,
+								'image_url'	  => $spot->cover_image,
+								'title'		  => $spot->name,
+								'address'	  => $spot->address,
+								'a_url'		  => route('field-detail', $spot->slug),
+								'spot_id'	  => $spot->id,
+								'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
+							])
+							@endcomponent
+							</div>
+						@endforeach
+					@else
+			            <div class="alert alert-warning mt-3">
+			            	@if(!empty($requests['category_name']))
+				                <strong>Tidak ditemumkan hasil pencarian lapangan dengan jenis {{$requests['category_name']}}. <a data-toggle="modal" data-target="#search-input-modal" href="#" style="text-decoration: underline;"> Coba cari semua jenis lapangan.</a></strong>
+				            @else
+				            	<strong>Pencarian lapangan tidak ditemukan. <a data-toggle="modal" data-target="#search-input-modal" href="#" style="text-decoration: underline;">Coba cari lapangan lainnya.</a></strong>
+			                @endif
+			            </div>
+					@endif
 				</div>
 			</div>
 		</div>
@@ -235,7 +291,11 @@
 				<ul id="pagination" class="pagination justify-content-center"></ul>
 			</nav>
 		</div>
-		<div class="row mb-5"></div>
+		<div class="row" style="margin-bottom: 100px;"></div>
+		<div class="fixed-bottom text-center" style="margin-bottom: 70px;">
+			@component('filter-button')
+			@endcomponent
+		</div>
     </div>
 </section>
 @endsection
@@ -243,16 +303,6 @@
 @section('script')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
 	<script type="text/javascript">
-		@if (isset($requests['category']))
-			$("#select-category").val("{{$requests['category']}}");
-		@endif
-		@if (isset($requests['search_date']))
-			flatpickr.setDate(new Date("{{$requests['search_date']}}"));
-		@endif
-		@if (isset($requests['keyword']))
-			$("#keyword").val("{{$requests['keyword']}}");
-		@endif
-
 	    $('#pagination').twbsPagination({
 	        totalPages: {{$links->last_page}},
 	        visiblePages: 5,

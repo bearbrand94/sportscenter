@@ -89,7 +89,7 @@
     <div class="container h-100">
     	<div class="row align-items-center h-100">
     		<div class="mx-auto p-4">
-		      <img src="{{asset('/images/no-fav.png')}}" class="img-fluid pb-4" alt="Belum ada booking">
+		      <img src="{{asset('/images/no-fav.png')}}" class="img-fluid pb-4" alt="Belum ada event">
 		      <div class="p-4"></div>
 		  	</div>
 		</div>

@@ -2,11 +2,13 @@
 
 @section('body')
 
-<section class="login py-2 border-top-1">
+<section class="login py-2 border-top-1 pt-3">
     <div class="container">
-      <i class="fa fa-close fa-2x text-saraga" onclick="window.history.back();" style="cursor: pointer"></i>
+      <a class="navbar-brand" href="javascript:history.back()">
+        <img src="{{ asset('images/close-icon.svg') }}" alt="" class="close-icon" title="close">
+      </a>
       <div class="text-center">
-        <img class="card-img-top pb-3" src="{{ asset('images/saraga.png') }}" alt="Card image cap" style="width: 200px;">
+        <img class="card-img-top pb-3" src="{{ asset('images/saraga.png') }}" alt="Card image cap" style="width: 125px;">
       </div>
       <form method="POST" action="{{ route('email-login') }}">
         @csrf
@@ -30,7 +32,7 @@
           <span>Password</span>
         </label>
         <a class="d-block muted-saraga pull-right" href="password/reset">Lupa Password?</a>
-        <button type="submit" class="btn btn-block py-3 px-5 mt-4 font-weight-bold button-saraga">Masuk</button>
+        <button type="submit" class="btn btn-block mt-3 font-weight-bold button-saraga">Masuk</button>
       </form>
 
       <div class="row mt-4">

@@ -5,17 +5,18 @@
   	@else
   	<a href="">
   	@endif
-    	<img class="card-img-top" src="{{$image_url ? $image_url : 'https://via.placeholder.com/150'}}" alt="Card image cap" style="max-height: 20rem">
+    	<img class="card-img-top" src="{{$image_url ? $image_url : 'https://via.placeholder.com/150'}}" alt="Card image cap" style="max-height: 15rem">
   	</a>
 	<div id="innerelements" class="shadow">
-		<i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i>
-	    <!-- <img class="icon" src="{{ asset('images/sports/futbol.svg') }}" height="30px" width="30px"> -->
+		<!-- <i class="fav-button fa fa-futbol-o fa-2x" aria-hidden="true" style="font-size: 1.5rem;"></i> -->
+	    <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$icon.'.svg' }}">
 	</div>
 	<div class="card-body">
 	    <h5 class="card-title text-truncate pt-3" style="margin-top:-50px;">{{$title}}</h5>
 	    <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$span}}</span>
 	    
 	    <div class="card-text" style="font-size: 0.9rem">
+
 	    	<div class="d-inline-block mr-4 mb-2 mt-4" style="vertical-align: top; font-size: 0.8rem;">
 	    		<div class="text-muted mb-2">Hari dan Tanggal</div>
 	    		<div style="font-weight: bold">
@@ -32,18 +33,11 @@
         			@endforeach
         		</div>
 	    	</div>
-<!-- 	    	<div class="d-inline-block mt-4" style="vertical-align: top;">
-	    		<div class="text-muted mb-2">Durasi</div>
-	    		<div style="font-weight: bold">
-	      			<i class="fa fa-clock-o fa-lg text-saraga mr-1" aria-hidden="true"></i>
-        			{{ $duration }} Jam
-        		</div>
-	    	</div> -->
 	    </div>
 	</div>
 	@component('payment-time', [
 		'id'	=> $id,
-		'date'	=> $date,
+		'date'	=> date("Y-m-d",strtotime($date))." ".$time[0]->start_at,
 		'status'=> $status
 	])
 	@endcomponent
@@ -53,9 +47,5 @@
 	$("#card-{{$id}}").click(function(){
 		window.location.href="{{ route('booking-detail', ['id'=>$id]) }}";
 	});
-	console.log("Component Mounted: {{$id}}");
-	console.log("{{$status}}");
-	// console.log($('#payment-time-{{$id}}').children('#hour').html());
-	// Update the count down every 1 second
 
 </script>

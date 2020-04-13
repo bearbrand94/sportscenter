@@ -26,19 +26,23 @@
 @endsection
 
 @section('content')
-<nav class="navbar navbar-expand shadow-sm background-saraga">
-  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" style="color: white" href="javascript:history.back()">  
+<nav class="navbar navbar-expand shadow-sm background-saraga sticky-top">
+	<div class="container">
+		<a class="navbar-brand" href="javascript:history.back()">			
             <img src="{{ asset('images/back-icon.svg') }}" alt="" class="back-icon" title="back">
-        	<b class="ml-3" style="font-size: 20px;">
-			    Promo
-        	</b>
-  		</a>
-      </li>
-  	</ul>
-  </div>
+		</a>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" style="color: white">  
+						<b>
+						    Promo
+						</b>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 </nav>
 @if(isset($fields))
 <section class="border-top-1 bg-light">

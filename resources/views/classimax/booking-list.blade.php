@@ -24,11 +24,6 @@
 		font-weight: bold;
 	}
 
-	.booking-list.container{
-		padding-left: 5;
-		padding-right: 5;
-	}
-
 	.nav-tabs .nav-link{
 		border: 0;
 	}
@@ -38,6 +33,65 @@
 	.nav-link{
 		font-size: 0.85rem;
 	}
+	.no-padding{
+		padding-left: 0;
+		padding-right: 0;
+		margin-bottom: 0;
+	}
+	.form-group{
+		margin-bottom: 5;
+	}
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+  }
+
+  .modal-dialog {
+    position: fixed;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  .modal-content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 2px solid #3c7dcf;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .modal-body {
+    min-height: 80%;
+  }
+  .modal-footer {
+       position:fixed;
+       top:auto;
+       right:0;
+       left:0;
+       bottom:0;    
+  }
+  .icon{
+  	width: 20;
+  	height: 20;
+  }
+  .modal .icon{
+  	margin-right: 10;
+  }
+  .modal .form-control{
+  	padding-top: 0;
+  	padding-bottom: 0;
+  	font-size: 0.9rem;
+  	border: 0px;
+
+  }
 </style>
 @endsection
 
@@ -61,115 +115,113 @@
                         </b>
                   </li>
                 </ul>
-			      <a class="nav-item form-inline my-2" href="#" style="color: var(--blue)" data-dismiss="modal">
+			      <a class="nav-item form-inline my-2" href="{{route('booking-list')}}" style="color: var(--blue)">
 			      	Reset
 			      </a>
               </div>
             </div>
         </nav>
         <!-- Modal body -->
-        <form method="GET" action="{{ route('field-search') }}" style="overflow-y: auto" class="bg-light">
-            <div class="modal-body container bg-white">
+        <form method="GET" action="{{ route('booking-list') }}" style="overflow-y: auto" class="bg-light">
+            <div class="modal-body container mb-5 bg-white">
             	<div class="col-12">
             		<div class="row">
-                	<b>Sort</b>
-					<select class="w-100 form-control custom-select mt-2" name="category" id="select-category">
-						<option disabled selected value style="display: none">Sort by</option>
-						<option value="">Semua</option>
-					</select>
-					</div>
-            	</div>
-            </div>
-            <div class="modal-body container mt-2 bg-white">
-            	<div class="col-12">
-            		<div class="row">
-	                	<b>Rentang Harga</b>
-	                </div>
-                	<div class="form-inline row mt-2">
-							<input type="text" class="form-control mr-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Minimal">
-							<span class="mr-2 ml-2" style="font-size: 1.5rem; font-weight: 900; color: var(--saraga-color); margin-bottom: 5px;">-</span>
-							<input type="text" class="form-control ml-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Maximal">
-					</div>
-            	</div>
-            </div>
-
-            <div class="modal-body container mt-2 mb-5 bg-white">
-            	<!-- Rating -->
-            	<div class="col-12">
-            		<div class="row">
-	                	<b>Rating</b>
-	                </div>
-                	<div class="form-inline row mt-2">
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
-			              	1
-			            </div>
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
-			              	2
-			            </div>
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
-			              	3
-			            </div>
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
-			              	4
-			            </div>
-			            <div class="form-control border rating-button" style="margin-right: 0">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
-			              	5
-			            </div>
-					</div>
-            	</div>
-            	<hr>
-            	<div class="col-12">
-            		<div class="row">
-	                	<b>Tipe Lapang</b>
+	                	<b>Tampilkan Berdasarkan</b>
 	                </div>
 	                <div class="row mt-2">
-						<div class="custom-control custom-checkbox col-6">
-						  <input type="checkbox" class="custom-control-input" id="customCheck1">
-						  <label class="custom-control-label" for="customCheck1">Lapang Indoor</label>
+					    <div class="form-group col-12 no-padding">
+					      <div class="d-flex justify-content-between">
+					        <label for="type-filter-1">Menunggu Pembayaran</label>
+					        <div class="form-group custom-control custom-radio">
+							  <input type="radio" class="custom-control-input text-right type-filter" id="type-filter-1" name="type-filter" value="pending">
+							  <label class="custom-control-label" for="type-filter-1"></label>
+					        </div>
+					      </div>
 						</div>
-						<div class="custom-control custom-checkbox col-6">
-						  <input type="checkbox" class="custom-control-input" id="customCheck2">
-						  <label class="custom-control-label" for="customCheck2">Lapang Outdoor</label>
+					    <div class="form-group col-12 no-padding">
+					      <div class="d-flex justify-content-between">
+					        <label for="type-filter-2">Pembayaran Berhasil</label>
+					        <div class="form-group custom-control custom-radio ">
+							  <input type="radio" class="custom-control-input text-right type-filter" id="type-filter-2" name="type-filter" value="settlement">
+							  <label class="custom-control-label" for="type-filter-2"></label>
+					        </div>
+					      </div>
+						</div>
+					    <div class="form-group col-12 no-padding">
+					      <div class="d-flex justify-content-between">
+					        <label for="type-filter-3">Dibatalkan</label>
+					        <div class="form-group custom-control custom-radio ">
+							  <input type="radio" class="custom-control-input text-right type-filter" id="type-filter-3" name="type-filter" value="expire">
+							  <label class="custom-control-label" for="type-filter-3"></label>
+					        </div>
+					      </div>
 						</div>
 					</div>
                 </div>
                 <hr>
             	<div class="col-12">
             		<div class="row">
-	                	<b>Jenis Lapang</b>
+	                	<b>Filter Berdasarkan</b>
 	                </div>
 	                <div class="row mt-2">
-							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>
-							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>
+	                	@foreach($categories as $category)
+					    <div class="form-group col-12 no-padding">
+					      <div class="d-flex justify-content-between">
+					      	
+					        <label for="cat-filter-{{$category->id}}">
+					        	<img class="icon" src="{{ asset('images/sports/').'/'.$category->slug.'.svg' }}"></img>
+					        	{{$category->name}}
+					        </label>
+					        <div class="form-group custom-control custom-checkbox ">
+							  <input type="checkbox" class="custom-control-input text-right cat-filter" id="cat-filter-{{$category->id}}" name="cat-filter[]" value="{{$category->id}}">
+							  <label class="custom-control-label" for="cat-filter-{{$category->id}}"></label>
+					        </div>
+					      </div>
+						</div>
+						@endforeach
 	                </div>
+                </div>
+                <hr>
+            	<div class="col-12">
+            		<div class="row">
+	                	<b>Tanggal Pemesanan</b>
+	                </div>
+	                <div class="row mt-2">
+					    <div class="form-group col-12 no-padding">
+					      <div class="d-flex justify-content-between">
+					        <label for="date-filter-1">Bulan ini</label>
+					        <div class="form-group custom-control custom-radio ">
+							  <input type="radio" class="custom-control-input text-right date-filter" id="date-filter-1" name="date-filter" value="thisMonth">
+							  <label class="custom-control-label" for="date-filter-1"></label>
+					        </div>
+					      </div>
+						</div>
+					    <div class="form-group col-12 no-padding">
+					      <div class="d-flex justify-content-between">
+					        <label for="date-filter-2">Bulan terakhir</label>
+					        <div class="form-group custom-control custom-radio ">
+							  <input type="radio" class="custom-control-input text-right date-filter" id="date-filter-2" name="date-filter" value="lastMonth">
+							  <label class="custom-control-label" for="date-filter-2"></label>
+					        </div>
+					      </div>
+						</div>
+					    <div class="form-group col-12 no-padding">
+					      <div class="d-flex justify-content-between">
+					        <label for="date-filter-3">Atur tanggal</label>
+					        <div class="form-group custom-control custom-radio ">
+							  <input type="radio" class="custom-control-input text-right date-filter" id="date-filter-3" name="date-filter" value="custom">
+							  <label class="custom-control-label" for="date-filter-3"></label>
+					      	</div>
+					      </div>
+						  <input type="text" class="flatpickr form-control" placeholder="Pilih tanggal" id="select-date">
+						</div>
+					</div>
                 </div>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer container bg-white">
+            	<input type="hidden" name="custom-range" id="custom-range">
                 <button type="submit" class="btn btn-block button-saraga">Terapkan</button>
             </div>
         </form>
@@ -177,8 +229,8 @@
   </div>
 </div>
 
-<nav class="navbar navbar-expand shadow-sm background-saraga">
-  <div class="container collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand shadow-sm background-saraga fixed-top">
+  <div class="container collapse navbar-collapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" style="color: white">  		
@@ -193,11 +245,9 @@
 	</a>
   </div>
 </nav>
-
-<section class="border-top-1 bg-light">
-	<div class="booking-list container">
-	    <div class="pb-5">
-			<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+<nav class="navbar navbar-expand bg-white fixed-top" style="margin-top: 58px; padding-bottom: 0; padding-top: 0">
+  <div class="container collapse navbar-collapse">
+			<ul class="nav nav-tabs nav-fill w-100" id="myTab" role="tablist">
 			  <li class="nav-item active">
 			    <a class="nav-link" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">Aktif</a>
 			  </li>
@@ -205,6 +255,12 @@
 			    <a class="nav-link" id="selesai-tab" data-toggle="tab" href="#selesai" role="tab" aria-controls="selesai" aria-selected="false">Selesai</a>
 			  </li>
 			</ul>
+  </div>
+</nav>
+<section class="border-top-1 bg-light" style="margin-top: 100px;">
+	<div class="booking-list container">
+	    <div class="pb-5">
+
 			<div class="tab-content container">
 				<div id="active" class="tab-pane fade in active">
 					@if(isset($booking_list->active))
@@ -225,9 +281,9 @@
 										'time'		=> $booking->detail
 									])
 									@endcomponent
-									<!-- {{print_r($booking)}} -->
 								</div>
 								@endforeach
+
 							</div>
 					</div>
 					@else
@@ -285,8 +341,39 @@
 
 @section('script')
 <script type="text/javascript">
-	$(document).ready(function(){
-	   $('#active-tab').trigger("click"); 
+	var flatpickr = $(".flatpickr").flatpickr({
+		altFormat: "j F Y",
+		dateFormat: "j F Y",
+		minDate: "today",
+		disableMobile: "true",
+		mode: "range",
+		onChange: function(selectedDates){
+			$("#date-filter-3").prop("checked", true);
+	        const dateArr = selectedDates.map(date => this.formatDate(date, "Y-m-d"));
+	        $('#custom-range').val(dateArr);
+		}
 	});
+	$(document).ready(function(){
+	   	$('#active-tab').trigger("click");
+	   	autofill();
+	});
+	function autofill(){
+		@if(isset($requests['type-filter']))
+		$(".type-filter").each(function(){
+			if($(this).attr('value') == "{{$requests['type-filter']}}"){
+				$(this).click();
+			}
+		});
+		@endif
+		@if(isset($requests['cat-filter']))
+		$(".cat-filter").each(function(){
+			@foreach($requests['cat-filter'] as $catFilter)
+			if($(this).attr('value') == "{{$catFilter}}"){
+				$(this).click();
+			}
+			@endforeach
+		});
+		@endif
+	}
 </script>
 @endsection

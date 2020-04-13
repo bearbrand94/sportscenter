@@ -2,8 +2,6 @@
 
 @section('master_css')
 <style type="text/css">
-
-
   .modal-dialog {
    position:fixed;
        top:auto;
@@ -11,7 +9,14 @@
        left:0;
        bottom:0;
   }  
-
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+  }
   .modal-header {
     background: white;
   }
@@ -48,7 +53,7 @@
       width: 40px;
   }
   .carousel-item img{
-    max-height: 10rem;
+    max-height: 15rem;
   }
   .modal-content .col-3{
     padding-right: 5px;
@@ -122,6 +127,9 @@
                 <span class="sr-only">Next</span>
               </a>
             </div>
+          <div id="innerelements" class="shadow">
+            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport.'.svg' }}">
+          </div>
             @csrf
             <input type="hidden" name="slug" value="{{$detail->spot->slug}}">
             <input type="hidden" name="court_id" value="{{$field->id}}">
@@ -169,6 +177,9 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
+          <div id="innerelements" class="shadow">
+            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport.'.svg' }}">
+          </div>
           <div class="card-body">
               <h5 class="card-title text-truncate">{{$field->name}}</h5>
               <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
@@ -214,7 +225,7 @@
                   <?php 
                     $flag = false;
                     foreach ($field->timeslots as $timeslot) {
-                      if($timeslot->time_slot == $ts->time_slot && $timeslot->active == 1){
+                      if($timeslot->time_slot == $ts->time_slot && $timeslot->available == 1){
                         $flag = true;
                       }
                     }

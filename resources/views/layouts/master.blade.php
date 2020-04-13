@@ -109,7 +109,7 @@
 
           .has-float-label span{
             font-size: 0.8rem;
-            font-weight: bold;
+            /*font-weight: bold;*/
             color: var(--saraga-color);
           }
 
@@ -136,7 +136,7 @@
 
           .muted-saraga{
             color: rgb(176, 176, 176);
-            font-size: 16px;
+            font-size: 0.85rem;
           }
 
           .has-line {
@@ -200,9 +200,22 @@
             padding: 3;
             border-radius: 0.3rem;
           }
-
+          .share-icon{
+            width: 20;
+            height: 20;
+          }
+        
           .back-icon-black{
             border: 1px solid black;
+          }
+
+          .icon, .icon-cat{
+            width: 30;
+            height: 30;
+          }
+
+          hr{
+            border-top: 1px solid #d8d8d8;
           }
         </style>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

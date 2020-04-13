@@ -8,7 +8,7 @@
 		margin-bottom: 5px;
 	}
 
-	p .lead{
+	p, .lead{
 		font-size: 1rem;
 	}
 
@@ -68,7 +68,7 @@
 								</div>
 								<div class="pr-3 d-flex align-items-center">
 									<a onclick="referral_copy()" href="#"><span>
-										<img src="{{ asset('images/share-icon-black.svg') }}" alt="" width="20" height="20" title="share">
+										<img src="{{ asset('images/share-icon-black.svg') }}" alt="" class="icon" title="share">
 									</span></a>
 								</div>
 						    </div>
@@ -103,12 +103,12 @@
 						<div class="col-12">
 							<div class="widget personal-info">
 						  		<div class="widget-header">
-						  			<a href="#">
+						  			<a href="{{route('help-center')}}">
 										<div class="d-flex">
 										  <div class="d-flex align-items-center text-left">
 										  	<span><i class="fa fa-question-circle fa-2x" aria-hidden="true"></i></span>
 										  </div>
-										  <div class="pl-3">									  	
+										  <div class="pl-3 mr-2">									  	
 										  	<p class="lead" style="color: black; font-weight: bold;">Pusat Bantuan</p>
 											<p class="text-muted">Temukan jawaban terbaik dari pertanyaan Anda</p>
 										  </div>
@@ -121,7 +121,7 @@
 									  <div class="d-flex align-items-center">
 									  	<span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span>
 									  </div>
-									  <div class="pl-3">									  	
+									  <div class="pl-3 mr-2">									  	
 									  	<p class="lead" style="color: black; font-weight: bold;">Pengaturan</p>
 										<p class="text-muted">Lihat dan atur preferensi akun Anda</p>
 									  </div>

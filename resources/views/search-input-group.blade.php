@@ -15,7 +15,7 @@
 		</select>
 		<span>Olahraga</span>
 	</label>
-	<label class="has-float-label">
+	<label class="has-float-label search-date-component">
 		<input type="text" class="form-control flatpickr" name="search_date" placeholder="Pilih tanggal" id="select-date">
 		<span>Tanggal</span>
 	</label>
@@ -25,14 +25,28 @@
 	</label>
 	{{ $slot }}
 </div>
-	<script type="text/javascript">
-		$( "#keyword" ).click(function() {
-		  doneTyping();
-		});
-	  var flatpickr = $(".flatpickr").flatpickr({
-        	altFormat: "j F Y",
-        	dateFormat: "j F Y",
-	      	minDate: "today",
-	      	disableMobile: "true",
-	  });
-	</script>
+<script type="text/javascript">
+	var flatpickr = $(".flatpickr").flatpickr({
+		altFormat: "j F Y",
+		dateFormat: "j F Y",
+		minDate: "today",
+		disableMobile: "true",
+	});
+	
+	@if (isset($requests['category']))
+		$("#select-category").val("{{$requests['category']}}");
+	@endif
+
+	@if (isset($requests['search_date']))
+		flatpickr.setDate(new Date("{{$requests['search_date']}}"));
+	@endif
+
+	@if (isset($requests['keyword']))
+		$("#keyword").val("{{$requests['keyword']}}");
+	@endif
+
+	$( "#keyword" ).click(function() {
+	doneTyping();
+	});
+
+</script>
