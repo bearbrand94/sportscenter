@@ -49,6 +49,11 @@
 		height: 10rem;
 		border-radius: 0;
 	}
+	.promo .card-img-top{
+		border-bottom-left-radius: 0.2rem;
+		border-bottom-right-radius: 0.2rem;
+	}
+
 	.section-title{
 		margin-bottom: 3.5rem;
 	}
@@ -177,7 +182,7 @@
 				<div class="col-12">
 					<div class="section-title">
 						<div class="col-12">
-							<p class="pull-left"><b>Promo</b></p>
+							<p class="pull-left"><b>Information</b></p>
 							<a href="{{route('promo-list')}}" class="pull-right">Lihat Semua</a>
 						</div>
 					</div>
@@ -188,14 +193,14 @@
 				  @foreach($promos as $promo)
 				  	<div class="card mr-1"> 
 				  	@if($promo->type=="INFOR")
-					  <a target="_blank" href="{{$promo->custom_url}}">
+					  <a target="_blank" href="{{$promo->custom_url}}" class="promo">
 					    <div class="banner-element banner-element-info">
 					      <span>Information</span>
 					    </div>
 					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 110px;">
 					  </a>
 					@else
-					  <a href="{{route('promo-detail',$promo->id)}}">
+					  <a href="{{route('promo-detail',$promo->id)}}" class="promo">
 					    <div class="banner-element banner-element-promo">
 					      <span>Promo</span>
 					    </div>
@@ -305,7 +310,6 @@
 =              FOOTER Section                =
 ===========================================-->
 <section class="section footer">
-
 	<div class="container">
 		<div class="row">
 			<div class="col-6">

@@ -64,20 +64,22 @@
             top: 0;
             width: 100%;
             padding: 0.15em;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background-color: rgba(255,255,255, 0.65);
             text-align: center;
             text-transform: uppercase;
             box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+            border-top-left-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
           }   
 
           .banner-element-info{
-            background-color: #42c5f5;
+            background-color: rgb(9,58,102);
             color: white;
           }
 
           .banner-element-promo{
-            background-color: #fc4103;
+            background-color: rgb(208,167,101);
             color: white;
           }
 
