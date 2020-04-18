@@ -33,13 +33,49 @@ class FieldController extends Controller
 
         $request->category = $request->category ? $request->category : 0;
         $request['category_name'] = $request->category ? $category_data[$request->category-1]->name : null;
+
+        $range_filters = new \stdClass();
+        $order_by = [];
         $field_data = null;
+
+        if($request->get('sort-filter')){
+            switch ($request->get('sort-filter')) {
+                case '1':
+                    $order_by = ["price", "desc"];
+                    break;
+                case '2':
+                    $order_by = ["price", "asc"];
+                    break;
+                case '3':
+                    $order_by = ["rating", "desc"];
+                    break;
+                default:
+                    $order_by = [];
+                    break;
+            }
+        }
+
+        $range_filters->price = [0];
+        if($request->get('minPrice')){
+            $range_filters->price[0] = $request->get('minPrice');
+        }
+        if($request->get('maxPrice')){
+            $range_filters->price[] = $request->get('maxPrice');
+        }
+
+        // if($request->get('rating')){
+        //     $range_filters->rating = json_decode($request->get('rating'));
+        // }
+
         try {
 	        $res = $client->request('POST', config('app.api_url')."/spots/filter/available", [
 	            'form_params' => [
 	                'sport_id' => $request->category,
 	                'date' => $request->search_date,
 	                'text' => $request->keyword,
+                    'court_types' => $request->get('type-filter'),
+                    'range_filters' => $range_filters,
+                    'order_by' => $order_by,
                     'page' => $request->page ? $request->page : 1
 	            ]
 	        ]);
@@ -70,7 +106,10 @@ class FieldController extends Controller
         try {
             $res = $client->request('POST', config('app.api_url')."/spots/filter/recommendation", [
                 // 'form_params' => $form_params
-                'form_params' => ['text' => $request->keyword]
+                'form_params' => [
+                    'text' => $request->keyword,
+                    'sport_id' => $request->sport_id
+                ]
             ]);
             if($res->getStatusCode() == 200){ // 200 = Success
                 $body = $res->getBody();
@@ -147,7 +186,6 @@ class FieldController extends Controller
         for ($i=0; $i < count($detail->courts); $i++) { 
             //set status to not available
             $detail->courts[$i]->status=0;
-
 
             $arr_input = json_decode($request->input('input-time'));
             $arr_time = Array();

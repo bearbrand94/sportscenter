@@ -20,7 +20,7 @@
 		<span>Tanggal</span>
 	</label>
 	<label class="has-float-label" style="margin-bottom: 15">
-		<input type="text" class="form-control keyword" readonly="readonly" name="keyword" data-toggle="modal" data-target="#searchModal" id="keyword" placeholder="Pilih sarana olahraga">
+		<input type="text" class="form-control keyword" name="keyword" data-toggle="modal" data-target="#searchModal" id="keyword" placeholder="Pilih sarana olahraga">
 		<span>Nama Sarana Olahraga</span>
 	</label>
 	{{ $slot }}

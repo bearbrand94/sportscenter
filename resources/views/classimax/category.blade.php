@@ -15,6 +15,11 @@
     height: 37px;
     /*background-color: var(--saraga-color);*/
   }
+  .Rating-button.active{
+      background: var(--saraga-color);
+      color: white;
+  }
+
   .rating-button img{
 	margin-bottom: 5;
 	width: 15;
@@ -55,9 +60,12 @@
             	<div class="col-12">
             		<div class="row">
                 	<b>Sort</b>
-					<select class="w-100 form-control custom-select mt-2" name="category" id="filter-sortby">
+					<select class="w-100 form-control custom-select mt-2" name="sort-filter" id="input-sort-filter">
 						<option disabled selected value style="display: none">Sort by</option>
-						<option value="">Semua</option>
+						<option value="0">Semua</option>
+						<option value="1">Harga Tertinggi</option>
+						<option value="2">Harga Terendah</option>
+						<option value="3">Rekomendasi</option>
 					</select>
 					</div>
             	</div>
@@ -68,9 +76,9 @@
 	                	<b>Rentang Harga</b>
 	                </div>
                 	<div class="form-inline row mt-2">
-							<input type="text" class="form-control mr-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Minimal">
-							<span class="mr-2 ml-2" style="font-size: 1.5rem; font-weight: 900; color: var(--saraga-color); margin-bottom: 5px;">-</span>
-							<input type="text" class="form-control ml-auto" name="maxPrice" id="input-max-price" style="width: 45%" placeholder="Maximal">
+						<input type="number" class="form-control mr-auto" name="minPrice" id="input-min-price" style="width: 45%" placeholder="Minimal" min=0>
+						<span class="mr-2 ml-2" style="font-size: 1.5rem; font-weight: 900; color: var(--saraga-color); margin-bottom: 5px;">-</span>
+						<input type="number" class="form-control ml-auto" name="maxPrice" id="input-max-price" style="width: 45%" placeholder="Maximal" max=100000000>
 					</div>
             	</div>
             </div>
@@ -82,76 +90,84 @@
 	                	<b>Rating</b>
 	                </div>
                 	<div class="form-inline row mt-2">
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			            <div class="form-control border rating-button" value="1">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating" title="rating">
 			              	1
 			            </div>
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			            <div class="form-control border rating-button" value="2">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating" title="rating">
 			              	2
 			            </div>
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			            <div class="form-control border rating-button" value="3">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating" title="rating">
 			              	3
 			            </div>
-			            <div class="form-control border rating-button">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			            <div class="form-control border rating-button" value="4">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating" title="rating">
 			              	4
 			            </div>
-			            <div class="form-control border rating-button" style="margin-right: 0">
-			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating"title="rating">
+			            <div class="form-control border rating-button" value="5" style="margin-right: 0">
+			              	<img src="{{ asset('images/star.svg') }}" alt="" class="rating" title="rating">
 			              	5
 			            </div>
 					</div>
+					<input type="hidden" name="rating" id="input-rating">
             	</div>
             	<hr>
-            	<div class="col-12">
+<!--             	<div class="col-12">
             		<div class="row">
 	                	<b>Tipe Lapang</b>
 	                </div>
 	                <div class="row mt-2">
 						<div class="custom-control custom-checkbox col-6">
-						  <input type="checkbox" class="custom-control-input" id="customCheck1">
+						  <input type="checkbox" class="custom-control-input" id="customCheck1" name="type-filter[]" value="2">
 						  <label class="custom-control-label" for="customCheck1">Lapang Indoor</label>
 						</div>
 						<div class="custom-control custom-checkbox col-6">
-						  <input type="checkbox" class="custom-control-input" id="customCheck2">
+						  <input type="checkbox" class="custom-control-input" id="customCheck2" name="type-filter[]" value="3">
 						  <label class="custom-control-label" for="customCheck2">Lapang Outdoor</label>
 						</div>
 					</div>
-                </div>
+				</div> -->
                 <!-- <hr> -->
-<!--             	<div class="col-12">
+            	<div class="col-12">
             		<div class="row">
 	                	<b>Jenis Lapang</b>
 	                </div>
 	                <div class="row mt-2">
-							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>
-							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>							<div class="custom-control custom-checkbox col-6">
-							  <input type="checkbox" class="custom-control-input" id="customCheck1">
-							  <label class="custom-control-label" for="customCheck1">Lapang </label>
-							</div>
-	                </div>
-                </div> -->
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input type-filter" id="customCheck1" name="type-filter[]" value="1">
+						  <label class="custom-control-label" for="customCheck1">Lapang Sintetis</label>
+						</div>
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input type-filter" id="customCheck2" name="type-filter[]" value="4">
+						  <label class="custom-control-label" for="customCheck2">Lapang Vinyl</label>
+						</div>							
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input type-filter" id="customCheck3" name="type-filter[]" value="5">
+						  <label class="custom-control-label" for="customCheck3">Lapang Parquette</label>
+						</div>							
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input type-filter" id="customCheck4" name="type-filter[]" value="6">
+						  <label class="custom-control-label" for="customCheck4">Lapang Taraflex</label>
+						</div>							
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input type-filter" id="customCheck5" name="type-filter[]" value="2">
+						  <label class="custom-control-label" for="customCheck5">Lapang Beton</label>
+						</div>							
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input type-filter" id="customCheck6" name="type-filter[]" value="3">
+						  <label class="custom-control-label" for="customCheck6">Lapang Karpet Plastik</label>
+						</div>
+	               	</div>
+                </div>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer container bg-white">
+	            <input type="hidden" name="category" value="{{ app('request')->input('category') }}">
+	            <input type="hidden" name="search_date" value="{{ app('request')->input('search_date') }}">
+	            <input type="hidden" name="keyword" value="{{ app('request')->input('keyword') }}">
                 <button type="submit" class="btn btn-block button-saraga">Terapkan</button>
             </div>
         </form>
@@ -303,6 +319,61 @@
 @section('script')
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function(){
+		   	autofill();
+		});
+
+		function autofill(){
+			@if(isset($requests['sort-filter']))
+				$("#input-sort-filter").val("{{$requests['sort-filter']}}")
+			@endif
+			@if(isset($requests['type-filter']))
+				$(".type-filter").each(function(){
+					@foreach($requests['type-filter'] as $typeFilter)
+						if($(this).attr('value') == "{{$typeFilter}}"){
+							$(this).click();
+						}
+					@endforeach
+				});
+			@endif
+			@if(isset($requests['rating']))
+				<?php $arrRating = json_decode($requests['rating']) ?>
+				$(".rating-button").each(function(){
+					@foreach($arrRating as $rating)
+						if($(this).attr('value') == "{{$rating}}"){
+							$(this).click();
+						}
+					@endforeach
+				});
+			@endif
+			@if(isset($requests['minPrice']))
+				$("#input-min-price").val("{{$requests['minPrice']}}")
+			@endif
+			@if(isset($requests['maxPrice']))
+				$("#input-max-price").val("{{$requests['maxPrice']}}")
+			@endif
+		}
+		$('.rating-button').click(function () {
+			if($(this).hasClass('active')) {
+				$(this).removeClass('active');
+			}
+			else{
+				$(this).addClass('active');
+			}
+			fill_rating();
+		});
+
+		var rating = []
+		function fill_rating(){
+			rating = [];
+			$('.rating-button').each(function(i, obj) {
+				if ($(obj).hasClass("active")) {
+					rating.push($(obj).attr('value'))
+				}
+			});
+			$("#input-rating").val(JSON.stringify(rating));
+		}
+
 	    $('#pagination').twbsPagination({
 	        totalPages: {{$links->last_page}},
 	        visiblePages: 5,

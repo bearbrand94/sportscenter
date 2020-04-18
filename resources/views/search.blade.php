@@ -161,11 +161,12 @@
 
   //user is "finished typing," do something
   function doneTyping () {
-    console.log("api call");
+
     $.get("{{route('search-recommendation')}}",
     {
       _token: "{{ csrf_token() }}",
-      keyword: $("#searchInput").val()
+      keyword: $("#searchInput").val(),
+      sport_id: $("#select-category").val()
     },
     function(data, status){
       var json = JSON.parse(data);
@@ -245,8 +246,9 @@
     }
     // $("#keyword").val(title);
     $('.keyword').each(function() {
-      console.log(this);
-        $(this).val(title);
+      $(this).val(title);
+      var that = this;
+      setTimeout(function(){ that.selectionStart = that.selectionEnd = 10000; }, 0);
     });
   }
 </script>
