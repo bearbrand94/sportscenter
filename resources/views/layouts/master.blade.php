@@ -1,13 +1,13 @@
 <html lang="en">
     <head>
-        <title>Saraga</title>
+        <title>{{ env('APP_DESCRIPTION') }}</title>
         <!-- SITE TITTLE -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- FAVICON -->
-        <link href="{{ asset('img/favicon.png') }}" rel="shortcut icon">
+        <link href="{{ asset('images/saraga-logo.png') }}" rel="shortcut icon">
         <!-- PLUGINS CSS STYLE -->
         <!-- <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"> -->
         <!-- Bootstrap -->
@@ -54,6 +54,12 @@
             --saraga-color: rgb(9, 58, 102);
             --alpha: 0.5;
           }
+
+          .img-message{
+              color: var(--saraga-color);
+              font-size: 0.9rem;
+          }
+    
           .navigation{
             padding: 8px 0;
           }
@@ -135,6 +141,12 @@
             background-image: linear-gradient(to right, rgb(184, 149, 90) , rgb(202, 187, 113));
             border-style: none;
           }
+          
+          .button-call{
+            /*background-color: rgb(189, 158, 95);*/
+            border-radius: 5rem;
+            height: 40px;
+          }
 
           .muted-saraga{
             color: rgb(176, 176, 176);
@@ -198,7 +210,7 @@
           .back-icon{
             width: 25;
             height: 25;
-            border: 1px solid white; 
+            /* border: 1px solid white;  */
             padding: 3;
             border-radius: 0.3rem;
           }
@@ -208,16 +220,32 @@
           }
         
           .back-icon-black{
-            border: 1px solid black;
+            /* border: 1px solid black; */
           }
 
           .icon, .icon-cat{
-            width: 30;
-            height: 30;
+            width: 40;
+            height: 40;
           }
 
           hr{
             border-top: 1px solid #d8d8d8;
+          }
+
+          .login-logo{
+            width: 150px;
+          }
+          /* SM */
+          @media (min-height:655px) and (max-width:800px) {
+            .login-logo{
+              width: 200px;
+            }
+          }
+          /* MD */
+          @media (min-height:801px){
+            .login-logo{
+              width: 230px;
+            }
           }
         </style>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

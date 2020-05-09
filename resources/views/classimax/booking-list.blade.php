@@ -289,8 +289,9 @@
 					@else
 				    <div class="container h-100">
 				    	<div class="row align-items-center" style="height:90%">
-				    		<div class="col-12">
-						      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking" style="max-height:30rem;">
+				    		<div class="col-12 text-center">
+						      <img src="{{asset('/images/no_booking.svg')}}" class="img-fluid pb-4" alt="Belum ada booking" style="height:15rem;">
+						      <p class="img-message">Belum ada lapangan yang kamu booking.</p>
 						      <form method="GET" action="{{route('field-search')}}">
 						      	@csrf
 						      	<button type="submit" class="btn btn-block button-saraga">Booking Sekarang</button>
@@ -323,8 +324,9 @@
 					@else
 				    <div class="container h-100">
 				    	<div class="row align-items-center" style="height:90%">
-				    		<div class="col-12">
-						      <img src="{{asset('/images/no-book.png')}}" class="img-fluid pb-4" alt="Belum ada booking" style="max-height: 30rem">
+				    		<div class="col-12 text-center">
+						      <img src="{{asset('/images/no_booking.svg')}}" class="img-fluid pb-4" alt="Belum ada booking" style="height:15rem;">
+						      <p class="img-message">Belum ada lapangan yang kamu booking.</p>
 						      <div class="p-4"></div>
 						  	</div>
 						</div>

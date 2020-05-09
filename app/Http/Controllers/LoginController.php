@@ -63,6 +63,7 @@ class LoginController extends Controller
 	        	return view('classimax.login')->withErrors($res->getBody());
 			}
 		} catch (RequestException $e) {
+
 			return view('classimax.login')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
 		}
 	}
@@ -93,6 +94,7 @@ class LoginController extends Controller
 				return redirect()->intended('home');
 			}
 		} catch (RequestException $e) {
+			session()->flashInput($request->input());
 		    return view('classimax.register')->withErrors(json_decode($e->getResponse()->getBody()->getContents())->data);
 		}
 	}

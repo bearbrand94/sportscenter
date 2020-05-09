@@ -1,5 +1,5 @@
-@extends('layouts.master')
-@section('master_css')
+@extends('layouts.app')
+@section('css')
 <style type="text/css">
     h4{
         color: #666666;
@@ -30,10 +30,10 @@
     }
 </style>
 @endsection
-@section('body')
+@section('content')
 <nav class="navbar navbar-expand shadow-sm container sticky-top bg-white">
   <a class="navbar-brand" href="javascript:history.back()">
-    <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
+    <img class="back-icon back-icon-black" src="{{ asset('images/back-icon-black.svg') }}" alt="" title="back">
   </a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -47,7 +47,7 @@
   </div>
 </nav>
 <section class="setting-profile pb-4 mb-4">
-    <div class="container">
+    <div class="container bg-white">
         <div class="text-center">
           <img src="{{asset('/images/saraga.png')}}" class="img-responsive rounded mt-3" alt="No Image" style=" max-width: 40%; height: auto;">
           <p>Version 0.0.1</p>
@@ -68,5 +68,6 @@
         </div>
     </div>
 </section>
-
+@component('classimax.footer')
+@endcomponent
 @endsection

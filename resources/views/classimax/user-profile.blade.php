@@ -5,11 +5,11 @@
 	p{
 		color:white;
 		font-size: 0.9rem;
-		margin-bottom: 5px;
+		margin-bottom: 3px;
 	}
 
 	p, .lead{
-		font-size: 1rem;
+		font-size: 0.8rem;
 	}
 
 	.span-bordered{
@@ -60,7 +60,7 @@
 					<!-- Referral -->
 					<div style="margin-top: -75px;">
 						<div class="card" style="border-style: dashed; border-width: 2px; border-color:var(--saraga-color); border-radius: 0.5rem">
-						  <div class="card-body text-left">
+						  <div class="card-body text-left" style="padding: 1rem;">
 						  	<div class="row">
 								<div class="mr-auto pl-3">
 								  	<p class="lead" style="color: black;">Kode Referral</p>
@@ -98,11 +98,10 @@
 						</div>
 					</div> -->
 
-					<!-- Panel Help & Setting -->
+					<!-- Panel Help -->
 					<div class="row pt-4">
 						<div class="col-12">
 							<div class="widget personal-info">
-						  		<div class="widget-header">
 						  			<a href="{{route('help-center')}}">
 										<div class="d-flex">
 										  <div class="d-flex align-items-center text-left">
@@ -115,8 +114,7 @@
 										  <div class="d-flex ml-auto align-items-center"><span><i class="fa fa-angle-right fa-2x text-saraga" aria-hidden="true"></i></span></div>
 										</div>
 									</a>
-								</div>
-								<a href="{{ route('setting-profile') }}">
+<!-- 								<a href="{{ route('setting-profile') }}">
 									<div class="d-flex">
 									  <div class="d-flex align-items-center">
 									  	<span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span>
@@ -127,13 +125,33 @@
 									  </div>
 									  <div class="d-flex ml-auto align-items-center"><span><i class="fa fa-angle-right fa-2x text-saraga" aria-hidden="true"></i></span></div>
 									</div>
-								</a>
+								</a> -->
+							</div>
+						</div>
+					</div>
+
+					<!-- Panel Setting -->
+					<div class="row pt-4">
+						<div class="col-12">
+							<div class="widget personal-info">
+									<a href="{{ route('setting-profile') }}">
+										<div class="d-flex">
+										  <div class="d-flex align-items-center">
+										  	<span><i class="fa fa-cog fa-2x" aria-hidden="true"></i></span>
+										  </div>
+										  <div class="pl-3 mr-2">									  	
+										  	<p class="lead" style="color: black; font-weight: bold;">Pengaturan</p>
+											<p class="text-muted">Lihat dan atur preferensi akun Anda</p>
+										  </div>
+										  <div class="d-flex ml-auto align-items-center"><span><i class="fa fa-angle-right fa-2x text-saraga" aria-hidden="true"></i></span></div>
+										</div>
+									</a>
 							</div>
 						</div>
 					</div>
 
 					<!-- Logout -->
-					<div class="row pt-2 mb-4" >
+					<div class="row pt-4 mb-4" >
 						<div class="col-12">
 							<a href="{{ route('logout') }}">
 							<div class="widget personal-info">

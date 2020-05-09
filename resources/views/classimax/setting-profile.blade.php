@@ -69,6 +69,11 @@
   .fa.fa-angle-right{
     font-size: 1.5rem;
   }
+
+  .card{
+    border-radius: 0;
+    background-color: #f8f9fa !important;
+  }
 </style>
 @endsection
 
@@ -281,7 +286,7 @@
 </nav>
 <section class="setting-profile">
     <div class="container">
-    <div class="row bg-light h-100">
+    <div class="row h-100">
       <div class="card col-12">
         <div class="card-body">
           <!-- Panel Edit -->

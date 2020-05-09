@@ -89,10 +89,11 @@ Route::group(['middleware' => ['initial_data']], function() {
 Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
 Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
 
-Route::get('/payment/finish', 'BookingController@create')->name('payment-finish');
-Route::get('/payment/pending', 'BookingController@create')->name('payment-pending');
-
-Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
+Route::group(['middleware' => ['api']], function() {
+	Route::get('/payment/finish', 'BookingController@create')->name('payment-finish');
+	Route::get('/payment/pending', 'BookingController@create')->name('payment-pending');
+	Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
+});
 
 Route::get('/home','HomeController@index');
 Route::get('/','HomeController@index')->name('home');

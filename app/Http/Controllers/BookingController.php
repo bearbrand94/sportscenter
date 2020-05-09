@@ -180,9 +180,9 @@ class BookingController extends Controller
         
         // return dd($booking_data);
         // return $snap_token;
-        $status = "PAYMENT";
+        $status = "pending";
         if($request->transaction_status == 'settlement'){
-            $status = "SUCCESS";
+            $status = "settlement";
         }
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);

@@ -91,7 +91,12 @@
   <div class="container" style="background-color: white;">
     <div class="row">
       <div class="card border-0 rounded-0">
-        <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 12rem">
+              @component('img-card', [
+                'id' => $detail->spot->id,
+                'first_image' => $detail->spot->cover_image,
+                'gallery' => isset($gallery) ? $gallery : []
+              ])
+              @endcomponent
         <div id="innerelements" class="shadow">
           <a style="cursor: hand">
             @if (isset($detail->spot->is_favorite))
@@ -122,8 +127,13 @@
               <li class="list-inline-item"><h5>{{$detail->spot->open_at}}- {{$detail->spot->close_at}}</h5></li>
             </ul>
           <hr class="my-4">
-            <h5 style="font-weight: bold;">Deskripsi</h5>
-            <p>{{$detail->spot->description}}</p>
+            <div class="row justify-content-md-center">
+              <div class="col-4">
+                <a class="btn btn-lg btn-outline-success button-call" href="tel:{{$detail->spot->telephone}}">
+                  <i class="fa fa-phone"></i>&ensp;Call Venue
+                </a>
+              </div>
+            </div>
           <hr class="my-4">
         </div>
 
@@ -133,33 +143,40 @@
     <!-- Text Fasilitas dan Lokasi -->
     <div class="row">
       <div class="col-12">
-        <h5 style="font-weight: bold;">Fasilitas</h5>
-        <div class="scrolling-wrapper">
-          <ul class="list-inline">
-            @if(isset($detail->facilities))
-            @foreach($detail->facilities as $facility)
-            <li class="list-inline-item">
-              <div class="card-body text-center" style="padding: 0; padding-top: 10px; padding-right: 18px;">
-                <img class="icon pb-2" src="{{ asset('images/facilities/'.$facility->icon) }}" height="40px" width="40px">
-                <p>{{$facility->name}}</p>
-              </div>
-            </li>
-            @endforeach
-            @endif
-          </ul>
-        </div>
-        <hr class="my-4">
         <h5 style="font-weight: bold;">Lokasi</h5>
-            <div class="card">
-              <div class="card-body text-left">
-                <div class="row">
+          <div class="card">
+            <div class="card-body text-left">
+              <div class="row">
                 <div class="mr-auto pl-3">
                   <p class=""><i class="fa fa-map-marker" aria-hidden="true"></i> {{$detail->spot->address}}</p>
                   <a href="{{$detail->spot->gmaps_url}}" target="_blank">Get Directions</a>
                 </div>
-                </div>
               </div>
             </div>
+          </div>
+        <hr class="my-4">
+        <h5 style="font-weight: bold;">Fasilitas</h5>
+          <div class="scrolling-wrapper">
+            <ul class="list-inline">
+              @if(isset($detail->facilities))
+              @foreach($detail->facilities as $facility)
+              <li class="list-inline-item">
+                <div class="card-body text-center" style="padding: 0; padding-top: 10px; padding-right: 18px;">
+                    <img  class="icon pb-2" 
+                          src="{{ asset('images/facilities/'.$facility->icon) }}" 
+                          height="40px" 
+                          width="40px"
+                          style="border:1px solid rgba(0,0,0,.125); padding:5px;">
+                    <p>{{$facility->name}}</p>
+                </div>
+              </li>
+              @endforeach
+              @endif
+            </ul>
+          </div>
+        <hr class="my-4">
+        <h5 style="font-weight: bold;">Deskripsi</h5>
+          <p>{{$detail->spot->description}}</p>
       </div>
     </div>
 

@@ -100,33 +100,12 @@
       <form method="POST" action="{{ route('booking-confirmation') }}">
         <div class="pb-3 pt-3"> 
           <div class="card">
-            <!-- <img class="card-img-top" src="{{$detail->spot->cover_image}}" alt="Card image cap" style="max-height: 35rem"> -->
-            <div id="carouselExampleIndicators{{$field->id}}" class="carousel slide" data-ride="carousel" data-interval="false">
-              <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators{{$field->id}}" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators{{$field->id}}" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators{{$field->id}}" data-slide-to="2"></li>
-              </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img class="d-block w-100" src="{{$detail->spot->cover_image}}" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="https://picsum.photos/id/1/1920/1080" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                  <img class="d-block w-100" src="https://picsum.photos/id/2/1920/1080" alt="Third slide">
-                </div>
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleIndicators{{$field->id}}" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleIndicators{{$field->id}}" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>
+              @component('img-card', [
+                'id' => $field->id,
+                'first_image' => $field->cover_image,
+                'gallery' => isset($gallery) ? $gallery : []
+              ])
+              @endcomponent
           <div id="innerelements" class="shadow">
             <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport.'.svg' }}">
           </div>

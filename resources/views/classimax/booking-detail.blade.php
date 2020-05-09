@@ -183,7 +183,7 @@
 	</div>
 
     <div class="container pt-3 pb-3 mt-3" style="background-color: white;">
-		<a href="#">
+		<a href="tel:{{ env('CALL_CENTER') }}">
 			<div class="d-flex">
 			  <div class="d-flex">
 			  	<span><i class="fa fa-question-circle fa-lg pt-1" aria-hidden="true"></i></span>

@@ -306,25 +306,8 @@
 	<!-- Container End -->
 </section>
 
-<!--==========================================
-=              FOOTER Section                =
-===========================================-->
-<section class="section footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-6">
-				<a href="{{route('about-us')}}">About Us</a><br>
-				<a href="{{route('help-center')}}">FAQ</a><br>
-				<a href="{{route('terms')}}">Terms Of Use</a><br>
-				<a href="#">Blog</a>
-			</div>
-			<div class="col-6 text-right">
-				<a href="{{route('help-center')}}" class="btn button-saraga" style="margin-top: 5px;">Contact Us</a><br>
-				<a href="#" class="btn button-saraga" style="margin-top: 15px;">For Facility Owner</a>
-			</div>
-		</div>
-	</div>
-</section>
+@component('classimax.footer')
+@endcomponent
 
 @component('search')
 @endcomponent

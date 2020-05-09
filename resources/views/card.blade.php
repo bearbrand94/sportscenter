@@ -21,7 +21,16 @@
 </style>
 <div class="card">
   <a href="{{$a_url}}">
-    <img class="card-img-top" src="{{$image_url}}" alt="Card image cap" style="max-height: 12rem;">
+    @if(isset($gallery))
+      @component('img-card', [
+        'id' => $spot_id,
+        'first_image' => $image_url,
+        'gallery' => $gallery
+      ])
+      @endcomponent
+    @else
+      <img class="card-img-top" src="{{$image_url}}" alt="Card image cap" style="max-height: 15rem;">
+    @endif
   </a>
     <div id="innerelements" class="shadow">
       <a style="cursor: hand">

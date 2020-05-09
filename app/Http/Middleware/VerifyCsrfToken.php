@@ -21,6 +21,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         '/booking/apply',
-        '/payment/notification'
+        '/payment/notification',
+        '/payment/finish',
+        '/payment/unfinish'
     ];
 }

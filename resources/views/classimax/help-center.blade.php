@@ -1,5 +1,5 @@
-@extends('layouts.master')
-@section('master_css')
+@extends('layouts.app')
+@section('css')
 <style type="text/css">
     h4{
         color: #666666;
@@ -31,18 +31,15 @@
     .navbar{
         border-bottom: 1px solid #d8d8d8 !important;
     }
-    .help-content{
-        margin-top: 25px;
-    }
     p{
         line-height: 30px;
     }
 </style>
 @endsection
-@section('body')
+@section('content')
 <nav class="navbar navbar-expand shadow-sm container sticky-top bg-white">
   <a class="navbar-brand" href="javascript:history.back()">
-    <img class="close-icon" src="{{ asset('images/close-icon.svg') }}" alt="" title="close">
+    <img class="back-icon back-icon-black" src="{{ asset('images/back-icon-black.svg') }}" alt="" title="back">
   </a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -56,7 +53,7 @@
   </div>
 </nav>
 <section class="setting-profile pb-4 mb-4">
-    <div class="container">
+    <div class="container bg-white pt-4">
             <div class="help-content">
                 @if(isset(session('auth_data')->name))
                 <h4 class="mt-2">Hallo, {{session('auth_data')->name}}</h4>
@@ -79,5 +76,6 @@
             </div>
     </div>
 </section>
-
+@component('classimax.footer')
+@endcomponent
 @endsection

@@ -159,8 +159,6 @@
 	      </div>
 		</div>
 		<button type="button" class="btn btn-block button-saraga mb-4" onclick="select_payment()">Pilih Metode Pembayaran</button>
-	    <script type="text/javascript">
-	    </script>
     </div>
 </section>
 @endsection

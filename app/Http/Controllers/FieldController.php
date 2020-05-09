@@ -55,17 +55,17 @@ class FieldController extends Controller
             }
         }
 
-        $range_filters->price = [0];
+        $range_filters->price = [0,9999999999];
         if($request->get('minPrice')){
             $range_filters->price[0] = $request->get('minPrice');
         }
         if($request->get('maxPrice')){
-            $range_filters->price[] = $request->get('maxPrice');
+            $range_filters->price[1] = $request->get('maxPrice');
         }
 
-        // if($request->get('rating')){
-        //     $range_filters->rating = json_decode($request->get('rating'));
-        // }
+        if($request->get('rating')){
+            $range_filters->rating = json_decode($request->get('rating'));
+        }
 
         try {
 	        $res = $client->request('POST', config('app.api_url')."/spots/filter/available", [

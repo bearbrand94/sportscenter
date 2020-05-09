@@ -278,7 +278,8 @@
 								'address'	  => $spot->address,
 								'a_url'		  => route('field-detail', $spot->slug),
 								'spot_id'	  => $spot->id,
-								'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false
+								'is_favorite' => isset($spot->is_favorite)?$spot->is_favorite:false,
+								'gallery'     => $spot->gallery
 							])
 							@endcomponent
 							</div>

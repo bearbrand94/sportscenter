@@ -47,5 +47,5 @@
 	$("#card-{{$id}}").click(function(){
 		window.location.href="{{ route('booking-detail', ['id'=>$id]) }}";
 	});
-
+	console.log("SHIT");
 </script>
