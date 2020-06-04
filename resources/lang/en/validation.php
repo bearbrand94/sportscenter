@@ -128,6 +128,9 @@ return [
     */
 
     'custom' => [
+        'password' => [
+            'regex' => 'Password must contain letters and at least one number',
+        ],
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],

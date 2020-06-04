@@ -100,7 +100,7 @@
 	  	<div class="collapse" id="collapseExample">
 	    	<hr class="my-4">
 	        <div class="form-inline">
-				<img src="" class="img-responsive inline-block" height="100px" width="100px" />
+				<img src="{{$data->detail[0]->court->image->path}}" class="img-responsive inline-block" height="100px" width="100px" />
 				<div class="ml-3">
 					<p class="bigger-text mb-2">{{$data->detail[0]->spot->name}}</p>
 					<p class="bigger-text mb-2">{{$data->detail[0]->court->name}}</p>
