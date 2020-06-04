@@ -107,8 +107,8 @@ Route::get('/field', function () {
 });
 
 //Field
-Route::get('/field/detail/{slug}','FieldController@detail')->name('field-detail');
-Route::get('/field/detail/{slug}/court','FieldController@court')->name('select-court');
+Route::get('/field/{slug}','FieldController@detail')->name('field-detail');
+Route::get('/field/{slug}/court','FieldController@court')->name('select-court');
 Route::get('/field/list', function () {
     return view('classimax.category');
 })->name('field-list');

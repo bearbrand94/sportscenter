@@ -38,12 +38,10 @@
   </div>
 </nav>
 <section class="border-top-1 bg-light">
-    <div class="container">
+    <div class="container h-100">
         <form method="POST" action="{{route('password.email')}}">
         @csrf
         <div class="form-row pt-3">
-
-
           <div class="form-group col-md-12">
             <p class="pb-2">Kami akan mengirimkan email penggantian password baru</p>
             <label class="has-float-label">

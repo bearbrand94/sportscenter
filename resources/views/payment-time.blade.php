@@ -25,7 +25,7 @@
 
 	@if($status=="pending")
 	<div class="card-footer">
-	  	<p class="d-inline-block mb-0 mt-1">Konfirmasi Pembayaran Sebelum</p>
+	  	<p class="d-inline-block mb-0 mt-1">Selesaikan Pembayaran Sebelum</p>
 	  	<div class="d-inline float-right" style="color: white;" id="payment-time-{{$id}}" time="{{$date}}">
 	  		<hour class="d-inline-block time-info">
 	  			-

@@ -113,8 +113,7 @@
         
         <div class="card-body" style="margin-top: -50px;">
           <h5 class="card-title text-truncate">{{$detail->spot->name}}</h5>
-          <p class="card-text">Rp {{number_format($detail->spot->price,0)}} /Jam</p>
-          <p class="card-text text-truncate"><i class="fa fa-map-marker" aria-hidden="true"></i>{{$detail->spot->address}}</p>
+          <p class="card-text">Mulai - <b>Rp {{number_format($detail->spot->price,0)}} /Jam</b></p>
           
           <p class="card-text">
             @for ($i=0; $i<$detail->spot->rating; $i++)
@@ -128,9 +127,9 @@
             </ul>
           <hr class="my-4">
             <div class="row justify-content-md-center">
-              <div class="col-4">
-                <a class="btn btn-lg btn-outline-success button-call" href="tel:{{$detail->spot->telephone}}">
-                  <i class="fa fa-phone"></i>&ensp;Call Venue
+              <div class="col-12 col-md-8">
+                <a class="btn btn-lg btn-success button-call btn-block" href="tel:{{$detail->spot->telephone}}">
+                  <i class="fa fa-phone"></i>&ensp;Call Venue&ensp;—&ensp;{{$detail->spot->telephone}}
                 </a>
               </div>
             </div>
