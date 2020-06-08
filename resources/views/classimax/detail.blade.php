@@ -90,7 +90,7 @@
 <section class="border-top-1 bg-light">
   <div class="container" style="background-color: white;">
     <div class="row">
-      <div class="card border-0 rounded-0">
+      <div class="card border-0 rounded-0 col-12">
               @component('img-card', [
                 'id' => $detail->spot->id,
                 'first_image' => $detail->spot->cover_image,
@@ -128,7 +128,7 @@
           <hr class="my-4">
             <div class="row justify-content-md-center">
               <div class="col-12 col-md-8">
-                <a class="btn btn-lg btn-success button-call btn-block" href="tel:{{$detail->spot->telephone}}">
+                <a class="btn btn-lg btn-success button-call btn-block" href="tel:{{$detail->spot->telephone}}" style="padding: 10px; 0px;">
                   <i class="fa fa-phone"></i>&ensp;Call Venue&ensp;—&ensp;{{$detail->spot->telephone}}
                 </a>
               </div>
