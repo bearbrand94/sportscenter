@@ -49,7 +49,7 @@
                   <strong>Password minimal 8 karakter berupa kombinasi angka, huruf besar, dan huruf kecil</strong>
                 </div>
             @endif
-            <button type="submit" class="btn btn-block py-3 px-5 mt-4 font-weight-bold button-saraga">Daftar</button>
+            <button type="submit" class="btn btn-block px-5 mt-4 font-weight-bold button-saraga">Daftar</button>
         </form>
       <div class="row mt-4">
         <div class="col-12">

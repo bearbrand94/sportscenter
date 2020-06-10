@@ -66,7 +66,10 @@
   .border{
     border-radius: 0.3rem;
   }
-
+  .icon-cat{
+    width: 30px;
+    height: 30px;
+  }
 </style>
 @endsection
 
@@ -87,8 +90,6 @@
             </b>
           <br>
           {{date("D, j M Y", strtotime(app('request')->input('input-date')))}}
-         <!--  | 
-          {{ app('request')->input('input-time')[0] }}- {{ app('request')->input('input-time')[0] }} -->
         </a>
         </li>
       </ul>
@@ -96,19 +97,37 @@
   </nav>
   <div class="container bg-light">
     @foreach($detail->courts as $field)
-      @if ($field->status == 1)
+      <?php 
+        $input_time = json_decode($_GET['input-time']);
+
+        // Flag for printing active or inactive card.
+        $active_flag = true;
+
+        // Check for each input time, if time selected by user is not available, then change the active flag to false.
+        foreach ($input_time as $input) {
+          foreach ($field->timeslots as $court_timeslot) {
+            if($court_timeslot->time_slot == $input){
+              if($court_timeslot->available == 0){
+                $active_flag = false;
+              }
+            }
+          }
+        }
+      ?>
+      @if ($active_flag)
+      <!-- Active Card -->
       <form method="POST" action="{{ route('booking-confirmation') }}">
         <div class="pb-3 pt-3"> 
           <div class="card">
-              @component('img-card', [
-                'id' => $field->id,
-                'first_image' => $field->cover_image,
-                'gallery' => isset($gallery) ? $gallery : []
-              ])
-              @endcomponent
-          <div id="innerelements" class="shadow">
-            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport.'.svg' }}">
-          </div>
+            @component('img-card', [
+              'id' => $field->id,
+              'first_image' => $field->cover_image,
+              'gallery' => isset($gallery) ? $gallery : []
+            ])
+            @endcomponent
+            <div id="innerelements" class="shadow">
+              <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport->slug.'.svg' }}">
+            </div>
             @csrf
             <input type="hidden" name="slug" value="{{$detail->spot->slug}}">
             <input type="hidden" name="court_id" value="{{$field->id}}">
@@ -128,36 +147,18 @@
         </div>
       </form>
       @else
+      <!-- Inactive Card -->
       <div class="pb-3 pt-3" style="opacity: 0.6;"> 
         <div class="card">
-          <div id="carouselExampleIndicators{{$field->id}}" class="carousel slide" data-ride="carousel" data-interval="false">
-            <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators{{$field->id}}" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators{{$field->id}}" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators{{$field->id}}" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="{{$detail->spot->cover_image}}" alt="First slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="https://picsum.photos/id/1/1920/1080" alt="Second slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="https://picsum.photos/id/2/1920/1080" alt="Third slide">
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators{{$field->id}}" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators{{$field->id}}" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
+          @component('img-card', [
+            'id' => $field->id,
+            'first_image' => $field->cover_image,
+            'gallery' => isset($gallery) ? $gallery : []
+          ])
+          @endcomponent
+
           <div id="innerelements" class="shadow">
-            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport.'.svg' }}">
+            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport->slug.'.svg' }}">
           </div>
           <div class="card-body">
               <h5 class="card-title text-truncate">{{$field->name}}</h5>

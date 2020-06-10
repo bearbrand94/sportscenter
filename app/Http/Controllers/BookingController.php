@@ -98,12 +98,27 @@ class BookingController extends Controller
     }
 
     public function get_snap_url(Request $request){
-        $order_id = "BASIC-".str_random(8);
+        $order_id = null;  
         $booking_data = json_decode(session('booking_data'));
-
         $jar = session('jar');
         $client = new Client(['cookies' => $jar]);
         $discount = 0;
+
+        // Get Order ID from API
+        try{
+            $res = $client->request('POST', config('app.api_url')."/order/generate/id", [
+                'form_params' => [
+                    'spot_id'      => $booking_data->spot->id,
+                    'webuser_id'    => session('auth_data')->id,
+                ]
+            ]);
+            $order_id = json_decode($res->getBody())->data;
+        }
+        catch (RequestException $e) {
+            $order_id = "BASIC-".str_random(8);
+        }
+
+        // Apply Confirmed Order to API
         try{
             $res = $client->request('POST', config('app.api_url')."/order/apply", [
                 'form_params' => [
@@ -250,8 +265,7 @@ class BookingController extends Controller
         $booking_list = new Class{};
 
         foreach ($res_booking as $booking) {
-            $duration = strtotime ( $booking->order_date ) - strtotime ('now');
-            if($duration < 0 || $booking->status == "expire"){
+            if($booking->status == "expire" ){
                 $booking_list->past[] = $booking;
             }
             else{

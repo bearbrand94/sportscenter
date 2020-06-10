@@ -33,10 +33,10 @@
 
 	.bg-button {
 	  border-radius: 0.2rem; 
-	  background-size: cover;
-	  background-repeat: no-repeat;
+	  background-color: #003F78;
 	  color: white;
-	  padding: 0.9rem;
+	  padding: 0.75rem;
+	  margin-bottom: 0.5rem;
 	}
 
 	.content{
@@ -239,7 +239,7 @@
 						<input type="hidden" name="category" value="{{$category->id}}">
 						<a href="#" onclick='this.parentNode.submit(); return false;'>
 							<div class="card text-center mr-2" style="width: 7rem; border-style: none;">
-							  <div class="card-body text-center bg-button" style="background-image: linear-gradient(to bottom, rgba(9,58,102,0.5), rgba(9,58,102,0.5)), url({{ asset('images/promo/promo-1.jpg') }});">
+							  <div class="card-body text-center bg-button">
 							    {{$category->name}}
 							  </div>
 							</div>

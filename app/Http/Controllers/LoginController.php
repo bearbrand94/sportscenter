@@ -42,6 +42,28 @@ class LoginController extends Controller
 		}
 	}
 
+	function oauth2_login_facebook(Request $request) {
+		$jar = session('jar');
+        $client = new Client(['cookies' => $jar]);
+        try {
+	        $res = $client->request('POST', config('app.api_url')."/login/facebook", [
+			    'form_params' => [
+			    	'access_token' => $request->access_token,
+			    	'user_id' => $request->user_id
+			    ]
+			]);
+			if($res->getStatusCode() == 200){ // 200 = Success
+				$user_info = json_decode($res->getBody()); // { "type": "User", ..
+				session(['auth_data'=>$user_info->data]);
+				return response()->json(redirect()->intended('home')->getTargetUrl());
+				// return redirect()->intended('home');
+				return response()->json(['message'=>'login success']);
+			}
+		} catch (RequestException $e) {
+			return $e;
+		}
+	}
+
 	function email_login(Request $request) {
 		$jar = session('jar');
     	$client = new Client(['cookies' => $jar]);

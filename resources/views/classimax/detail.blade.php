@@ -94,7 +94,7 @@
               @component('img-card', [
                 'id' => $detail->spot->id,
                 'first_image' => $detail->spot->cover_image,
-                'gallery' => isset($gallery) ? $gallery : []
+                'gallery' => isset($detail->gallery) ? $detail->gallery : []
               ])
               @endcomponent
         <div id="innerelements" class="shadow">
@@ -123,7 +123,7 @@
           <hr class="my-4">
             <ul class="list-inline">
               <li class="list-inline-item"><h5 style="color: green; font-weight: bold;">Buka</h5></li>
-              <li class="list-inline-item"><h5>{{$detail->spot->open_at}}- {{$detail->spot->close_at}}</h5></li>
+              <li class="list-inline-item"><h5>{{date('h:i', strtotime($detail->spot->open_at))}} - {{date('h:i', strtotime($detail->spot->close_at))}}</h5></li>
             </ul>
           <hr class="my-4">
             <div class="row justify-content-md-center">
@@ -146,16 +146,74 @@
           <div class="card">
             <div class="card-body text-left">
               <div class="row">
-                <div class="mr-auto pl-3">
-                  <p class=""><i class="fa fa-map-marker" aria-hidden="true"></i> {{$detail->spot->address}}</p>
-                  <a href="{{$detail->spot->gmaps_url}}" target="_blank">Get Directions</a>
+                <div class="marker col-1 mt-1" style="padding-right: 0;">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+                </div>
+                <div class="col-11 pl-2">
+                  <div class="address">
+                    <span>{{$detail->spot->address}}</span>
+                  </div>
+                  <div class="direction mt-3">
+                  <a href="{{$detail->spot->gmaps_url}}" target="_blank"style="color: rgb(42,119,189);">Get Directions</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         <hr class="my-4">
         <h5 style="font-weight: bold;">Fasilitas</h5>
-          <div class="scrolling-wrapper">
+        @if(isset($detail->facilities))
+          <!-- Display facilities on Small Screen -->
+          <div class="row d-flex d-md-none">
+            <?php $facility_cnt = 0;?>
+            @foreach($detail->facilities as $facility)
+              <?php $facility_cnt++; ?>
+              @if($facility_cnt <= 4)
+              <div class="card-body text-center col-3 facility-icon" style="padding: 0; padding-top: 10px;">
+              @else
+              <div class="card-body text-center col-3 facility-icon" hidden style="padding: 0; padding-top: 10px; padding-right: 18px;">
+              @endif
+                  <img  class="icon pb-2" 
+                        src="{{ asset('images/facilities/'.$facility->icon) }}" 
+                        height="40px" 
+                        width="40px"
+                        style="border:1px solid rgba(0,0,0,.125); padding:5px;">
+                  <p>{{$facility->name}}</p>
+              </div>
+            @endforeach
+            @if(count($detail->facilities) > 4)
+            <div class="col-12"> 
+              <a href="#">Show All</a>
+            </div>
+            @endif
+          </div>
+
+          <!-- Display facilities on Large Screen -->
+          <div class="row d-none d-md-flex">
+            <?php $facility_cnt = 0;?>
+            @foreach($detail->facilities as $facility)
+              <?php $facility_cnt++; ?>
+              @if($facility_cnt <= 6)
+              <div class="card-body text-center col-2 facility-icon" style="padding: 0; padding-top: 10px;">
+              @else
+              <div class="card-body text-center col-2 facility-icon" hidden style="padding: 0; padding-top: 10px; padding-right: 18px;">
+              @endif
+                  <img  class="icon pb-2" 
+                        src="{{ asset('images/facilities/'.$facility->icon) }}" 
+                        height="60px" 
+                        width="60px"
+                        style="border:1px solid rgba(0,0,0,.125); padding:5px;">
+                  <p>{{$facility->name}}</p>
+              </div>
+            @endforeach
+            @if(count($detail->facilities) > 6)
+            <div class="col-12"> 
+              <a href="#">Show All</a>
+            </div>
+            @endif
+          </div>      
+        @endif
+<!--           <div class="scrolling-wrapper">
             <ul class="list-inline">
               @if(isset($detail->facilities))
               @foreach($detail->facilities as $facility)
@@ -172,7 +230,7 @@
               @endforeach
               @endif
             </ul>
-          </div>
+          </div> -->
         <hr class="my-4">
         <h5 style="font-weight: bold;">Deskripsi</h5>
           <p>{{$detail->spot->description}}</p>
@@ -180,6 +238,7 @@
     </div>
 
     <!-- Button Pilih Waktu -->
+    @if(isset($detail->timeslots))
     <div class="row mt-4">
       <div class="col-12">
         <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
@@ -236,7 +295,13 @@
         </div>
       </div>
     </div>
+    @else
+        <div class="alert alert-warning" id="input-time-error">
+          <strong>Lapangan sedang tutup, mohon pilih <a href="{{route('field-search')}}">lapangan lainnya</a>, atau <a href="tel:{{$detail->spot->telephone}}">telepon lapangan</a> untuk informasi lebih lanjut.</strong>
+        </div>
+    @endif
 
+    @if(isset($detail->timeslots))
     <!-- Text Durasi Booking -->
     <div class="row mt-4 mb-2">
       <div class="col-12 clearfix">
@@ -255,6 +320,11 @@
         <button type="submit" class="btn btn-block button-saraga">Pilih Lapang</button>
       </form>
     </div>
+    @else
+    <div class="mt-3 mb-4">
+      <button type="submit" class="btn btn-block button-saraga" disabled style="color: black; pointer-events: none;">Lapangan Sedang Tutup</button>
+    </div>
+    @endif
     <div class="row mb-5 pb-3"></div>
   </div>
 </section>
@@ -299,7 +369,7 @@
 
     if($(this).attr('value') == "{{date('Y-m-d')}}"){
       $('.time-button').each(function(i, obj) {
-        if("{{date('H:i:s')}}" >= $(obj).attr('time')){
+        if("{{ date('H:i:s', strtotime ('+1 hour')) }}" >= $(obj).attr('time')){
           $(obj).removeClass('active')
           $(obj).addClass('disabled');
         }

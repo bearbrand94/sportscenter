@@ -19,7 +19,7 @@
           // if sign in success..?
           $.ajax(
           {
-              url: "{{ url('oauth2/login') }}",
+              url: "{{ url('oauth2/google') }}",
               type: 'get', // replaced from put
               dataType: "JSON",
               data: {

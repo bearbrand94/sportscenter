@@ -292,11 +292,12 @@
     </script>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-firestore.js"></script>
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
@@ -304,16 +305,18 @@
     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
-        apiKey: "AIzaSyBzPBOTGEi2TuugITiHJu2QjYNnVQKYMlc",
-        authDomain: "sportscenter-1557712279995.firebaseapp.com",
-        databaseURL: "https://sportscenter-1557712279995.firebaseio.com",
-        projectId: "sportscenter-1557712279995",
-        storageBucket: "sportscenter-1557712279995.appspot.com",
-        messagingSenderId: "818806083744",
-        appId: "1:818806083744:web:46ef712094aba909"
+        apiKey: "AIzaSyC1UHyMpCO6W1I_xVbhYG6Rf9u5tvK6cX8",
+        authDomain: "saraga-b6f04.firebaseapp.com",
+        databaseURL: "https://saraga-b6f04.firebaseio.com",
+        projectId: "saraga-b6f04",
+        storageBucket: "saraga-b6f04.appspot.com",
+        messagingSenderId: "389008221591",
+        appId: "1:389008221591:web:0bc8845f8fabddaf7d90d2",
+        measurementId: "G-6XEBMB0P4T"
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
     </script>
 
 

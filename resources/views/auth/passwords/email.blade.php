@@ -1,6 +1,5 @@
 @extends('layouts.master')
 
-
 @section('body')
 
 @if (session('status'))
@@ -38,25 +37,28 @@
   </div>
 </nav>
 <section class="border-top-1 bg-light">
-    <div class="container h-100">
+    <div class="container">
         <form method="POST" action="{{route('password.email')}}">
         @csrf
         <div class="form-row pt-3">
-          <div class="form-group col-md-12">
+          <div class="form-group col-12">
             <p class="pb-2">Kami akan mengirimkan email penggantian password baru</p>
             <label class="has-float-label">
               <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{old('email')}}" required autocomplete="email" autofocus="">
               <span>Email</span>
 
             </label>
-                                    @error('email')
-                                        <div class="alert alert-danger" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-                                    @enderror
-            <button type="submit" class="btn btn-block button-saraga">
-                Kirim
-            </button>
+            @error('email')
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ $message }}</strong>
+                </div>
+            @enderror
+            <div class="container fixed-bottom mb-3">
+              <button type="submit" class="btn btn-block button-saraga text-center">
+                  Kirim
+              </button>
+            </div>
+
           </div>
 
         </div>
