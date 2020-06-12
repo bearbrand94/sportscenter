@@ -1,81 +1,67 @@
 @extends('layouts.master')
 
-@section('content')
+@section('body')
 
-<section class="login py-5 border-top-1">
+<section class="login py-2 border-top-1 pt-3">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-8 align-item-center">
-                <div class="border">
-                    <h3 class="bg-gray p-4">Login Now</h3>
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <fieldset class="p-4">
-                            <input type="text" placeholder="Username" class="border p-3 w-100 my-2">
-                            <input type="password" placeholder="Password" class="border p-3 w-100 my-2">
- 
-                            <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold">Log in</button>
-                            <a class="mt-3 d-block  text-primary" href="#">Forget Password?</a>
-                            <a class="mt-3 d-inline-block text-primary" href="register">Register Now</a>
-                            <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="google_signIn()">Log in With Google</button>
-                            <button type="submit" class="btn btn-block py-3 px-5 btn-outline-primary mt-3 font-weight-bold" onclick="facebook_signIn()">Log in With Facebook</button>
-
-                        </fieldset>
-                    </form>
-                </div>
+      <a class="navbar-brand" href="{{ route('home') }}">
+        <img src="{{ asset('images/back-icon-black.svg') }}" alt="" class="back-icon" title="close">
+      </a>
+      <div class="text-center">
+        <img class="card-img-top pb-3 login-logo" src="{{ asset('images/saraga.png') }}" alt="Card image cap">
+      </div>
+      <form method="POST" action="{{ route('email-login') }}">
+        @csrf
+        <br>
+        <label class="has-float-label">
+          <input class="form-control" type="email" name="email" required autofocus="true" />
+          <span>Email</span>
+        </label>
+        <label class="has-float-label">
+          <input class="form-control" type="password" name="password" required>
+          @if ($errors->has('credentials'))
+            <div class="alert alert-danger mt-3">
+                <strong>{{ $errors->first('credentials') }}</strong>
             </div>
+          @endif
+          @if ($errors->has('warning'))
+            <div class="alert alert-warning mt-3">
+                <strong>{{ $errors->first('warning') }}</strong>
+            </div>
+          @endif
+          <span>Password</span>
+        </label>
+        <a class="d-block muted-saraga pull-right" href="password/reset">Lupa Password?</a>
+        <button type="submit" class="btn btn-block mt-3 font-weight-bold button-saraga">Masuk</button>
+      </form>
+
+      <div class="row mt-4">
+        <div class="col-12">
+          <h3 class="lead has-line muted-saraga"><span style="margin-left:5px;"> Atau masuk dengan </span></h3>
         </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6">
+          @component('google-signin')
+          @endcomponent
+        </div>
+        <div class="col-6">
+          @component('facebook-signin')
+          @endcomponent
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <h3 class="muted-saraga">Belum Punya Akun? <a class="mt-3 d-inline-block font-weight-strong text-saraga" href="register"><b>Daftar Sekarang</b></a></h3>
+      </div>
     </div>
 </section>
 @endsection
 
-@section('script')
+@section('master_script')
 
 <script type="text/javascript">
     function check_login_status(){
         console.log(firebase.auth().currentUser);
-    }
-
-    function google_signIn(){
-        var provider = new firebase.auth.GoogleAuthProvider();
-
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });  
-    }
-    function facebook_signIn(){
-        var provider = new firebase.auth.FacebookAuthProvider();
-        provider.addScope('default');
-
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });
     }
     
     function sign_out(){

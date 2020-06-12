@@ -33,6 +33,7 @@ class LoginController extends Controller
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
 				session(['auth_data'=>$user_info->data]);
+				Auth::loginUsingId($user_info->data->id);
 				return response()->json(redirect()->intended('home')->getTargetUrl());
 				// return redirect()->intended('home');
 				return response()->json(['message'=>'login success']);
@@ -55,6 +56,7 @@ class LoginController extends Controller
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
 				session(['auth_data'=>$user_info->data]);
+				Auth::loginUsingId($user_info->data->id);
 				return response()->json(redirect()->intended('home')->getTargetUrl());
 				// return redirect()->intended('home');
 				return response()->json(['message'=>'login success']);
