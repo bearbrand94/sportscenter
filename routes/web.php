@@ -14,10 +14,14 @@ Auth::routes();
 Route::get('/password/success', function(){
 	return view('auth.passwords.success');
 });
-//Login Register
+//Login page
 Route::get('/login', function () {
+	if(session('auth_data')){
+		return redirect()->intended('home');
+	}
     return view('classimax.login');
 })->name('login');
+
 Route::get('oauth2/google','LoginController@oauth2_login_google')->name('validate_oauth2');
 Route::get('oauth2/facebook','LoginController@oauth2_login_facebook')->name('validate_facebook');
 Route::post('/login','LoginController@email_login')->name('email-login');
@@ -44,6 +48,10 @@ Route::get('/about-us', function (){
 Route::get('/terms', function (){
 	return view('classimax.terms');
 })->name('terms');
+
+Route::get('/privacy', function (){
+	return view('classimax.privacy');
+})->name('privacy');
 
 Route::group(['middleware' => ['api']], function() {
 	//Midtrans
