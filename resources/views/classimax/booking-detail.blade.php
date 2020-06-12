@@ -57,7 +57,7 @@
 	<div class="container" style="padding-right: 0px; padding-left: 0px;">
 	@component('payment-time', [
 		'id'	=> "$data->id",
-		'date'	=> date('d-M-Y H:i:s', strtotime($data->order_date)),
+		'date'	=> date("Y-m-d",strtotime($data->order_date))." ".$data->detail[0]->start_at,
 		'status'=> "$data->status"
 	])
 	@endcomponent
