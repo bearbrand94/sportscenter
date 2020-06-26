@@ -118,10 +118,10 @@
 			<button class="btn btn-primary col-4 col-sm-3" id="apply">Apply</button>
 		</div>
         <div class="alert alert-danger mt-2" id="promo-error" style="display: none;">
-            <strong id="promo-error-text">Promo Invalid</strong>
+            <strong id="promo-error-text">Kode promo tidak bisa digunakan.</strong>
         </div>
         <div class="alert alert-success" id="promo-success" style="display: none;">
-            <strong id="promo-success-text">Yay! You can use this promo code!</strong>
+            <strong id="promo-success-text">Yay! Anda dapat menggunakan kode promo ini!</strong>
         </div>
 
         <hr class="my-4">
@@ -157,8 +157,22 @@
 	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($court->price*$input['duration'],0)}}</p>
 		    </div>
 	      </div>
+	      <div class="col-12 clearfix">
+	          <p style="color: black;color: black;border: solid darkgrey 2px;padding: 3px 10px;background-color: lightgrey;margin: 0px;">
+	              Pastikan anda sudah <b>mengecek pesanan anda</b> sebelum melanjutkan pembayaran. <b>Pesanan tidak dapat diganti</b> setelah anda meng-klik tombol "Buat Pesanan & Lakukan Pembayaran"
+	          </p>
+	      </div>
 		</div>
-		<button type="button" class="btn btn-block button-saraga mb-4" onclick="select_payment()">Pilih Metode Pembayaran</button>
+		<hr class="my-4">
+		<div class="row mt-3">
+			<div class="col-12 clearfix">
+				<p class="text-muted text-center" style="font-weight: normal; font-size: 0.8rem;">
+					Dengan melanjutkan pemesanan, anda telah menyetujui <a href="{{route('terms')}}"><u>syarat dan
+							ketentuan</u></a> dari Saraga Indonesia
+				</p>
+			</div>
+		</div>
+		<button type="button" class="btn btn-block button-saraga mb-4" onclick="select_payment()">Buat Pesanan & Lakukan Pembayaran</button>
     </div>
 </section>
 @endsection

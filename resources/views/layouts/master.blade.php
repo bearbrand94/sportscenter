@@ -337,14 +337,14 @@
           input.select();
           var result = document.execCommand('copy');
           document.body.removeChild(input);
-          tempAlert("Link Copied!",1000);
+          tempAlert("Link Tersalin!",1000);
           return result;
       }
       function tempAlert(msg,duration)
       {
            var el = document.createElement("span");
            el.setAttribute("class","badge badge-secondary");
-           el.setAttribute("style","position:fixed; bottom:100; left: 50%; transform: translate(-50%, 0); padding:10px; text-align:center; background-color: rgb(226,42,42); font-size:large;");
+           el.setAttribute("style","position:fixed; top:70; left: 50%; transform: translate(-50%, 0); padding:10px; text-align:center; background-color: rgb(226,42,42); font-size:large;");
            el.innerHTML = msg;
            setTimeout(function(){
             el.parentNode.removeChild(el);

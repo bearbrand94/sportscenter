@@ -414,7 +414,7 @@
       input.select();
       var result = document.execCommand('copy');
       document.body.removeChild(input);
-      tempAlert("Link Copied!",1000);
+      tempAlert("Link Tersalin!",1000);
       return result;
   }
 </script>

@@ -233,7 +233,7 @@
           </div> -->
         <hr class="my-4">
         <h5 style="font-weight: bold;">Deskripsi</h5>
-          <p>{{$detail->spot->description}}</p>
+        <p>{!! nl2br($detail->spot->description) !!}</p>
       </div>
     </div>
 
@@ -241,7 +241,7 @@
     @if(isset($detail->timeslots))
     <div class="row mt-4">
       <div class="col-12">
-        <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
+        <h5 style="font-weight: bold;">Pilih Tanggal Booking</h5>
         <div class="alert alert-warning" id="input-date-error" hidden>
             <strong>Pilih tanggal booking terlebih dahulu.</strong>
         </div>
@@ -278,6 +278,8 @@
       </div>
       <div class="col-12" id="input-time-div">
         <!-- {{session('input-date')}} -->
+        <br>
+        <h5 style="font-weight: bold;">Pilih Jam Booking</h5>
         <div class="alert alert-warning" id="input-time-error" hidden>
             <strong>Pilih waktu yang tersedia.</strong>
         </div>
@@ -488,7 +490,7 @@
       input.select();
       var result = document.execCommand('copy');
       document.body.removeChild(input);
-      tempAlert("Link Copied!",1000);
+      tempAlert("Link Tersalin!",1000);
       return result;
   }
 </script>

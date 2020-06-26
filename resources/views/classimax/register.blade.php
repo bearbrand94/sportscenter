@@ -33,20 +33,27 @@
                 </div>
             @endif
 
-            <input name="telephone" type="number" placeholder="08XXXXXXXXXX" class="border form-control mt-4" value="{{ old('telephone') }}">
+            <label class="has-float-label">
+              <input name="telephone" type="number" placeholder="08XXXXXXXXXX" class="border form-control mt-4" value="{{ old('telephone') }}">
+              <span style="font-size: 15px;">Telephone</span>
+            </label>
             @if ($errors->has('telephone'))
                 <div class="alert alert-danger">
                     <strong>{{ $errors->first('telephone') }}</strong>
                 </div>
             @endif
-            <input name="password" type="password" placeholder="Password" class="border form-control mt-4">
+
+            <label class="has-float-label">
+              <input name="password" type="password" placeholder="Password" class="border form-control mt-4">
+              <span style="font-size: 15px;">Telephone</span>
+            </label>
             @if ($errors->has('password'))
                 <div class="alert alert-danger">
                     <strong>{{ $errors->first('password') }}</strong>
                 </div>
             @else
                 <div class="alert alert-primary">
-                  <strong>Password minimal 8 karakter berupa kombinasi angka, huruf besar, dan huruf kecil</strong>
+                  <strong>Password harus minimal 6 karakter dan terdiri dari kombinasi huruf dan angka</strong>
                 </div>
             @endif
             <button type="submit" class="btn btn-block px-5 mt-4 font-weight-bold button-saraga">Daftar</button>

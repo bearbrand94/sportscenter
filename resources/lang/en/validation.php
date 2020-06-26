@@ -129,7 +129,9 @@ return [
 
     'custom' => [
         'password' => [
-            'regex' => 'Password must contain letters and at least one number',
+            'regex' => 'Password harus minimal 6 karakter dan terdiri dari kombinasi huruf dan angka.',
+            'min' => 'Password harus minimal :min karakter dan terdiri dari kombinasi huruf dan angka.',
+            'confirmed' => 'Konfirmasi password salah, silahkan input kembali password anda.'
         ],
         'attribute-name' => [
             'rule-name' => 'custom-message',

@@ -36,5 +36,14 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+
+        $this->broker()->validator(function (array $credentials) {
+            [$password, $confirm] = [
+                $credentials['password'],
+                $credentials['password_confirmation'],
+            ];
+
+            return $password === $confirm && mb_strlen($password) >= $this->passwordLength;
+        });
     }
 }

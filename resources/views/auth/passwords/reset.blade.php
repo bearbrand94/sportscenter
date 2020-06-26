@@ -33,12 +33,15 @@
 
                                 <div class="col-md-12">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    @if ($errors->has('password'))
+                                        <div class="alert alert-danger">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-primary">
+                                            <strong>Password harus minimal 6 karakter dan terdiri dari kombinasi huruf dan angka</strong>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
