@@ -68,7 +68,8 @@
 
 	@if($data->status == "pending")
 		<div class="container pt-3 pb-3" style="background-color: white;">
-
+			{{print_r($midtrans)}}
+		@if(isset($midtrans->payment_type))
 		@if($midtrans->payment_type == "bca_klikbca")
 			<a class="btn btn-block button-saraga" href="https://www.klikbca.com/" target="_blank">Silahkan Ke KlikBCA Untuk Menyelesaikan Pembayaran</a>
 		@elseif($midtrans->payment_type == "bca_klikpay")
@@ -77,6 +78,7 @@
 			<a class="btn btn-block button-saraga" href="{{config('app.midtrans_api_url')}}/v2/gopay/{{$midtrans->transaction_id}}/qr-code" target="_blank">Lihat QR-Code</a>
 		@else
 			<a class="btn btn-block button-saraga" href="{{config('app.snap_url').'/v1/transactions/'.$data->token.'/pdf'}}" target="_blank">Lihat Cara Pembayaran</a>
+		@endif
 		@endif
 		</div>
 

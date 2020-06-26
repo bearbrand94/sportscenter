@@ -24,6 +24,9 @@ Route::get('/login', function () {
 Route::get('oauth2/google','LoginController@oauth2_login_google')->name('validate_oauth2');
 Route::get('oauth2/facebook','LoginController@oauth2_login_facebook')->name('validate_facebook');
 Route::post('/login','LoginController@email_login')->name('email-login');
+Route::get('/verify', function(){
+	return view('auth.verify-email');
+})->name('verify-email');
 Route::get('/logout','LoginController@log_out')->name('logout');
 
 //debug function.
