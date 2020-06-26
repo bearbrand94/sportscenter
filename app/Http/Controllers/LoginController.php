@@ -112,8 +112,7 @@ class LoginController extends Controller
 			]);
 			if($res->getStatusCode() == 200){ // 200 = Success
 				$user_info = json_decode($res->getBody()); // { "type": "User", ..
-				session(['auth_data'=>$user_info->data]);
-				return redirect()->intended('home');
+				return view('auth.verify-email');
 			}
 		} catch (RequestException $e) {
 			session()->flashInput($request->input());
