@@ -118,7 +118,7 @@
 			<button class="btn btn-primary col-4 col-sm-3" id="apply">Apply</button>
 		</div>
         <div class="alert alert-danger mt-2" id="promo-error" style="display: none;">
-            <strong id="promo-error-text">Promo Invalid</strong>
+            <strong id="promo-error-text">Promo Invalid. Cek syarat dan ketentuan</strong>
         </div>
         <div class="alert alert-success" id="promo-success" style="display: none;">
             <strong id="promo-success-text">Yay! You can use this promo code!</strong>

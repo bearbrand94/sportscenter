@@ -274,9 +274,10 @@
 										'image_url'	=> $booking->detail[0]->image->path,
 										'icon'		=> $booking->detail[0]->sport->slug,
 										'title'		=> $booking->detail[0]->spot->name,
-										'span'	  => $booking->detail[0]->court->sport,
-										'date'	  => $booking->order_date,
+										'span'	  	=> $booking->detail[0]->court->sport,
+										'date'	  	=> $booking->order_date,
 										'duration'	=> $booking->duration,
+										'created_at'=> $booking->created_at,
 										'status'	=> $booking->status,
 										'time'		=> $booking->detail
 									])
@@ -315,7 +316,10 @@
 							'span'	  => $booking->detail[0]->court->sport,
 							'date'	  => $booking->order_date,
 							'duration'	=> $booking->duration,
+							'created_at'=> $booking->created_at,
 							'status'	=> $booking->status,
+							'used'		=> $booking->used,
+							'rated'		=> $booking->rated,
 							'time'		=> $booking->detail
 						])
 						@endcomponent

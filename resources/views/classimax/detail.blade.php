@@ -208,7 +208,7 @@
             @endforeach
             @if(count($detail->facilities) > 6)
             <div class="col-12"> 
-              <a href="#">Show All</a>
+              <a id="show-all" style="text-decoration: underline; color: rgb(42,119,189); cursor:pointer">Show All</a>
             </div>
             @endif
           </div>      
@@ -233,7 +233,7 @@
           </div> -->
         <hr class="my-4">
         <h5 style="font-weight: bold;">Deskripsi</h5>
-          <p>{{$detail->spot->description}}</p>
+          <p>{!! nl2br(e($detail->spot->description)) !!}</p>
       </div>
     </div>
 
@@ -241,9 +241,9 @@
     @if(isset($detail->timeslots))
     <div class="row mt-4">
       <div class="col-12">
-        <h5 style="font-weight: bold;">Pilih Waktu Booking</h5>
+        <h5 style="font-weight: bold;">Pilih Hari Booking</h5>
         <div class="alert alert-warning" id="input-date-error" hidden>
-            <strong>Pilih tanggal booking terlebih dahulu.</strong>
+            <strong>Pilih tanggal booking yang tersedia.</strong>
         </div>
 
         <div class="row">
@@ -276,8 +276,8 @@
           </div>
         </div>
       </div>
-      <div class="col-12" id="input-time-div">
-        <!-- {{session('input-date')}} -->
+      <div class="col-12 mt-4" id="input-time-div">
+        <h5 style="font-weight: bold;">Pilih Jam Booking</h5>
         <div class="alert alert-warning" id="input-time-error" hidden>
             <strong>Pilih waktu yang tersedia.</strong>
         </div>
@@ -317,7 +317,7 @@
         <input type="hidden" name="input-time" id="input-time" value="">
         <input type="hidden" name="input-duration" id="input-duration" value="">
         @csrf
-        <button type="submit" class="btn btn-block button-saraga">Pilih Lapang</button>
+        <button type="submit" class="btn btn-block button-saraga">Pilih Lapangan</button>
       </form>
     </div>
     @else
@@ -415,6 +415,10 @@
     }
   });
 
+  $('#show-all').click(function(){
+    $(".facility-icon").removeAttr("hidden");
+    $("#show-all").attr("hidden", true);
+  })
 
   $('#button-date-booking').click(function () {
     if(date_flag==false){

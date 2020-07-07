@@ -28,22 +28,27 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-0">
                                 <label for="password" class="col-md-12 col-form-label">{{ __('Password') }}</label>
 
                                 <div class="col-md-12">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                    @error('password')
+                                    @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
-                                    @enderror
+                                    @else
+                                        <div class="mt-2">
+                                            @component('password-validation-message')
+                                            @endcomponent
+                                        </div>
+                                    @endif
+                                    </input>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="password-confirm" class="col-md-12 col-form-label">{{ __('Confirm Password') }}</label>
+                                <label for="password-confirm" class="col-md-12 col-form-label">Konfirmasi Password</label>
 
                                 <div class="col-md-12">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
