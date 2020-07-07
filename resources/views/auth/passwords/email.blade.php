@@ -37,7 +37,7 @@
   </div>
 </nav>
 <section class="border-top-1 bg-light">
-    <div class="container">
+    <div class="container" style="height: 100%;">
         <form method="POST" action="{{route('password.email')}}">
         @csrf
         <div class="form-row pt-3">
