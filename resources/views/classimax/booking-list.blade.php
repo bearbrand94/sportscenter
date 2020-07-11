@@ -279,6 +279,8 @@
 										'duration'	=> $booking->duration,
 										'created_at'=> $booking->created_at,
 										'status'	=> $booking->status,
+										'used'		=> $booking->used,
+										'rated'		=> $booking->rated,
 										'time'		=> $booking->detail
 									])
 									@endcomponent
