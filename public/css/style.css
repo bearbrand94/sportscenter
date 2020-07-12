@@ -2520,6 +2520,47 @@ article.single-post p {
   line-height: 30px;
 }
 
+.terms-condition-content ol {
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+}
+.terms-condition-content ol > li {
+  display: table;
+  counter-increment: item;
+  margin-bottom: 0.6em;
+}
+.terms-condition-content ol > li:before {
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 0.6em;    
+}
+.terms-condition-content li ol > li {
+  margin: 0;
+}
+.terms-condition-content ol ul {
+  counter-reset: item;
+}
+.terms-condition-content ul > li {
+  display: table;
+  counter-increment: item;
+  margin-bottom: 0.6em;
+}
+.terms-condition-content ul > li:before {
+  display: table-cell;
+  padding-right: 0.6em;    
+}
+.terms-condition-content ul[type=a] > li:before {
+  content: counter(item, lower-alpha) ".";
+}
+.terms-condition-content ul[type=i] > li:before {
+  content: counter(item, lower-roman)".";
+}
+.terms-condition-content li ul > li {
+  margin: 0;
+}
+
 .package-content {
   transition: all linear 0.3s;
 }
