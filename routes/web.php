@@ -87,8 +87,8 @@ Route::group(['middleware' => ['initial_data']], function() {
 	Route::post('/booking', 'BookingController@show')->name('booking-list');
 
 	Route::get('/booking/{id}', 'BookingController@detail')->name('booking-detail');
-	Route::get('/booking/{id}/rating', 'ReviewController@show')->name('rating-form');
-	Route::post('/booking/rating', 'ReviewController@create')->name('create-rating');
+	Route::get('/booking/{id}/rating', 'RatingController@show')->name('rating-form');
+	Route::post('/booking/rating', 'RatingController@create')->name('create-rating');
 
 	Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
 	Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
