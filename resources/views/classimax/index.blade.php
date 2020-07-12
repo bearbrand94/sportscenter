@@ -197,14 +197,14 @@
 					    <div class="banner-element banner-element-info">
 					      <span>Information</span>
 					    </div>
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 110px;">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 150px;">
 					  </a>
 					@else
 					  <a href="{{route('promo-detail',$promo->id)}}" class="promo">
 					    <div class="banner-element banner-element-promo">
 					      <span>Promo</span>
 					    </div>
-					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 110px;">
+					  	<img class="card-img-top" src="{{$promo->image->path}}" alt="Card image cap" style="width: 100%; height: 150px;">
 					  </a>
 					@endif
 					</div>

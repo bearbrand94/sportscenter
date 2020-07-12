@@ -220,11 +220,21 @@
                 </div>
             @endif
             <p class="lead pb-2">Masukkan Password Baru</p>
-            <label class="has-float-label">
+            <label class="has-float-label" style="margin-bottom:0px">
               <input type="password" class="form-control" name="new_password">
               <span>Password Baru</span>
             </label>
-            <input type="password" class="form-control" name="confirm_password" placeholder="Masukkan sekali lagi">
+            @if ($errors->has('password'))
+                <div class="alert alert-danger">
+                  <strong>{{ $errors->first('password') }}</strong>
+                </div>
+            @else
+                <div class="mt-2 mb-2">
+                    @component('password-validation-message')
+                    @endcomponent
+                </div>
+            @endif
+            <input type="password" class="form-control" name="confirm_password" placeholder="Konfirmasi password">
             @if ($errors->has('new_password'))
                 <div class="alert alert-danger mt-2">
                     <strong>{{ $errors->first('new_password') }}</strong>

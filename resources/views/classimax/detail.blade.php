@@ -278,8 +278,6 @@
       </div>
       <div class="col-12 mt-4" id="input-time-div">
         <h5 style="font-weight: bold;">Pilih Jam Booking</h5>
-        <br>
-        <h5 style="font-weight: bold;">Pilih Jam Booking</h5>
         <div class="alert alert-warning" id="input-time-error" hidden>
             <strong>Pilih waktu yang tersedia.</strong>
         </div>
@@ -324,7 +322,7 @@
     </div>
     @else
     <div class="mt-3 mb-4">
-      <button type="submit" class="btn btn-block button-saraga" disabled style="color: black; pointer-events: none;">Lapangan Sedang Tutup</button>
+      <button type="submit" class="btn btn-block button-saraga" disabled style="color: black; pointer-events: none;">Lapangan belum dapat dipesan lewat Saraga atau sedang tutup</button>
     </div>
     @endif
     <div class="row mb-5 pb-3"></div>
