@@ -57,8 +57,10 @@
 	<div class="container" style="padding-right: 0px; padding-left: 0px;">
 	@component('payment-time', [
 		'id'	=> "$data->id",
-		'date'	=> date("Y-m-d",strtotime($data->order_date))." ".$data->detail[0]->start_at,
-		'status'=> "$data->status"
+		'date'	=> date("Y-m-d H:i:s", strtotime($data->created_at. " +20 minutes")),
+		'status'=> "$data->status",
+		'rated' => $data->rated,
+		'used'  => $data->used
 	])
 	@endcomponent
 	</div>
@@ -68,7 +70,7 @@
 
 	@if($data->status == "pending")
 		<div class="container pt-3 pb-3" style="background-color: white;">
-			{{print_r($midtrans)}}
+
 		@if(isset($midtrans->payment_type))
 		@if($midtrans->payment_type == "bca_klikbca")
 			<a class="btn btn-block button-saraga" href="https://www.klikbca.com/" target="_blank">Silahkan Ke KlikBCA Untuk Menyelesaikan Pembayaran</a>
@@ -196,6 +198,20 @@
 			</div>
 		</a>
 	</div>
+
+	@if($data->status == "expire" && $data->used == 1)
+		@if($data->rated == 0)
+	      <div class="fixed-bottom text-center container" style="margin-bottom: 20px;">
+	        <a href="{{ route('rating-form', ['id' => $data->id]) }}" class="btn button-saraga btn-block">Beri Penilaian</a>
+	      </div>
+      	@else
+	      <div class="fixed-bottom text-center container" style="margin-bottom: 20px;">
+			<div class="alert alert-success mb-0">
+			  <strong>Terima kasih, Anda telah memberikan penilaian.</strong>
+			</div>
+	      </div>
+      	@endif
+	@endif
 </section>
 @endsection
 

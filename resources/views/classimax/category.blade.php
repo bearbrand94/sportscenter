@@ -5,26 +5,7 @@
 	#filter-modal .modal-body{
 		min-height: 0 !important
 	}
-  .rating-button{
-    cursor:hand;
-    text-align: center;
-    width: 18% !important;
-    padding: 5;
-    padding-top: 7;
-    margin-right: 2.5%;
-    height: 37px;
-    /*background-color: var(--saraga-color);*/
-  }
-  .Rating-button.active{
-      background: var(--saraga-color);
-      color: white;
-  }
 
-  .rating-button img{
-	margin-bottom: 5;
-	width: 15;
-	height: 15;
-  }
 </style>
 @endsection
 
@@ -114,22 +95,7 @@
 					<input type="hidden" name="rating" id="input-rating">
             	</div>
             	<hr>
-<!--             	<div class="col-12">
-            		<div class="row">
-	                	<b>Tipe Lapang</b>
-	                </div>
-	                <div class="row mt-2">
-						<div class="custom-control custom-checkbox col-6">
-						  <input type="checkbox" class="custom-control-input" id="customCheck1" name="type-filter[]" value="2">
-						  <label class="custom-control-label" for="customCheck1">Lapang Indoor</label>
-						</div>
-						<div class="custom-control custom-checkbox col-6">
-						  <input type="checkbox" class="custom-control-input" id="customCheck2" name="type-filter[]" value="3">
-						  <label class="custom-control-label" for="customCheck2">Lapang Outdoor</label>
-						</div>
-					</div>
-				</div> -->
-                <!-- <hr> -->
+
             	<div class="col-12">
             		<div class="row">
 	                	<b>Jenis Lapang</b>
@@ -174,7 +140,22 @@
     </div>
   </div>
 </div>
-
+<!--             	<div class="col-12">
+            		<div class="row">
+	                	<b>Tipe Lapang</b>
+	                </div>
+	                <div class="row mt-2">
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input" id="customCheck1" name="type-filter[]" value="2">
+						  <label class="custom-control-label" for="customCheck1">Lapang Indoor</label>
+						</div>
+						<div class="custom-control custom-checkbox col-6">
+						  <input type="checkbox" class="custom-control-input" id="customCheck2" name="type-filter[]" value="3">
+						  <label class="custom-control-label" for="customCheck2">Lapang Outdoor</label>
+						</div>
+					</div>
+</div> -->
+                <!-- <hr> -->
 <!-- The Modal -->
 <div class="modal" id="search-input-modal">
   <div class="modal-dialog">

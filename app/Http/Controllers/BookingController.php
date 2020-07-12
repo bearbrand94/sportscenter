@@ -158,8 +158,8 @@ class BookingController extends Controller
         // return $input_time;
         // return $booking_data->input->input_date." ".$input_time.":00";
 
-        $expiry->duration = $duration;
-        $expiry->unit = "second";
+        $expiry->duration = 20;
+        $expiry->unit = "minutes";
         // $expiry->duration   = 2;
         // $expiry->unit       = "hours";
 
@@ -170,7 +170,7 @@ class BookingController extends Controller
         $client = new Client();
         $snapres = $client->request('POST', config('app.snap_url')."/v1/transactions", [
             'headers' => [
-                'Content-Type'  => 'application/json',
+                'Content-Type'  => 'application/json', 
                 'Accept'        => 'application/json',
                 'Authorization'   => 'Basic '.base64_encode(config('app.server_key'))
             ],
@@ -253,7 +253,8 @@ class BookingController extends Controller
         try {
             $res = $client->request('GET', config('app.api_url')."/order",[
                 'json' => [
-                    'filters' => $filters
+                    'filters' => $filters,
+                    'sort'    => "asc"
                 ],
                 // 'debug' => true
             ]);
@@ -305,7 +306,9 @@ class BookingController extends Controller
         }
 
         $res_booking = json_decode($res->getBody())->data;
-        // return $res_booking;
-        return view('classimax.booking-detail')->with('data', $res_booking[0])->with('midtrans', json_decode($midtrans_res->getBody()));
+        if(isset($res_booking[0])){
+            return view('classimax.booking-detail')->with('data', $res_booking[0])->with('midtrans', json_decode($midtrans_res->getBody()));
+        }
+        return view('classimax.404');
     }
 }

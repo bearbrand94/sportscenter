@@ -42,18 +42,18 @@
                     <strong>{{ $errors->first('telephone') }}</strong>
                 </div>
             @endif
-
             <label class="has-float-label">
               <input name="password" type="password" placeholder="Password" class="border form-control mt-4">
-              <span style="font-size: 15px;">Telephone</span>
+              <span style="font-size: 15px;">Password</span>
             </label>
             @if ($errors->has('password'))
                 <div class="alert alert-danger">
                     <strong>{{ $errors->first('password') }}</strong>
                 </div>
             @else
-                <div class="alert alert-primary">
-                  <strong>Password harus minimal 6 karakter dan terdiri dari kombinasi huruf dan angka</strong>
+                <div class="mt-2">
+                  @component('password-validation-message')
+                  @endcomponent
                 </div>
             @endif
             <button type="submit" class="btn btn-block px-5 mt-4 font-weight-bold button-saraga">Daftar</button>

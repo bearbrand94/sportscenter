@@ -37,8 +37,10 @@
 	</div>
 	@component('payment-time', [
 		'id'	=> $id,
-		'date'	=> date("Y-m-d",strtotime($date))." ".$time[0]->start_at,
-		'status'=> $status
+		'date'	=> date("Y-m-d H:i:s", strtotime($created_at. " +20 minutes")),
+		'status'=> $status,
+		'used'  => $used,
+		'rated'	=> $rated
 	])
 	@endcomponent
 </div>
@@ -47,5 +49,4 @@
 	$("#card-{{$id}}").click(function(){
 		window.location.href="{{ route('booking-detail', ['id'=>$id]) }}";
 	});
-	console.log("SHIT");
 </script>

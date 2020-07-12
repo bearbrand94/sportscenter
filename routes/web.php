@@ -39,28 +39,17 @@ Route::get('/register', function () {
 Route::post('/register','LoginController@register')->name('register');
 //End Login
 
-Route::get('/help', function (){
-	return view('classimax.help-center');
-})->name('help-center');
-
-Route::get('/about-us', function (){
-	return view('classimax.about');
-})->name('about-us');
-
-Route::get('/terms', function (){
-	return view('classimax.terms');
-})->name('terms');
-
-Route::get('/privacy', function (){
-	return view('classimax.privacy');
-})->name('privacy');
-
+// Group Midtrans
 Route::group(['middleware' => ['api']], function() {
 	//Midtrans
 	Route::post('/midtrans/notification/handling', 'MidtransController@notification');
 	Route::post('/midtrans/finish', 'MidtransController@finish');
 	Route::post('/midtrans/unfinish', 'MidtransController@unfinish');
 	Route::post('/midtrans/error', 'MidtransController@error');
+
+	Route::get('/payment/finish', 'BookingController@create')->name('payment-finish');
+	Route::get('/payment/pending', 'BookingController@create')->name('payment-pending');
+	Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
 });
 
 //Group Must Logged In.
@@ -96,18 +85,18 @@ Route::group(['middleware' => ['initial_data']], function() {
 	Route::get('/booking', 'BookingController@show')->name('booking-list');
 	// Post mode is for midtrans redirect after completing booking payment.
 	Route::post('/booking', 'BookingController@show')->name('booking-list');
+
 	Route::get('/booking/{id}', 'BookingController@detail')->name('booking-detail');
+	Route::get('/booking/{id}/rating', 'ReviewController@show')->name('rating-form');
+	Route::post('/booking/rating', 'ReviewController@create')->name('create-rating');
+
+	Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
+	Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
+
 
 });
-//End Group
-Route::post('/booking/apply','BookingController@apply_coupon')->name('apply-coupon');
-Route::post('/booking/snap', 'BookingController@get_snap_url')->name('booking-snap');
 
-Route::group(['middleware' => ['api']], function() {
-	Route::get('/payment/finish', 'BookingController@create')->name('payment-finish');
-	Route::get('/payment/pending', 'BookingController@create')->name('payment-pending');
-	Route::post('/payment/notification', 'MidtransController@notif')->name('snap-notif');
-});
+
 
 Route::get('/home','HomeController@index');
 Route::get('/','HomeController@index')->name('home');
@@ -131,3 +120,20 @@ Route::get('/promo','PromoController@list')->name('promo-list');
 Route::get('/promo/{id}','PromoController@detail')->name('promo-detail');
 Route::get('/events','EventController@list')->name('event-list');
 Route::get('/event/{id}','EventController@detail')->name('event-detail');
+
+
+Route::get('/help', function (){
+	return view('classimax.help-center');
+})->name('help-center');
+
+Route::get('/about-us', function (){
+	return view('classimax.about');
+})->name('about-us');
+
+Route::get('/terms', function (){
+	return view('classimax.terms');
+})->name('terms');
+
+Route::get('/privacy', function (){
+	return view('classimax.privacy');
+})->name('privacy');

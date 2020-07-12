@@ -227,6 +227,27 @@
             width: 40;
             height: 40;
           }
+          .rating-button{
+            cursor:hand;
+            text-align: center;
+            width: 18% !important;
+            padding: 5;
+            padding-top: 7;
+            margin-right: 2.5%;
+            height: 37px;
+            /*background-color: var(--saraga-color);*/
+          }
+
+          .rating-button.active{
+            background: var(--saraga-color);
+            color: white;
+          }
+
+          .rating-button img{
+            margin-bottom: 5;
+            width: 15;
+            height: 15;
+          }
 
           hr{
             border-top: 1px solid #d8d8d8;

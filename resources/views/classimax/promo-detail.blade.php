@@ -84,7 +84,7 @@
 	    	<div class="col-3 d-inline-block align-self-center">
 			    <button class="button bg-button p-2 pull-right" style="background-color: white; border: 1px solid orange; color: rgb(235, 130, 0);" onclick="code_copy('{{$detail->promo->code}}')">Salin Kode</button>
 	    	</div>
-	    </div>
+	    </div>		
     </div>
 
     <div class="container mt-4 pb-4" style="background-color: white;">
@@ -92,10 +92,17 @@
     		<div class="col-12 pb-4">
 	    		<h4 class="pt-2 pb-1">Syarat Dan Ketentuan</h4>
 	    		<hr>
-	            <p>{{$detail->promo->tnc}}</p>
+	            <p>{!! $detail->promo->tnc !!}</p>
 	    	</div>
+
 	    </div>
     </div>
+    <div style="height: 100px"></div> 
+	@if(isset($detail->button_url) && isset($detail->button_text))
+	<div class="fixed-bottom text-center container" style="margin-bottom: 70px;">
+    	<a class="btn button-saraga btn-block" href="{{ $detail->button_url }}">{{$detail->button_text}}</a>
+    </div>
+	@endif
 </section>
 @endsection
 

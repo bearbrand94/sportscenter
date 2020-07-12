@@ -41,14 +41,33 @@
 
 		</div>
   	</div>
-	@elseif($status=="SUCCESS")
+	@elseif($status=="success")
 	<div class="card-footer p" style="background-color: green;">
 	  	<p class="d-inline-block" style="margin-bottom: 0px;">Pembayaran Telah Berhasil!</p>
 	</div>
-	@elseif($status=="expired")
-	<div class="card-footer p" style="background-color: gray;">
-	  	<p class="d-inline-block" style="margin-bottom: 0px;">Expired</p>
-	</div>
+	@elseif($status=="expire")
+		@if($used == 0)
+			<div class="card-footer p" style="background-color: gray;">
+			  	<p class="d-inline-block" style="margin-bottom: 0px;">
+			  		Expired
+			  	</p>
+			</div>
+		@else
+			@if($rated == 0)
+				<div class="card-footer p">
+				  	<p class="d-inline-block" style="margin-bottom: 0px;">
+				  		Berikan penilaian pada booking anda.
+				  	</p>
+				</div>
+			@else
+				<div class="card-footer p" style="background-color: green;">
+				  	<p class="d-inline-block" style="margin-bottom: 0px;">
+				  		Terima Kasih, Penilaian Telah Diberikan.
+				  	</p>
+				</div>
+			@endif
+		@endif	
+
 	@endif
 
 <script type="text/javascript">
