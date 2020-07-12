@@ -327,7 +327,7 @@
       // Your web app's Firebase configuration
       var firebaseConfig = {
         apiKey: "AIzaSyC1UHyMpCO6W1I_xVbhYG6Rf9u5tvK6cX8",
-        authDomain: "saraga-b6f04.firebaseapp.com",
+        authDomain: "app.saraga.id",
         databaseURL: "https://saraga-b6f04.firebaseio.com",
         projectId: "saraga-b6f04",
         storageBucket: "saraga-b6f04.appspot.com",
