@@ -96,13 +96,20 @@
 	    	</div>
 
 	    </div>
-    </div>
-    <div style="height: 100px"></div> 
+	</div>
+    
 	@if(isset($detail->button_url) && isset($detail->button_text))
-	<div class="fixed-bottom text-center container" style="margin-bottom: 70px;">
-    	<a class="btn button-saraga btn-block" href="{{ $detail->button_url }}">{{$detail->button_text}}</a>
-    </div>
+    <div class="container mt-4">
+		<div class="row">
+			<div class="col-12">
+				<div class="text-center">
+					<a class="btn button-saraga btn-block" href="{{ $detail->button_url }}">{{$detail->button_text}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	@endif
+    <div style="height: 100px"></div> 
 </section>
 @endsection
 

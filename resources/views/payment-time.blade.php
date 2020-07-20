@@ -67,7 +67,10 @@
 				</div>
 			@endif
 		@endif	
-
+	@elseif($status=="failure")
+	<div class="card-footer p" style="background-color: red;">
+		<p class="d-inline-block" style="margin-bottom: 0px;">Expired</p>
+	</div>
 	@endif
 
 <script type="text/javascript">
