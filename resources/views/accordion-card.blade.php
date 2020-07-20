@@ -3,9 +3,11 @@
         margin-top: 3px;
     }
     .accordion .card, .accordion .card:first-of-type{
+        background-color: transparent;
         border-top: 1px solid rgba(0,0,0,0.125);
         border-left: none;
         border-right: none;
+        border-radius: 0;
     }
 
     .accordion .card-header{
@@ -13,6 +15,7 @@
         padding-right: 0;
         padding-bottom: 5px;
         padding-top: 5px;
+        background-color: transparent;
     }
 
     .accordion .btn {
