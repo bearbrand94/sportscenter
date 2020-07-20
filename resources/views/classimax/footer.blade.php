@@ -30,7 +30,7 @@
 		<div class="row">
 			<div class="col-6">
 				<a href="{{route('about-us')}}">About Us</a><br>
-				<a href="{{route('help-center')}}">FAQ</a><br>
+				<a href="{{route('faq')}}">FAQ</a><br>
 				<a href="{{route('terms')}}">Terms Of Use</a><br>
 				<a href="{{env('BLOG_URL')}}">Blog</a>
 			</div>

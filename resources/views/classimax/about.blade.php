@@ -53,18 +53,30 @@
           <p>Version 0.0.1</p>
         </div>
         <div class="about-content" class="mt-4 pt-4">
-            <h3 class="font-weight-bold">Introduction</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est justo, aliquam nec tempor
-                fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum tincidunt magna id
-                euismod. Nam sollicitudin mi quis orci lobortis feugiat.</p>
-            <h3 class="font-weight-bold">How we can help</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est justo, aliquam nec tempor
-                fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum tincidunt magna id
-                euismod. Nam sollicitudin mi quis orci lobortis feugiat. Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit. Nunc est justo, aliquam nec tempor fermentum, commodo et libero.
-                Quisque et rutrum arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc est
-                justo, aliquam nec tempor fermentum, commodo et libero. Quisque et rutrum arcu. Vivamus dictum
-                tincidunt magna id euismod. Nam sollicitudin mi quis orci lobortis feugiat.</p>
+            <div id="about-saraga" class="pb-3">
+                <h3 class="font-weight-bold"><u>Tentang Saraga</u></h3>
+                <p class="text-justify">Saraga adalah sebuah platform yang memungkinkan pengguna mencari, menemukan, dan memesan sarana olahraga secara online.</p>
+                <p class="text-justify">
+                Saraga selalu berusaha untuk memberikan manfaat maksimal bagi semua pihak yang terlibat. Kami berkolaborasi dengan pemilik sarana olahraga dan membantu mereka meningkatkan pendapatan dan layanan mereka. Kami juga terobsesi dengan pengembangan kualitas hidup di Indonesia. Saraga hadir untuk membantu kamu dan teman satu timmu hidup lebih sehat dan bugar, dan sekaligus membangun pertemanan solid yang didasarkan pada kepercayaan dan kerjasama tim. Dan bagi kami, itu semua dimulai sesederhana berolahraga bersama. 
+                </p>
+            </div>
+            <div id="how-help">
+                <h3 class="font-weight-bold pb-3"><u>Bagaimana Kami Dapat Membantu?</u></h3>
+                <ul>
+                    <li class="ml-4">
+                        <strong>Untuk Pengguna :</strong>
+                        <p>
+                            Saraga membantu pengguna untuk mencari dan memesan sarana olahraga sesuai dengan kriteria pengguna; berdasarkan lokasi, fasilitas, dan waktu ketersediaan. Melalui platform online, proses pencarian dan pemesanan jadi lebih cepat, mudah, dan efektif.
+                        </p>
+                    </li>
+                    <li class="ml-4">
+                        <strong>Untuk Pengelola :</strong>
+                        <p>
+                            Saraga membantu pengelola sarana olahraga agar lebih terjangkau dan mudah ditemukan dengan adanya platform online. Semakin mudah ditemukan, semakin mudah dipesan. Saraga berkomitmen untuk membangun dan mengembangkan sarana olahraga agar dapat beroperasi dengan lebih efisien sehingga fasilitas olahraga semakin produktif.
+                        </p>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>

@@ -122,8 +122,8 @@ Route::get('/events','EventController@list')->name('event-list');
 Route::get('/event/{id}','EventController@detail')->name('event-detail');
 
 
-Route::get('/help', function (){
-	return view('classimax.help-center');
+Route::get('/contact-us', function (){
+	return view('classimax.contact-us');
 })->name('help-center');
 
 Route::get('/about-us', function (){
@@ -137,3 +137,7 @@ Route::get('/terms', function (){
 Route::get('/privacy', function (){
 	return view('classimax.privacy');
 })->name('privacy');
+
+Route::get('/faq', function (){
+	return view('classimax.help-center');
+})->name('faq');

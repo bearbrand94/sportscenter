@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="text-center mt-4">
-        <h3 class="muted-saraga">Belum Punya Akun? <a class="mt-3 d-inline-block font-weight-strong text-saraga" href="register"><b>Daftar Sekarang</b></a></h3>
+        <h3 class="muted-saraga">Belum Punya Akun? <a class="mt-3 d-inline-block font-weight-strong text-saraga" href="{{ route('register') }}"><b>Daftar Sekarang</b></a></h3>
       </div>
     </div>
 </section>
