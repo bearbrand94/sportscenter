@@ -254,7 +254,7 @@ class BookingController extends Controller
             $res = $client->request('GET', config('app.api_url')."/order",[
                 'json' => [
                     'filters' => $filters,
-                    'sort'    => "asc"
+                    'sort'    => "desc"
                 ],
                 // 'debug' => true
             ]);
