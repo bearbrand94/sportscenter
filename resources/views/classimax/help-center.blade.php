@@ -53,7 +53,7 @@
             ])
             @endcomponent
 
-            <h3 class="font-weight-bold text-uppercasept-4 mt-4">Pemesanan</h3>
+            <h3 class="font-weight-bold text-uppercase pt-4 mt-4">Pemesanan</h3>
             @component('accordion-card', [
                 'accordion_id' => 'accordion-order',
                 'card' => [
@@ -197,7 +197,7 @@
             $account1 = "
                 <ol>
                     <li>Pastikan Anda sudah mempunyai alamat email dan no HP yang valid. </li>
-                    <li>Kunjungi halaman registrasi Saraga di <a href='" . route('register') ."'>www.saraga.id/signup</a>.  </li>
+                    <li>Kunjungi halaman registrasi Saraga di <a href='" . route('register') ."'>www.saraga.id/register</a>.  </li>
                     <li>Input data sesuai dengan yang diminta: nama lengkap, email,  no hp, dan password. </li>
                     <li>Klik tombol “Daftar”. </li>
                     <li>Cek email yang didaftarkan untuk verifikasi akun. </li>
