@@ -91,22 +91,6 @@
 		      </div>
 		</div>
 	@endif
-	@if ($data->pdf_url)
-    <div class="container pt-3 pb-3" style="background-color: white;">
-	  	<a role="button" aria-expanded="false">
-	    	<div class="d-flex">
-	      		<div class="d-flex mr-auto align-items-center">
-	        		<h4>Panduan Pembayaran</h4>
-	      		</div>
-	      		<div class="d-flex ml-auto align-items-center">
-	      		    <span>
-	      		        <a target="_blank" href="{{ $data->pdf_url }}" class="text-info">Lihat</a>
-	      		    </span>
-	      		</div>
-	    	</div>
-	  	</a>
-	</div>
-	@endif
     <div class="container pt-3 pb-3" style="background-color: white;">
 	  	<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 	    	<div class="d-flex">
