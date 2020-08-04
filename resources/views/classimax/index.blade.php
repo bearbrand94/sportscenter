@@ -15,9 +15,8 @@
 	}
 
 	.card {
-	 display: inline-flex;
-	 width: 14rem;
-
+	  display: inline-flex;
+	  width: 18rem;
 	}
 
 	.card p{
@@ -234,17 +233,19 @@
 			<div class="col-12">
 				<div class="scrolling-wrapper" >
 					@foreach($categories as $category)
+					@if(in_array($category->slug, ['badminton']))
 					<form method="GET" action="{{ route('field-search') }}" style="display: inline-block;">
 						@csrf
 						<input type="hidden" name="category" value="{{$category->id}}">
 						<a href="#" onclick='this.parentNode.submit(); return false;'>
 							<div class="card text-center mr-2" style="width: 7rem; border-style: none;">
-							  <div class="card-body text-center bg-button">
-							    {{$category->name}}
-							  </div>
+								<div class="card-body text-center bg-button">
+									{{$category->name}}
+								</div>
 							</div>
 						</a>
 					</form>
+					@endif
 					@endforeach
 				</div>
 			</div>
