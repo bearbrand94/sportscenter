@@ -28,7 +28,14 @@ class initial_data
                 session(['auth_data'=>$user_info->data]);
             }
         } catch (RequestException $e) {
-            return redirect()->guest('login')->withErrors(['warning'=>'Silahkan login terlebih dahulu untuk melanjutkan.']);
+            if(!session('auth_data'))
+                return redirect()->guest('login')->withErrors(['warning' => 'Silahkan login terlebih dahulu untuk melanjutkan.']);
+
+            $client->request('POST', config('app.api_url') . "/login/nopass", [
+                'form_params' => ['email' => session('auth_data')->email]
+            ]);
+
+            return $this->handle($request, $next);
         }
         return $next($request);
     }
