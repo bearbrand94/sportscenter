@@ -60,7 +60,7 @@
 			<div class="ml-3">
 				<p class="bigger-text mb-2">{{$spot->name}}</p>
 				<p class="bigger-text mb-2">{{$court->name}}</p>
-                <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
+                <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$court->court_type->name}}</span>
 			</div>
         </div>
 
@@ -105,7 +105,14 @@
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black;">Harga / Jam</p>
-	        <p class="float-right" style="color: black; font-weight: bold;"><del class="mr-2 text-muted" style=" font-weight: normal; font-size: 0.8rem;">Rp 300.000</del>Rp {{number_format($court->price,0)}}</p>
+			<p class="float-right" style="color: black; font-weight: bold;">
+				@if ($court->discount_price)
+					<del class="mr-2 text-muted" style=" font-weight: normal; font-size: 0.8rem;">Rp {{number_format($court->price,0)}}</del>
+					Rp {{number_format($court->discount_price,0)}}
+				@else
+					Rp {{number_format($court->price,0)}}
+				@endif
+			</p>
 	      </div>
 		</div>
 
@@ -123,20 +130,22 @@
         <div class="alert alert-success" id="promo-success" style="display: none;">
             <strong id="promo-success-text">Yay! Anda dapat menggunakan kode promo ini!</strong>
         </div>
-
+		@php
+			$price = $court->discount_price ? $court->price : $court->discount_price;
+		@endphp
         <hr class="my-4">
     	<h4 class="lead-text">Rincian Pembayaran</h4>
     	<hr class="my-4">
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left text-muted"   style="font-weight: normal; font-size: 0.8rem;">Harga / Jam</p>
-	        <p class="float-right text-muted"  style="font-weight: normal; font-size: 0.8rem;">Rp {{number_format($court->price,0)}}</p>
+	        <p class="float-right text-muted"  style="font-weight: normal; font-size: 0.8rem;">Rp {{number_format($price,0)}}</p>
 	      </div>
 		</div>
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black;">Total yang harus dibayar</p>
-	        <p class="float-right" style="color: black;">Rp {{number_format($court->price*$input['duration'],0)}}</p>
+	        <p class="float-right" style="color: black;">Rp {{number_format($price*$input['duration'],0)}}</p>
 	      </div>
 		</div>
 		<div class="row" id="discount" style="display: none;">

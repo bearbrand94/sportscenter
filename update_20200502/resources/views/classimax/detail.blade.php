@@ -263,6 +263,7 @@
       altFormat: "Y-m-d",
       dateFormat: "Y-m-d",
       minDate: "today",
+      maxDate: new Date().fp_incr(14),
       disableMobile: "true",
       onChange : function(selectedDates, dateStr, instance) {
         $("#input-date").val(dateStr);

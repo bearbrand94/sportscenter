@@ -148,7 +148,7 @@
       </form>
       @else
       <!-- Inactive Card -->
-      <div class="pb-3 pt-3" style="opacity: 0.6;"> 
+      <div class="pb-3 pt-3"> 
         <div class="card">
           @component('img-card', [
             'id' => $field->id,
@@ -158,17 +158,17 @@
           @endcomponent
 
           <div id="innerelements" class="shadow">
-            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport->slug.'.svg' }}">
+            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport->slug.'.svg' }}" style="opacity: 0.6;" >
           </div>
           <div class="card-body">
-              <h5 class="card-title text-truncate">{{$field->name}}</h5>
-              <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">Lapang Sintetis</span>
+              <h5 class="card-title text-truncate" style="opacity: 0.6;">{{$field->name}}</h5>
+              <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$field->court_type->name}}</span>
               <div class="form-inline">
                 <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format($field->price,0)}}</p>
                 <p class="card-text ml-2">/Jam</p>
               </div>
               <p class="card-text" style="color: red; font-weight: bold; font-style: italic;">*Tidak tersedia diwaktu ini </p>
-              <a href="#" data-toggle="modal" data-target="#time-modal-{{$field->id}}">Lihat waktu tersedia</a>
+              <a href="#" data-toggle="modal" data-target="#time-modal-{{$field->id}}" style="font-size:1rem; color: #007bff;"><b><u>Lihat waktu tersedia</u></b></a>
           </div>
         </div>
       </div>

@@ -64,7 +64,7 @@
           	</div>
         </div>
     	<div class="row col-12 pb-4" style="font-size: 1.1rem;">
-	    	{{$detail->description}}
+	    	{!! $detail->description !!}
 	    </div>
     </div>
     <div class="container mt-4" style="background-color: white;">
