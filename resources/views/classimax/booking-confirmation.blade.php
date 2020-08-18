@@ -149,11 +149,20 @@
 	        </p>
 	      </div>
 		</div>
-		<div class="row">
+
+<!-- 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black;">Total yang harus dibayar</p>
 	        <p class="float-right" style="color: black;">
 	        	Rp {{number_format($price*$input['duration'],0)}}
+	        </p>
+	      </div>
+		</div> -->
+		<div class="row">
+	      <div class="col-12 clearfix">
+	        <p class="float-left" style="color: black;">Durasi</p>
+	        <p class="float-right" style="color: black;">
+	        	{{$input['duration']}} jam
 	        </p>
 	      </div>
 		</div>
@@ -166,7 +175,7 @@
 		<div class="row mt-3">
 	      <div class="col-12 clearfix">
 	        <div class="float-right" id="before-grand-total-div" style="display: none;">
-		        <p class="text-muted" style="font-weight: normal; font-size: 0.8rem; margin-bottom: 0" id="before-grand-total-html"><del>Rp {{number_format($price*$input['duration'],0)}}</del></p>
+		        <p class="text-muted" style="font-weight: normal; font-size: 0.8rem; margin-bottom: 0" id="before-grand-total-html"><del>Rp {{number_format($court->price*$input['duration'],0)}}</del></p>
 		    </div>
 	      </div>
 	      <div class="col-12 clearfix">

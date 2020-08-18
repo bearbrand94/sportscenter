@@ -64,7 +64,7 @@
                 <hr>
                 <h3>Kamu bisa hubungi kami melalui :</h3>
                 <button class="btn btn-block call-button btn-google"><img src="{{ asset('images/gmail.svg') }}" class="icon" title="gmail">help@saraga.com</button>
-                <button class="btn btn-block call-button btn-whatsapp"><img src="{{ asset('images/whatsapp.svg') }}" class="icon" title="gmail">089512345612</button>
+                <button class="btn btn-block call-button btn-whatsapp"><img src="{{ asset('images/whatsapp.svg') }}" class="icon" title="gmail">08119339891</button>
             </div>
     </div>
 </section>
