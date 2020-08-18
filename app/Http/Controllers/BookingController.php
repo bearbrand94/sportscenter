@@ -119,9 +119,10 @@ class BookingController extends Controller
             $order_id = "BASIC-".str_random(8);
         }
 
+        $gross_amount = 0;
         // Apply Confirmed Order to API
         try{
-            $res = $client->request('POST', config('app.api_url')."/order/apply", [
+            $res = $client->request('POST', config('app.api_url')."/order/create-test", [
                 'form_params' => [
                         'id'      => $booking_data->court->id,
                         'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
@@ -130,15 +131,17 @@ class BookingController extends Controller
                 ]
             ]);
             $res_data = json_decode($res->getBody())->data;
-            $discount = $res_data->discount;
+            $gross_amount = $res_data->grand_total;
         } catch (RequestException $e) {
-            $discount = 0;
+            return response()->json([
+                    'status' => 'false',
+                    'errors'  => 'Lapangan sudah habis.',
+                ]);
         }    
 
-        $gross_amount = $price * $booking_data->input->duration - $discount;
+       
         // return response()->json($gross_amount);
         $input_time = json_decode($request->input_time);
-
 
         $transaction = new class{};
         $transaction->order_id = $order_id;
