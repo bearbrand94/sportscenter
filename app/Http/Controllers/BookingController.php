@@ -104,6 +104,7 @@ class BookingController extends Controller
         $client = new Client(['cookies' => $jar]);
         $discount = 0;
 
+        $price = $booking_data->court->discount_price ? $booking_data->court->discount_price : $booking_data->court->price; 
         // Get Order ID from API
         try{
             $res = $client->request('POST', config('app.api_url')."/order/generate/id", [
@@ -125,7 +126,7 @@ class BookingController extends Controller
                         'id'      => $booking_data->court->id,
                         'order_date'    => date("Y-m-d H:i:s", strtotime($booking_data->input->input_date)),
                         'order_details' => json_encode([$booking_data->order_detail]),
-                        'code'          => session('promo_code') ? session('promo_code') : null
+                        'code'          => $request->voucher_code
                 ]
             ]);
             $res_data = json_decode($res->getBody())->data;
@@ -133,7 +134,8 @@ class BookingController extends Controller
         } catch (RequestException $e) {
             $discount = 0;
         }    
-        $gross_amount = $booking_data->court->price * $booking_data->input->duration - $discount;
+
+        $gross_amount = $price * $booking_data->input->duration - $discount;
         // return response()->json($gross_amount);
         $input_time = json_decode($request->input_time);
 

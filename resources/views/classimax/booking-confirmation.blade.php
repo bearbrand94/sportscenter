@@ -131,7 +131,7 @@
             <strong id="promo-success-text">Yay! Anda dapat menggunakan kode promo ini!</strong>
         </div>
 		@php
-			$price = $court->discount_price ? $court->price : $court->discount_price;
+			$price = $court->discount_price ? $court->discount_price : $court->price;
 		@endphp
         <hr class="my-4">
     	<h4 class="lead-text">Rincian Pembayaran</h4>
@@ -139,13 +139,22 @@
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left text-muted"   style="font-weight: normal; font-size: 0.8rem;">Harga / Jam</p>
-	        <p class="float-right text-muted"  style="font-weight: normal; font-size: 0.8rem;">Rp {{number_format($price,0)}}</p>
+	        <p class="float-right text-muted"  style="font-weight: normal; font-size: 0.8rem;">
+				@if ($court->discount_price)
+					<del class="mr-2 text-muted" style=" font-weight: normal; font-size: 0.8rem;">Rp {{number_format($court->price,0)}}</del>
+					Rp {{number_format($court->discount_price,0)}}
+				@else
+					Rp {{number_format($court->price,0)}}
+				@endif
+	        </p>
 	      </div>
 		</div>
 		<div class="row">
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black;">Total yang harus dibayar</p>
-	        <p class="float-right" style="color: black;">Rp {{number_format($price*$input['duration'],0)}}</p>
+	        <p class="float-right" style="color: black;">
+	        	Rp {{number_format($price*$input['duration'],0)}}
+	        </p>
 	      </div>
 		</div>
 		<div class="row" id="discount" style="display: none;">
@@ -157,13 +166,13 @@
 		<div class="row mt-3">
 	      <div class="col-12 clearfix">
 	        <div class="float-right" id="before-grand-total-div" style="display: none;">
-		        <p class="text-muted" style="font-weight: normal; font-size: 0.8rem; margin-bottom: 0" id="before-grand-total-html"><del>Rp {{number_format($court->price*$input['duration'],0)}}</del></p>
+		        <p class="text-muted" style="font-weight: normal; font-size: 0.8rem; margin-bottom: 0" id="before-grand-total-html"><del>Rp {{number_format($price*$input['duration'],0)}}</del></p>
 		    </div>
 	      </div>
 	      <div class="col-12 clearfix">
 	        <p class="float-left" style="color: black; font-size: 1.05rem;">Total Pembayaran</p>
 	        <div class="float-right">
-	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($court->price*$input['duration'],0)}}</p>
+	        <p style="color: orange; font-size: 1.05rem; font-weight: bold;" id="grand-total-html">Rp {{number_format($price*$input['duration'],0)}}</p>
 		    </div>
 	      </div>
 	      <div class="col-12 clearfix">
@@ -230,7 +239,7 @@
 	$.post("{{route('booking-snap')}}",
 	{
 		_token: "{{ csrf_token() }}",
-		code: $("#voucher").val()
+		voucher_code: $("#voucher").val()
 	},
 	function(data, status){
 		// console.log(data);

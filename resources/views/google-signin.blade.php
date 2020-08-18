@@ -29,7 +29,7 @@
               success: function (response)
               {
                 // console.log(response);
-                window.location.replace("{{ route('home') }}");
+                window.location.replace(response);
               },
               error: function(xhr) {
                 alert(xhr.responseText); // this line will save you tons of hours while debugging
