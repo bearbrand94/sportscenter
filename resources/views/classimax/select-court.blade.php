@@ -157,21 +157,30 @@
       <!-- Inactive Card -->
       <div class="pb-3 pt-3"> 
         <div class="card">
-          @component('img-card', [
-            'id' => $field->id,
-            'first_image' => $field->cover_image,
-            'gallery' => isset($gallery) ? $gallery : []
-          ])
-          @endcomponent
+          <span style="opacity: 0.6">
+              @component('img-card', [
+                'id' => $field->id,
+                'first_image' => $field->cover_image,
+                'gallery' => isset($gallery) ? $gallery : []
+              ])
+              @endcomponent
+          </span>
 
-          <div id="innerelements" class="shadow">
-            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport->slug.'.svg' }}" style="opacity: 0.6;" >
+          <div id="innerelements" class="shadow" style="opacity: 0.6">
+            <img class="icon icon-cat" src="{{ asset('images/sports').'/'.$field->sport->slug.'.svg' }}">
           </div>
           <div class="card-body">
-              <h5 class="card-title text-truncate" style="opacity: 0.6;">{{$field->name}}</h5>
+              <h5 class="card-title text-truncate">{{$field->name}}</h5>
               <span class="badge badge-pill badge-success p-2" style="background-color: rgb(233, 255, 236); border: 1px solid green; color: black;">{{$field->court_type->name}}</span>
               <div class="form-inline">
-                <p class="card-text mt-3" style="font-weight: bold; color: orange;">Rp {{number_format($field->price,0)}}</p>
+                <p class="card-text mt-3" style="font-weight: bold; color: orange;">
+                  @if ($field->discount_price)
+                    <del class="mr-2 text-muted" style=" font-weight: normal; font-size: 0.8rem;">Rp {{number_format($field->price,0)}}</del>
+                    Rp {{number_format($field->discount_price,0)}}
+                  @else
+                    Rp {{number_format($field->price,0)}}
+                  @endif
+                </p>
                 <p class="card-text ml-2">/Jam</p>
               </div>
               <p class="card-text" style="color: red; font-weight: bold; font-style: italic;">*Tidak tersedia diwaktu ini </p>
